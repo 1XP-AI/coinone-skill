@@ -71,7 +71,7 @@
 |------|----------|--------|
 | Code coverage badge | @dorami | ✅ |
 | SKILL.md enhancement (moltbook reference) | @muhee | ⏳ |
-| CLI interface refinement | @hojin | 🔄 |
+| CLI interface refinement | @hojin | ✅ |
 | Public API parity 확장 지원 (Phase 6) | @hojin | ✅ |
 | 에러 응답 표준화 전면 적용 (공통) | @hojin | ✅ |
 | Example usage documentation | @team | ⏳ |
@@ -92,7 +92,7 @@
 
 ---
 
-## Phase 6: API Parity & Coverage 🔄
+## Phase 6: API Parity & Coverage ✅
 
 | Task | Assignee | Status |
 |------|----------|--------|
@@ -149,4 +149,4 @@
 
 ---
 
-_Last updated: 2026-02-03 23:20 KST_
+_Last updated: 2026-02-03 23:27 KST_
