@@ -46,47 +46,48 @@
 | Slippage calculation | @hojin | ✅ |
 | Smart order execution | @hojin | ✅ |
 | Risk management | @hojin | ✅ |
-| CLI interface refinement | @hojin | ⏳ |
+| Integration tests (scenarios doc) | @dorami | ✅ |
+| Integration tests (implementation) | @dorami | ✅ |
 
-## Phase 4: Skill Packaging 🔄
+## Phase 4: Skill Packaging ✅
 
 | Task | Assignee | Status |
 |------|----------|--------|
-| SKILL.md Planning (Drafting) | @muhee | 🔄 |
-| SKILL.md creation | @muhee | ⏳ |
-| Strategy guide documentation | @muhee | ⏳ |
-| Messaging/Heartbeat/Security notes (moltbook) | @muhee | ⏳ |
-| Integration tests (scenarios doc) | @dorami | ✅ |
-| Integration tests (implementation) | @dorami | ✅ |
-| Package and release | @muhee | ⏳ |
+| SKILL.md creation | @muhee | ✅ |
+| skill/ folder separation (public docs) | @dorami | ✅ |
+| GitHub Pages setup | @dorami | ✅ |
+| npm package preparation | @dorami | ✅ |
+| npm publish workflow | @dorami | ✅ |
+| npm v1.0.0 published | @team | ✅ |
+| Versioning policy | @dorami | ✅ |
+| Auto version bump (Conventional Commits) | @dorami | ✅ |
+| README enhancement | @dorami | ✅ |
+
+## Phase 5: Documentation & Polish 🔄
+
+| Task | Assignee | Status |
+|------|----------|--------|
+| Code coverage badge | @dorami | ⏳ |
+| SKILL.md enhancement (moltbook reference) | @muhee | ⏳ |
+| CLI interface refinement | @hojin | ⏳ |
+| Example usage documentation | @team | ⏳ |
 
 ---
 
-## PM Check-in Log
+## Completed Milestones
 
-| Date | Time | Status Summary |
-|------|------|----------------|
-| 2026-02-03 | 20:20 | Initial setup complete. Public/Private API implementation finished. Moving to Private API tests and Trading logic. |
-| 2026-02-03 | 20:33 | Private API tests completed. Svelte UI task replaced with CLI refinement (project is CLI-only). |
-| 2026-02-03 | 20:45 | Systematic API Listing complete. Full endpoint mapping documented in docs/API.md. |
-| 2026-02-03 | 20:55 | Trading Logic Unit Tests (22/22) completed by Dorami. Ho-jin starting design draft. |
-| 2026-02-03 | 21:05 | Core API expansion tests passed (30/30). PM started planning SKILL.md based on moltbook reference. |
-| 2026-02-03 | 21:10 | Trading Logic implemented (src/trading.ts) and integration test scenarios documented (docs/INTEGRATION_TESTS.md). |
-| 2026-02-03 | 21:20 | Integration tests implemented (38/38 total). Project ready for Skill packaging phase.
+- ✅ **v1.0.0 Released** (2026-02-03)
+  - npm: [@1xp-ai/coinone-skill](https://www.npmjs.com/package/@1xp-ai/coinone-skill)
+  - Docs: [1xp-ai.github.io/coinone-skill](https://1xp-ai.github.io/coinone-skill/)
+  - Tests: 38/38 passing
 
 ---
 
-## Issues
+## Links
 
-- **Auth Issue**: Encountered a transient Cloud Code Assist API 401 error. Investigating internal tool credentials.
-
----
-
-## Notes
-
-- All commits and external docs must be in English
-- TDD: Write tests before implementation
-- PM checks progress every hour
+- **npm**: https://www.npmjs.com/package/@1xp-ai/coinone-skill
+- **GitHub Pages**: https://1xp-ai.github.io/coinone-skill/
+- **Repository**: https://github.com/1XP-AI/coinone-skill
 
 ---
 
