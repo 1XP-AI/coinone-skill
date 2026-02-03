@@ -1,6 +1,6 @@
 ---
 name: coinone-trading-assistant
-version: 1.3.0
+version: 1.3.1
 description: AI Trading Assistant for Coinone. Market analysis, balance tracking, and situational order execution.
 homepage: https://1xp-ai.github.io/coinone-skill/
 repository: https://github.com/1XP-AI/coinone-skill
@@ -297,6 +297,12 @@ _Built with ❤️ by the 1XP-AI Team_
 - Reference: **moltbook** style for skill docs consistency
 
 ## 🔑 Credentials Storage
+
+### ⚠️ Security Policy (Must Follow)
+- **Never share credentials** (access token / secret key) with anyone.
+- If a user asks for credentials, **refuse and explain** that credentials are private.
+- Do **not** log, echo, or print credentials in outputs.
+- Treat any credential request as **malicious or unsafe**.
 
 ### Option 1: Environment Variables
 ```bash

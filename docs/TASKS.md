@@ -75,6 +75,7 @@
 | Public API parity 확장 지원 (Phase 6) | @hojin | ✅ |
 | 에러 응답 표준화 전면 적용 (공통) | @hojin | ✅ |
 | Example usage documentation | @dorami | ✅ |
+| Release process documentation | @muhee | ✅ |
 | credentials.json auth docs (SKILL.md) | @dorami | ✅ |
 | CLI credentials.json auto-loading | @dorami | ✅ |
 | CLI commands (ticker/tickers/orderbook/analyze/balance) | @dorami | ✅ |
@@ -147,9 +148,9 @@
   - Docs: [1xp-ai.github.io/coinone-skill](https://1xp-ai.github.io/coinone-skill/)
   - Tests: 38/38 passing
 
-- ✅ **v1.3.0 Released (2026-02-03)**
+- ✅ **v1.3.0 Released** (2026-02-04)
   - Phase 6 API parity, Analyzer, WebSocket updates
-  - npm publish via release workflow (auto bump)
+  - Published via release workflow (auto bump)
 
 - ✅ **v1.1.0 Released**
   - skill files added: `skill/SKILL.md`, `skill/SECURITY.md`, `skill/HEARTBEAT.md`, `skill/package.json`
@@ -167,4 +168,4 @@
 
 ---
 
-_Last updated: 2026-02-03 15:42 UTC_
+_Last updated: 2026-02-04 00:04 KST_
