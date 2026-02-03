@@ -1,4 +1,4 @@
-# Analyzer Spec (Analyze Feature)
+# ANALYZER SPEC (ANALYZE FEATURE)
 
 ## 1) Overview
 The **analyze** feature produces short-term market insight by combining **order book microstructure** and **recent trade flow** into interpretable indicators and composite scores. The goal is to help users understand **pressure, liquidity, and near-term momentum** with transparent metrics.
