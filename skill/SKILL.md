@@ -342,8 +342,8 @@ coinone-skill orderbook ETH
 coinone-skill analyze BTC
 
 # Private commands (API key required)
-coinone-skill auth-test
+coinone-skill auth-check
 coinone-skill balance
-coinone-skill orders
-coinone-skill fee
+coinone-skill orders BTC
+coinone-skill trade-fee
 ```
