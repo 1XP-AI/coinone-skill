@@ -121,13 +121,13 @@ console.log(`Recommended: ${orderType}`);
 - `getRecentTrades(target, quote)` (e.g., `getRecentTrades('SOL', 'KRW')`)
 
 | `getMarkets(quote)` | List markets for a quote currency |
-| `getMarketInfo(quote, target)` | Single market details |
+| `getMarketInfo(target, quote)` | Single market details |
 | `getRecentTrades(target, quote)` | Recent trade history (target first) |
 | `getCurrencies()` | Supported currencies |
 | `getCurrencyInfo(symbol)` | Currency details |
 | `getChart(target, quote, interval)` | OHLCV chart data (e.g., SOL, KRW, 1m) |
-| `getRangeUnits(quote, target)` | Tick/qty units for validation |
-| `getUTCTicker(quote, target)` | UTC ticker (single) |
+| `getRangeUnits(quote)` | Tick/qty units for validation |
+| `getUTCTicker(target, quote)` | UTC ticker (single) |
 | `getAllUTCTickers(quote)` | UTC tickers (all) |
 
 ### 📦 Advanced Orders & Account Info
