@@ -1,0 +1,80 @@
+/**
+ * Coinone Public API
+ * Market data, orderbook, ticker information
+ */
+
+const BASE_URL = 'https://api.coinone.co.kr';
+
+export interface Ticker {
+  quote_currency: string;
+  target_currency: string;
+  timestamp: number;
+  high: string;
+  low: string;
+  first: string;
+  last: string;
+  quote_volume: string;
+  target_volume: string;
+}
+
+export interface OrderbookEntry {
+  price: string;
+  qty: string;
+}
+
+export interface Orderbook {
+  timestamp: number;
+  quote_currency: string;
+  target_currency: string;
+  bids: OrderbookEntry[];
+  asks: OrderbookEntry[];
+}
+
+/**
+ * Fetch ticker for a specific coin
+ */
+export async function getTicker(targetCurrency: string, quoteCurrency = 'KRW'): Promise<Ticker> {
+  const url = `${BASE_URL}/public/v2/ticker_new/${quoteCurrency}/${targetCurrency}`;
+  const response = await fetch(url);
+  const data = await response.json();
+  
+  if (data.result !== 'success') {
+    throw new Error(`API Error: ${data.error_code}`);
+  }
+  
+  return data.tickers[0];
+}
+
+/**
+ * Fetch all tickers for a market
+ */
+export async function getAllTickers(quoteCurrency = 'KRW'): Promise<Ticker[]> {
+  const url = `${BASE_URL}/public/v2/ticker_new/${quoteCurrency}`;
+  const response = await fetch(url);
+  const data = await response.json();
+  
+  if (data.result !== 'success') {
+    throw new Error(`API Error: ${data.error_code}`);
+  }
+  
+  return data.tickers;
+}
+
+/**
+ * Fetch orderbook for a specific coin
+ */
+export async function getOrderbook(
+  targetCurrency: string,
+  quoteCurrency = 'KRW',
+  size: 5 | 10 | 15 | 16 = 15
+): Promise<Orderbook> {
+  const url = `${BASE_URL}/public/v2/orderbook/${quoteCurrency}/${targetCurrency}?size=${size}`;
+  const response = await fetch(url);
+  const data = await response.json();
+  
+  if (data.result !== 'success') {
+    throw new Error(`API Error: ${data.error_code}`);
+  }
+  
+  return data;
+}
