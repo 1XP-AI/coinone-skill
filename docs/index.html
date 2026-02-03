@@ -1,53 +1,14 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Coinone Trading Assistant Skill</title>
-  <meta name="description" content="AI Trading Assistant for Coinone. Market analysis, balance tracking, and situational order execution.">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.5.0/github-markdown.min.css">
-  <style>
-    body {
-      max-width: 980px;
-      margin: 0 auto;
-      padding: 45px;
-      background: #0d1117;
-      color: #c9d1d9;
-    }
-    .markdown-body {
-      background: #0d1117;
-      color: #c9d1d9;
-    }
-    .markdown-body a { color: #58a6ff; }
-    .markdown-body h1, .markdown-body h2 { border-color: #30363d; }
-    .nav { margin-bottom: 20px; padding: 10px; background: #161b22; border-radius: 6px; }
-    .nav a { color: #58a6ff; margin-right: 15px; text-decoration: none; }
-    .nav a:hover { text-decoration: underline; }
-  </style>
-</head>
-<body>
-  <div class="nav">
-    <a href="SKILL.md">📘 SKILL.md</a>
-    <a href="API.md">📊 API Reference</a>
-    <a href="RULES.md">📋 Rules</a>
-    <a href="TASKS.md">✅ Tasks</a>
-    <a href="https://github.com/1XP-AI/coinone-skill">🔗 GitHub</a>
-  </div>
-  <article class="markdown-body" id="content">
-    <h1>Loading SKILL.md...</h1>
-  </article>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/11.1.1/marked.min.js"></script>
-  <script>
-    fetch('SKILL.md')
-      .then(r => r.text())
-      .then(md => {
-        // Remove YAML frontmatter
-        const content = md.replace(/^---[\s\S]*?---\n/, '');
-        document.getElementById('content').innerHTML = marked.parse(content);
-      })
-      .catch(() => {
-        document.getElementById('content').innerHTML = '<p>Failed to load SKILL.md</p>';
-      });
-  </script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="refresh" content="0; url=./SKILL.md" />
+    <title>Coinone Skill Docs</title>
+  </head>
+  <body>
+    <p>
+      Redirecting to <a href="./SKILL.md">SKILL.md</a>...
+    </p>
+  </body>
 </html>
