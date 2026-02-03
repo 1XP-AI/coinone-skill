@@ -76,6 +76,7 @@
 | credentials.json auth docs (SKILL.md) | @dorami | ✅ |
 | CLI credentials.json auto-loading | @dorami | ✅ |
 | CLI commands (ticker/tickers/orderbook/analyze/balance) | @dorami | ✅ |
+| CLI commands 테스트 추가 | @dorami | ⏳ |
 | API error mapping checklist (docs/code/tests) | @muhee | 🔄 |
 | API error response standardization (error_code vs errorCode) | @muhee | 🔄 |
 | analyze 고도화 (orderbook+trades 기반 지표/스코어) | @muhee | 🔄 |
@@ -117,4 +118,4 @@
 
 ---
 
-_Last updated: 2026-02-03 22:17 KST_
+_Last updated: 2026-02-03 22:19 KST_
