@@ -124,6 +124,10 @@
   - Docs: [1xp-ai.github.io/coinone-skill](https://1xp-ai.github.io/coinone-skill/)
   - Tests: 38/38 passing
 
+- ⏳ **v1.1.x Release (pending)**
+  - Phase 6 API parity, Analyzer, WebSocket updates
+  - Update release notes + publish
+
 ---
 
 ## Links
@@ -134,4 +138,4 @@
 
 ---
 
-_Last updated: 2026-02-03 22:48 KST_
+_Last updated: 2026-02-03 22:49 KST_
