@@ -69,8 +69,13 @@
 |------|----------|--------|
 | Code coverage badge | @dorami | ⏳ |
 | SKILL.md enhancement (moltbook reference) | @muhee | ⏳ |
-| CLI interface refinement | @hojin | ⏳ |
+| CLI interface refinement | @hojin | 🔄 |
 | Example usage documentation | @team | ⏳ |
+| credentials.json auth docs (SKILL.md) | @dorami | ✅ |
+| CLI credentials.json auto-loading | @dorami | ✅ |
+| CLI commands (ticker/tickers/orderbook/analyze/balance) | @dorami | ✅ |
+| API error mapping checklist (docs/code/tests) | @muhee | 🔄 |
+| API error response standardization (error_code vs errorCode) | @team | ⏳ |
 
 ---
 
@@ -91,4 +96,4 @@
 
 ---
 
-_Last updated: 2026-02-03_
+_Last updated: 2026-02-03 22:10 KST_
