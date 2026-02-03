@@ -212,6 +212,17 @@ const order = await placeOrder({
 return `Order placed: ${order.order_id}`;
 ```
 
+### "What's the market pressure?"
+```typescript
+import { analyzeSnapshot, getOrderbook, getRecentTrades } from '@1xp-ai/coinone-skill';
+
+const orderbook = await getOrderbook('BTC');
+const trades = await getRecentTrades('BTC');
+const result = analyzeSnapshot('BTC', orderbook, trades);
+
+return `MPI: ${result.MPI.toFixed(2)} (${result.MPI > 0 ? 'Bullish' : 'Bearish'})\nLiquidity: ${result.liquidityScore}/100`;
+```
+
 ## 🔒 Security
 
 - **Local key handling**: API keys never leave your environment
