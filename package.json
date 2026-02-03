@@ -1,40 +1,32 @@
 {
-  "name": "coinone-skill",
-  "version": "1.0.0",
-  "description": "Coinone trading assistant skill for AI agents",
-  "type": "module",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "bin": {
-    "coinone": "./dist/cli.js"
-  },
-  "scripts": {
-    "build": "tsc",
-    "lint": "eslint src/**/*.ts",
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "prepare": "husky"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/1XP-AI/coinone-skill.git"
-  },
-  "keywords": ["coinone", "trading", "api", "skill", "cli"],
-  "author": "1XP-AI",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/1XP-AI/coinone-skill/issues"
-  },
-  "homepage": "https://github.com/1XP-AI/coinone-skill#readme",
-  "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^8.0.0",
-    "@typescript-eslint/parser": "^8.0.0",
-    "eslint": "^9.0.0",
-    "husky": "^9.0.0",
-    "typescript": "^5.0.0",
-    "vitest": "^4.0.0"
-  },
-  "dependencies": {
-    "uuid": "^11.0.0"
-  }
+	"name": "coinone-skill",
+	"private": true,
+	"version": "0.0.1",
+	"type": "module",
+	"bin": {
+		"coinone-skill": "dist/cli.js"
+	},
+	"scripts": {
+		"build": "tsc -p tsconfig.json",
+		"dev": "tsc -w -p tsconfig.json",
+		"lint": "eslint .",
+		"prepare": "husky",
+		"test:unit": "vitest",
+		"test:watch": "vitest",
+		"test": "npm run test:unit -- --run"
+	},
+	"devDependencies": {
+		"@eslint/compat": "^2.0.2",
+		"@eslint/js": "^9.39.2",
+		"@types/node": "^24",
+		"eslint": "^9.39.2",
+		"globals": "^17.3.0",
+		"husky": "^9.1.7",
+		"typescript": "^5.9.3",
+		"typescript-eslint": "^8.53.1",
+		"vitest": "^4.0.18"
+	},
+	"dependencies": {
+		"uuid": "^13.0.0"
+	}
 }
