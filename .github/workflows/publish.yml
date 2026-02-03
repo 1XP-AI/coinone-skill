@@ -1,14 +1,12 @@
 name: Publish to npm
 
 on:
-  push:
-    branches: [release]
   workflow_dispatch:
     inputs:
       skip_bump:
         description: 'Skip version bump (use current package.json version)'
         required: false
-        default: 'false'
+        default: 'true'
         type: boolean
 
 concurrency:
