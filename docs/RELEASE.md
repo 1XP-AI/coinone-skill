@@ -1,6 +1,6 @@
 # Release Process (Coinone Skill)
 
-This document describes the end-to-end release flow for **coinone-skill**.
+This document is the single source of truth for release flow (merged from previous release docs).
 
 ## 0) Goal
 - Keep **repo version**, **Pages**, and **npm** in sync.
