@@ -72,8 +72,8 @@
 | Code coverage badge | @dorami | ⏳ |
 | SKILL.md enhancement (moltbook reference) | @muhee | ⏳ |
 | CLI interface refinement | @hojin | 🔄 |
-| Public API parity 확장 지원 (Phase 6) | @hojin | 🔄 |
-| 에러 응답 표준화 전면 적용 (공통) | @hojin | 🔄 |
+| Public API parity 확장 지원 (Phase 6) | @hojin | ✅ |
+| 에러 응답 표준화 전면 적용 (공통) | @hojin | ✅ |
 | Example usage documentation | @team | ⏳ |
 | credentials.json auth docs (SKILL.md) | @dorami | ✅ |
 | CLI credentials.json auto-loading | @dorami | ✅ |
@@ -96,18 +96,18 @@
 
 | Task | Assignee | Status |
 |------|----------|--------|
-| Public metadata endpoints (markets/market/currencies/currency/range_units) | @team | 🔄 |
+| Public metadata endpoints (markets/market/currencies/currency/range_units) | @team | ✅ |
 | Public metadata: range_units | @dorami | ✅ |
 | Public metadata: market info (single) | @dorami | ✅ |
 | Public metadata: currency info (single) | @dorami | ✅ |
-| Trades + chart endpoints (trades/chart) | @team | ⏳ |
+| Trades + chart endpoints (trades/chart) | @team | ✅ |
 | Ticker expansion (ticker_new all, ticker single, optional utc_ticker) | @team | ⏳ |
-| Order state/history endpoints (active/open/completed/detail/info) | @team | 🔄 |
-| Fees endpoints (trade_fee, trade_fee/{pair}) | @team | ⏳ |
+| Order state/history endpoints (active/open/completed/detail/info) | @team | ✅ |
+| Fees endpoints (trade_fee, trade_fee/{pair}) | @team | ✅ |
 | Account/deposit info (user info, virtual account, deposit address) | @team | ✅ |
 | Order state/history: open/completed/detail | @dorami | ✅ |
 | Account info: user/virtual/deposit address | @dorami | ✅ |
-| Deposit/withdraw history + address book/limits | @team | 🔄 |
+| Deposit/withdraw history + address book/limits | @team | ✅ |
 | Reward APIs (/v2.1/order/reward/*) | @team | ✅ |
 | Websocket coverage (public + private) | @team | ✅ |
 | Reward APIs | @dorami | ✅ |
@@ -139,4 +139,4 @@
 
 ---
 
-_Last updated: 2026-02-03 22:54 KST_
+_Last updated: 2026-02-03 22:56 KST_
