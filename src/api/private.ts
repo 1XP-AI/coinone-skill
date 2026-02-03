@@ -63,12 +63,14 @@ export interface KRWHistoryResponse {
  */
 function createAuthHeaders(
   payload: Record<string, unknown>,
-  credentials: CoinoneCredentials
+  credentials: CoinoneCredentials,
+  nonceType: 'uuid' | 'int' = 'uuid'
 ): { 'X-COINONE-PAYLOAD': string; 'X-COINONE-SIGNATURE': string; 'Content-type': string } {
+  const nonce = nonceType === 'int' ? Date.now() : uuidv4();
   const payloadWithNonce = {
     ...payload,
     access_token: credentials.accessToken,
-    nonce: uuidv4()
+    nonce
   };
 
   const encodedPayload = Buffer.from(JSON.stringify(payloadWithNonce)).toString('base64');
@@ -101,7 +103,7 @@ async function parseJson(response: Response): Promise<Record<string, unknown>> {
  */
 export async function getBalance(credentials: CoinoneCredentials): Promise<Record<string, Balance>> {
   const payload = {};
-  const headers = createAuthHeaders(payload, credentials);
+  const headers = createAuthHeaders(payload, credentials, 'int');
 
   const response = await fetch(`${BASE_URL}/v2/account/balance`, {
     method: 'POST',
@@ -394,7 +396,7 @@ export interface UserInfoResponse {
 
 export async function getUserInfo(credentials: CoinoneCredentials): Promise<UserInfo> {
   const payload = {};
-  const headers = createAuthHeaders(payload, credentials);
+  const headers = createAuthHeaders(payload, credentials, 'int');
   const response = await fetch(`${BASE_URL}/v2/user/info`, {
     method: 'POST',
     headers
@@ -422,7 +424,7 @@ export interface VirtualAccountResponse {
 
 export async function getVirtualAccount(credentials: CoinoneCredentials): Promise<VirtualAccount> {
   const payload = {};
-  const headers = createAuthHeaders(payload, credentials);
+  const headers = createAuthHeaders(payload, credentials, 'int');
   const response = await fetch(`${BASE_URL}/v2/account/virtual_account`, {
     method: 'POST',
     headers
@@ -453,7 +455,7 @@ export async function getDepositAddress(
   currency: string
 ): Promise<DepositAddress> {
   const payload = { currency };
-  const headers = createAuthHeaders(payload, credentials);
+  const headers = createAuthHeaders(payload, credentials, 'int');
   const response = await fetch(`${BASE_URL}/v2/account/deposit_address`, {
     method: 'POST',
     headers
@@ -491,7 +493,7 @@ export async function getCoinDepositHistory(
   const payload: Record<string, unknown> = {};
   if (currency) payload.currency = currency;
   
-  const headers = createAuthHeaders(payload, credentials);
+  const headers = createAuthHeaders(payload, credentials, 'int');
   const response = await fetch(`${BASE_URL}/v2/transaction/coin_deposit_history`, {
     method: 'POST',
     headers
@@ -528,7 +530,7 @@ export async function getCoinWithdrawalHistory(
   const payload: Record<string, unknown> = {};
   if (currency) payload.currency = currency;
   
-  const headers = createAuthHeaders(payload, credentials);
+  const headers = createAuthHeaders(payload, credentials, 'int');
   const response = await fetch(`${BASE_URL}/v2/transaction/coin_withdrawal_history`, {
     method: 'POST',
     headers
@@ -564,7 +566,7 @@ export async function getWithdrawalAddressBook(
   const payload: Record<string, unknown> = {};
   if (currency) payload.currency = currency;
   
-  const headers = createAuthHeaders(payload, credentials);
+  const headers = createAuthHeaders(payload, credentials, 'int');
   const response = await fetch(`${BASE_URL}/v2/account/withdrawal_address_book`, {
     method: 'POST',
     headers
@@ -601,7 +603,7 @@ export async function getWithdrawalLimits(
   const payload: Record<string, unknown> = {};
   if (currency) payload.currency = currency;
   
-  const headers = createAuthHeaders(payload, credentials);
+  const headers = createAuthHeaders(payload, credentials, 'int');
   const response = await fetch(`${BASE_URL}/v2/account/withdrawal_limit`, {
     method: 'POST',
     headers

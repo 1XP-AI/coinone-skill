@@ -7,7 +7,12 @@ const CLI_PATH = join(__dirname, '../../dist/cli.js');
 function runCLI(args: string[]): Promise<{ stdout: string; stderr: string; code: number }> {
   return new Promise((resolve) => {
     const proc = spawn('node', [CLI_PATH, ...args], {
-      env: { ...process.env, COINONE_ACCESS_TOKEN: '', COINONE_SECRET_KEY: '' }
+      env: {
+        ...process.env,
+        COINONE_ACCESS_TOKEN: '',
+        COINONE_SECRET_KEY: '',
+        HOME: '/tmp/coinone-test'
+      }
     });
     
     let stdout = '';
