@@ -613,3 +613,131 @@ export async function getWithdrawalLimits(
   }
   return data.limits;
 }
+
+// ============ Reward APIs ============
+
+// Trading Reward
+export interface TradingReward {
+  currency: string;
+  amount: string;
+  timestamp: number;
+  reason: string;
+}
+
+export interface TradingRewardResponse {
+  result: string;
+  error_code?: string;
+  rewards: TradingReward[];
+}
+
+export async function getTradingRewards(
+  credentials: CoinoneCredentials,
+  currency?: string
+): Promise<TradingReward[]> {
+  const payload: Record<string, unknown> = {};
+  if (currency) payload.currency = currency;
+  
+  const headers = createAuthHeaders(payload, credentials);
+  const response = await fetch(`${BASE_URL}/v2.1/order/reward/trading`, {
+    method: 'POST',
+    headers
+  });
+  
+  const data = await parseJson(response) as unknown as TradingRewardResponse;
+  if (data.result !== 'success') {
+    throw new Error(`API Error: ${getErrorCode(data as unknown as Record<string, unknown>)}`);
+  }
+  return data.rewards;
+}
+
+// Staking Reward
+export interface StakingReward {
+  currency: string;
+  amount: string;
+  apy: string;
+  timestamp: number;
+}
+
+export interface StakingRewardResponse {
+  result: string;
+  error_code?: string;
+  rewards: StakingReward[];
+}
+
+export async function getStakingRewards(
+  credentials: CoinoneCredentials,
+  currency?: string
+): Promise<StakingReward[]> {
+  const payload: Record<string, unknown> = {};
+  if (currency) payload.currency = currency;
+  
+  const headers = createAuthHeaders(payload, credentials);
+  const response = await fetch(`${BASE_URL}/v2.1/order/reward/staking`, {
+    method: 'POST',
+    headers
+  });
+  
+  const data = await parseJson(response) as unknown as StakingRewardResponse;
+  if (data.result !== 'success') {
+    throw new Error(`API Error: ${getErrorCode(data as unknown as Record<string, unknown>)}`);
+  }
+  return data.rewards;
+}
+
+// Airdrop Reward
+export interface AirdropReward {
+  currency: string;
+  amount: string;
+  timestamp: number;
+  campaign: string;
+}
+
+export interface AirdropRewardResponse {
+  result: string;
+  error_code?: string;
+  rewards: AirdropReward[];
+}
+
+export async function getAirdropRewards(credentials: CoinoneCredentials): Promise<AirdropReward[]> {
+  const payload = {};
+  const headers = createAuthHeaders(payload, credentials);
+  const response = await fetch(`${BASE_URL}/v2.1/order/reward/airdrop`, {
+    method: 'POST',
+    headers
+  });
+  
+  const data = await parseJson(response) as unknown as AirdropRewardResponse;
+  if (data.result !== 'success') {
+    throw new Error(`API Error: ${getErrorCode(data as unknown as Record<string, unknown>)}`);
+  }
+  return data.rewards;
+}
+
+// Reward Summary
+export interface RewardSummary {
+  total_trading_reward: string;
+  total_staking_reward: string;
+  total_airdrop_reward: string;
+  currency: string;
+}
+
+export interface RewardSummaryResponse {
+  result: string;
+  error_code?: string;
+  summary: RewardSummary[];
+}
+
+export async function getRewardSummary(credentials: CoinoneCredentials): Promise<RewardSummary[]> {
+  const payload = {};
+  const headers = createAuthHeaders(payload, credentials);
+  const response = await fetch(`${BASE_URL}/v2.1/order/reward/summary`, {
+    method: 'POST',
+    headers
+  });
+  
+  const data = await parseJson(response) as unknown as RewardSummaryResponse;
+  if (data.result !== 'success') {
+    throw new Error(`API Error: ${getErrorCode(data as unknown as Record<string, unknown>)}`);
+  }
+  return data.summary;
+}
