@@ -1,0 +1,26 @@
+{
+  "name": "coinone-trading-assistant",
+  "version": "1.0.0",
+  "description": "AI Trading Assistant for Coinone. Market analysis, balance tracking, and situational order execution.",
+  "homepage": "https://1xp-ai.github.io/coinone-skill/",
+  "repository": "https://github.com/1XP-AI/coinone-skill",
+  "npm": "https://www.npmjs.com/package/@1xp-ai/coinone-skill",
+  "author": "1XP-AI",
+  "license": "MIT",
+  "metadata": {
+    "emoji": "💼",
+    "category": "finance",
+    "api_base": "https://api.coinone.co.kr",
+    "capabilities": [
+      "market-analysis",
+      "balance-tracking",
+      "order-execution",
+      "risk-management"
+    ]
+  },
+  "files": {
+    "skill": "SKILL.md",
+    "security": "SECURITY.md",
+    "heartbeat": "HEARTBEAT.md"
+  }
+}
