@@ -19,6 +19,7 @@ This document is the single source of truth for release flow (merged from previo
   - `skill/SKILL.md` version
   - `docs/TASKS.md` release/version line
 - Verify **User-Agent** header includes `coinone-skill/<version>` (public + private API)
+- When opening **main → release PR**, enable **Auto-merge** (required)
 
 ---
 
