@@ -5,6 +5,19 @@
 
 const BASE_URL = 'https://api.coinone.co.kr';
 
+function getErrorCode(data: Record<string, unknown>): string {
+  const errorCode = data.error_code ?? data.errorCode ?? data.error_code;
+  return typeof errorCode === 'string' ? errorCode : 'UNKNOWN';
+}
+
+async function parseJson(response: Response): Promise<Record<string, unknown>> {
+  const data = (await response.json()) as Record<string, unknown>;
+  if (data?.result && data.result !== 'success') {
+    throw new Error(`API Error: ${getErrorCode(data)}`);
+  }
+  return data;
+}
+
 export interface Ticker {
   quote_currency: string;
   target_currency: string;
@@ -36,12 +49,8 @@ export interface Orderbook {
 export async function getTicker(targetCurrency: string, quoteCurrency = 'KRW'): Promise<Ticker> {
   const url = `${BASE_URL}/public/v2/ticker_new/${quoteCurrency}/${targetCurrency}`;
   const response = await fetch(url);
-  const data = await response.json();
-  
-  if (data.result !== 'success') {
-    throw new Error(`API Error: ${data.error_code}`);
-  }
-  
+  const data = (await parseJson(response)) as { tickers: Ticker[] };
+
   return data.tickers[0];
 }
 
@@ -51,12 +60,8 @@ export async function getTicker(targetCurrency: string, quoteCurrency = 'KRW'): 
 export async function getAllTickers(quoteCurrency = 'KRW'): Promise<Ticker[]> {
   const url = `${BASE_URL}/public/v2/ticker_new/${quoteCurrency}`;
   const response = await fetch(url);
-  const data = await response.json();
-  
-  if (data.result !== 'success') {
-    throw new Error(`API Error: ${data.error_code}`);
-  }
-  
+  const data = (await parseJson(response)) as { tickers: Ticker[] };
+
   return data.tickers;
 }
 
@@ -70,12 +75,8 @@ export async function getOrderbook(
 ): Promise<Orderbook> {
   const url = `${BASE_URL}/public/v2/orderbook/${quoteCurrency}/${targetCurrency}?size=${size}`;
   const response = await fetch(url);
-  const data = await response.json();
-  
-  if (data.result !== 'success') {
-    throw new Error(`API Error: ${data.error_code}`);
-  }
-  
+  const data = (await parseJson(response)) as Orderbook;
+
   return data;
 }
 
@@ -90,12 +91,8 @@ export interface Market {
 
 export async function getMarkets(): Promise<Market[]> {
   const response = await fetch('https://api.coinone.co.kr/public/v2/markets/KRW');
-  const data = await response.json();
-  
-  if (data.result !== 'success') {
-    throw new Error(`API Error: ${data.error_code}`);
-  }
-  
+  const data = (await parseJson(response)) as { markets: Market[] };
+
   return data.markets;
 }
 
@@ -109,12 +106,8 @@ export interface RecentTrade {
 
 export async function getRecentTrades(targetCurrency: string, quoteCurrency = 'KRW'): Promise<RecentTrade[]> {
   const response = await fetch(`https://api.coinone.co.kr/public/v2/trades/${quoteCurrency}/${targetCurrency}`);
-  const data = await response.json();
-  
-  if (data.result !== 'success') {
-    throw new Error(`API Error: ${data.error_code}`);
-  }
-  
+  const data = (await parseJson(response)) as { trades: RecentTrade[] };
+
   return data.trades;
 }
 
@@ -128,12 +121,8 @@ export interface Currency {
 
 export async function getCurrencies(): Promise<Currency[]> {
   const response = await fetch('https://api.coinone.co.kr/public/v2/currencies');
-  const data = await response.json();
-  
-  if (data.result !== 'success') {
-    throw new Error(`API Error: ${data.error_code}`);
-  }
-  
+  const data = (await parseJson(response)) as { currencies: Currency[] };
+
   return data.currencies;
 }
 
@@ -156,12 +145,8 @@ export async function getChart(
   const response = await fetch(
     `https://api.coinone.co.kr/public/v2/chart/${quoteCurrency}/${targetCurrency}?interval=${interval}`
   );
-  const data = await response.json();
-  
-  if (data.result !== 'success') {
-    throw new Error(`API Error: ${data.error_code}`);
-  }
-  
+  const data = (await parseJson(response)) as { chart: ChartData[] };
+
   return data.chart;
 }
 
@@ -177,12 +162,8 @@ export interface RangeUnit {
 
 export async function getRangeUnits(quoteCurrency = 'KRW'): Promise<RangeUnit[]> {
   const response = await fetch(`https://api.coinone.co.kr/public/v2/range_units/${quoteCurrency}`);
-  const data = await response.json();
-  
-  if (data.result !== 'success') {
-    throw new Error(`API Error: ${data.error_code}`);
-  }
-  
+  const data = (await parseJson(response)) as { range_units: RangeUnit[] };
+
   return data.range_units;
 }
 
@@ -198,12 +179,8 @@ export interface MarketInfo {
 
 export async function getMarketInfo(targetCurrency: string, quoteCurrency = 'KRW'): Promise<MarketInfo> {
   const response = await fetch(`https://api.coinone.co.kr/public/v2/market/${quoteCurrency}/${targetCurrency}`);
-  const data = await response.json();
-  
-  if (data.result !== 'success') {
-    throw new Error(`API Error: ${data.error_code}`);
-  }
-  
+  const data = (await parseJson(response)) as { market: MarketInfo };
+
   return data.market;
 }
 
@@ -219,11 +196,7 @@ export interface CurrencyInfo {
 
 export async function getCurrencyInfo(currency: string): Promise<CurrencyInfo> {
   const response = await fetch(`https://api.coinone.co.kr/public/v2/currency/${currency}`);
-  const data = await response.json();
-  
-  if (data.result !== 'success') {
-    throw new Error(`API Error: ${data.error_code}`);
-  }
-  
+  const data = (await parseJson(response)) as { currency: CurrencyInfo };
+
   return data.currency;
 }
