@@ -36,16 +36,16 @@
 | Private API Tests | @dorami | ✅ |
 | Systematic API Listing | @muhee | ✅ |
 
-## Phase 3: Trading Logic 🔄
+## Phase 3: Trading Logic ✅
 
 | Task | Assignee | Status |
 |------|----------|--------|
 | Trading Logic Unit Tests (TDD) | @dorami | ✅ |
 | Trading Logic Design Draft | @hojin | ✅ |
-| Market analysis utilities | @hojin | 🔄 |
-| Slippage calculation | @hojin | ⏳ |
-| Smart order execution | @hojin | ⏳ |
-| Risk management | @hojin | ⏳ |
+| Market analysis utilities | @hojin | ✅ |
+| Slippage calculation | @hojin | ✅ |
+| Smart order execution | @hojin | ✅ |
+| Risk management | @hojin | ✅ |
 | CLI interface refinement | @hojin | ⏳ |
 
 ## Phase 4: Skill Packaging 🔄
@@ -55,7 +55,8 @@
 | SKILL.md Planning (Drafting) | @muhee | 🔄 |
 | SKILL.md creation | @muhee | ⏳ |
 | Strategy guide documentation | @muhee | ⏳ |
-| Integration tests | @dorami | ⏳ |
+| Integration tests (scenarios doc) | @dorami | ✅ |
+| Integration tests (implementation) | @dorami | ⏳ |
 | Package and release | @muhee | ⏳ |
 
 ---
@@ -69,6 +70,7 @@
 | 2026-02-03 | 20:45 | Systematic API Listing complete. Full endpoint mapping documented in docs/API.md. |
 | 2026-02-03 | 20:55 | Trading Logic Unit Tests (22/22) completed by Dorami. Ho-jin starting design draft. |
 | 2026-02-03 | 21:05 | Core API expansion tests passed (30/30). PM started planning SKILL.md based on moltbook reference. |
+| 2026-02-03 | 21:10 | Trading Logic implemented (src/trading.ts) and integration test scenarios documented (docs/INTEGRATION_TESTS.md). |
 
 ---
 
