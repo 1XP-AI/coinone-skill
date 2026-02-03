@@ -289,3 +289,50 @@ const credentials = {
 - Set file permissions: `chmod 600 ~/.config/coinone/credentials.json`
 - Add to `.gitignore`: `credentials.json`
 - For shared machines, use environment variables instead
+
+## 🔌 WebSocket Streaming
+
+```typescript
+import { createWebSocketClient } from '@1xp-ai/coinone-skill';
+
+const ws = createWebSocketClient({ reconnect: true });
+
+ws.on('message', (msg) => {
+  if (msg.channel === 'ticker') {
+    console.log(`${msg.target_currency}: ${msg.last}`);
+  }
+});
+
+ws.subscribe('ticker', ['BTC', 'ETH']);
+ws.connect();
+```
+
+## ✅ Order Validation
+
+```typescript
+import { validateOrderAuto } from '@1xp-ai/coinone-skill';
+
+const validation = await validateOrderAuto('BTC', 50000000, 0.001);
+
+if (!validation.valid) {
+  console.error('Invalid order:', validation.errors);
+} else {
+  console.log('Adjusted price:', validation.adjustedPrice);
+}
+```
+
+## 💻 CLI Usage
+
+```bash
+# Public commands (no API key)
+coinone-skill ticker BTC
+coinone-skill tickers
+coinone-skill orderbook ETH
+coinone-skill analyze BTC
+
+# Private commands (API key required)
+coinone-skill auth-test
+coinone-skill balance
+coinone-skill orders
+coinone-skill fee
+```
