@@ -25,16 +25,23 @@ This document describes the end-to-end release flow for **coinone-skill**.
 - **Source of truth:** `main`
 - **Publish branch:** `release`
 
-### Update release branch
+### Recommended release flow (version bump first on main)
 ```bash
-# from repo root
+# 1) bump version on main
+# edit package.json + skill/SKILL.md (+ docs/TASKS.md release line)
+
+git checkout main
+git pull --rebase origin main
+# commit version bump on main
+
+# 2) fast-forward release to main
 git checkout release
 git pull --rebase origin release
 
-git merge origin/main --no-ff -m "chore: release <version>"
+git merge origin/main --ff-only
 
-# push release
- git push origin release
+# 3) push release
+git push origin release
 ```
 
 ---
