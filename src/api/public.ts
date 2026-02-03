@@ -3,7 +3,18 @@
  * Market data, orderbook, ticker information
  */
 
+import pkg from '../../package.json' assert { type: 'json' };
+
 const BASE_URL = 'https://api.coinone.co.kr';
+const USER_AGENT = `coinone-skill/${pkg.version}`;
+
+function fetchWithUA(url: string, options: RequestInit = {}): Promise<Response> {
+  const headers = {
+    'User-Agent': USER_AGENT,
+    ...(options.headers ?? {})
+  } as Record<string, string>;
+  return fetchWithUA(url, { ...options, headers });
+}
 
 function getErrorCode(data: Record<string, unknown>): string {
   const errorCode = data.error_code ?? data.errorCode ?? data.error_code;
@@ -48,7 +59,7 @@ export interface Orderbook {
  */
 export async function getTicker(targetCurrency: string, quoteCurrency = 'KRW'): Promise<Ticker> {
   const url = `${BASE_URL}/public/v2/ticker_new/${quoteCurrency}/${targetCurrency}`;
-  const response = await fetch(url);
+  const response = await fetchWithUA(url);
   const data = (await parseJson(response)) as { tickers: Ticker[] };
 
   return data.tickers[0];
@@ -59,7 +70,7 @@ export async function getTicker(targetCurrency: string, quoteCurrency = 'KRW'): 
  */
 export async function getAllTickers(quoteCurrency = 'KRW'): Promise<Ticker[]> {
   const url = `${BASE_URL}/public/v2/ticker_new/${quoteCurrency}`;
-  const response = await fetch(url);
+  const response = await fetchWithUA(url);
   const data = (await parseJson(response)) as { tickers: Ticker[] };
 
   return data.tickers;
@@ -74,7 +85,7 @@ export async function getOrderbook(
   size: 5 | 10 | 15 | 16 = 15
 ): Promise<Orderbook> {
   const url = `${BASE_URL}/public/v2/orderbook/${quoteCurrency}/${targetCurrency}?size=${size}`;
-  const response = await fetch(url);
+  const response = await fetchWithUA(url);
   const data = (await parseJson(response)) as unknown as Orderbook;
 
   return data;
@@ -90,7 +101,7 @@ export interface Market {
 }
 
 export async function getMarkets(): Promise<Market[]> {
-  const response = await fetch('https://api.coinone.co.kr/public/v2/markets/KRW');
+  const response = await fetchWithUA('https://api.coinone.co.kr/public/v2/markets/KRW');
   const data = (await parseJson(response)) as { markets: Market[] };
 
   return data.markets;
@@ -105,7 +116,7 @@ export interface RecentTrade {
 }
 
 export async function getRecentTrades(targetCurrency: string, quoteCurrency = 'KRW'): Promise<RecentTrade[]> {
-  const response = await fetch(`https://api.coinone.co.kr/public/v2/trades/${quoteCurrency}/${targetCurrency}`);
+  const response = await fetchWithUA(`https://api.coinone.co.kr/public/v2/trades/${quoteCurrency}/${targetCurrency}`);
   const data = (await parseJson(response)) as { transactions: RecentTrade[] };
 
   return data.transactions;
@@ -120,7 +131,7 @@ export interface Currency {
 }
 
 export async function getCurrencies(): Promise<Currency[]> {
-  const response = await fetch('https://api.coinone.co.kr/public/v2/currencies');
+  const response = await fetchWithUA('https://api.coinone.co.kr/public/v2/currencies');
   const data = (await parseJson(response)) as { currencies: Currency[] };
 
   return data.currencies;
@@ -142,7 +153,7 @@ export async function getChart(
   quoteCurrency = 'KRW',
   interval = '1h'
 ): Promise<ChartData[]> {
-  const response = await fetch(
+  const response = await fetchWithUA(
     `https://api.coinone.co.kr/public/v2/chart/${quoteCurrency}/${targetCurrency}?interval=${interval}`
   );
   const data = (await parseJson(response)) as { chart: ChartData[] };
@@ -161,7 +172,7 @@ export interface RangeUnit {
 }
 
 export async function getRangeUnits(quoteCurrency = 'KRW'): Promise<RangeUnit[]> {
-  const response = await fetch(`https://api.coinone.co.kr/public/v2/range_units/${quoteCurrency}`);
+  const response = await fetchWithUA(`https://api.coinone.co.kr/public/v2/range_units/${quoteCurrency}`);
   const data = (await parseJson(response)) as { range_units: RangeUnit[] };
 
   return data.range_units;
@@ -178,7 +189,7 @@ export interface MarketInfo {
 }
 
 export async function getMarketInfo(targetCurrency: string, quoteCurrency = 'KRW'): Promise<MarketInfo> {
-  const response = await fetch(`https://api.coinone.co.kr/public/v2/market/${quoteCurrency}/${targetCurrency}`);
+  const response = await fetchWithUA(`https://api.coinone.co.kr/public/v2/market/${quoteCurrency}/${targetCurrency}`);
   const data = (await parseJson(response)) as { market: MarketInfo };
 
   return data.market;
@@ -195,7 +206,7 @@ export interface CurrencyInfo {
 }
 
 export async function getCurrencyInfo(currency: string): Promise<CurrencyInfo> {
-  const response = await fetch(`https://api.coinone.co.kr/public/v2/currency/${currency}`);
+  const response = await fetchWithUA(`https://api.coinone.co.kr/public/v2/currency/${currency}`);
   const data = (await parseJson(response)) as { currency: CurrencyInfo };
 
   return data.currency;
@@ -203,7 +214,7 @@ export async function getCurrencyInfo(currency: string): Promise<CurrencyInfo> {
 
 // UTC Ticker (UTC timezone)
 export async function getUTCTicker(targetCurrency: string, quoteCurrency = 'KRW'): Promise<Ticker> {
-  const response = await fetch(`${BASE_URL}/public/v2/ticker_utc/${quoteCurrency}/${targetCurrency}`);
+  const response = await fetchWithUA(`${BASE_URL}/public/v2/ticker_utc/${quoteCurrency}/${targetCurrency}`);
   const data = await parseJson(response);
   
   if (data.result !== 'success') {
@@ -214,7 +225,7 @@ export async function getUTCTicker(targetCurrency: string, quoteCurrency = 'KRW'
 }
 
 export async function getAllUTCTickers(quoteCurrency = 'KRW'): Promise<Ticker[]> {
-  const response = await fetch(`${BASE_URL}/public/v2/ticker_utc/${quoteCurrency}`);
+  const response = await fetchWithUA(`${BASE_URL}/public/v2/ticker_utc/${quoteCurrency}`);
   const data = await parseJson(response);
   
   if (data.result !== 'success') {

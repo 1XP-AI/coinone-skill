@@ -5,8 +5,18 @@
 
 import { createHmac } from 'crypto';
 import { v4 as uuidv4 } from 'uuid';
+import pkg from '../../package.json' assert { type: 'json' };
 
 const BASE_URL = 'https://api.coinone.co.kr';
+const USER_AGENT = `coinone-skill/${pkg.version}`;
+
+function fetchWithUA(url: string, options: RequestInit = {}): Promise<Response> {
+  const headers = {
+    'User-Agent': USER_AGENT,
+    ...(options.headers ?? {})
+  } as Record<string, string>;
+  return fetchWithUA(url, { ...options, headers });
+}
 
 export interface CoinoneCredentials {
   accessToken: string;
@@ -105,7 +115,7 @@ export async function getBalance(credentials: CoinoneCredentials): Promise<Recor
   const payload = {};
   const headers = createAuthHeaders(payload, credentials, 'int');
 
-  const response = await fetch(`${BASE_URL}/v2/account/balance`, {
+  const response = await fetchWithUA(`${BASE_URL}/v2/account/balance`, {
     method: 'POST',
     headers
   });
@@ -137,7 +147,7 @@ export async function placeOrder(
 
   const headers = createAuthHeaders(payload, credentials);
 
-  const response = await fetch(`${BASE_URL}/v2.1/order`, {
+  const response = await fetchWithUA(`${BASE_URL}/v2.1/order`, {
     method: 'POST',
     headers
   });
@@ -162,7 +172,7 @@ export async function cancelOrder(
 
   const headers = createAuthHeaders(payload, credentials);
 
-  const response = await fetch(`${BASE_URL}/v2.1/order/cancel`, {
+  const response = await fetchWithUA(`${BASE_URL}/v2.1/order/cancel`, {
     method: 'POST',
     headers
   });
@@ -179,7 +189,7 @@ export async function getAllBalances(
   const payload = {};
   const headers = createAuthHeaders(payload, credentials);
 
-  const response = await fetch(`${BASE_URL}/v2.1/account/balance`, {
+  const response = await fetchWithUA(`${BASE_URL}/v2.1/account/balance`, {
     method: 'POST',
     headers
   });
@@ -194,7 +204,7 @@ export async function getTradeFee(credentials: CoinoneCredentials): Promise<Trad
   const payload = {};
   const headers = createAuthHeaders(payload, credentials);
 
-  const response = await fetch(`${BASE_URL}/v2.1/account/fee`, {
+  const response = await fetchWithUA(`${BASE_URL}/v2.1/account/fee`, {
     method: 'POST',
     headers
   });
@@ -216,7 +226,7 @@ export async function getActiveOrders(
   };
   const headers = createAuthHeaders(payload, credentials);
 
-  const response = await fetch(`${BASE_URL}/v2.1/order/active_orders`, {
+  const response = await fetchWithUA(`${BASE_URL}/v2.1/order/active_orders`, {
     method: 'POST',
     headers
   });
@@ -238,7 +248,7 @@ export async function getKRWHistory(
   };
   const headers = createAuthHeaders(payload, credentials);
 
-  const response = await fetch(`${BASE_URL}/v2.1/krw/history`, {
+  const response = await fetchWithUA(`${BASE_URL}/v2.1/krw/history`, {
     method: 'POST',
     headers
   });
@@ -277,7 +287,7 @@ export async function getOpenOrders(
   if (targetCurrency) payload.target_currency = targetCurrency;
   
   const headers = createAuthHeaders(payload, credentials);
-  const response = await fetch(`${BASE_URL}/v2.1/order/open_orders`, {
+  const response = await fetchWithUA(`${BASE_URL}/v2.1/order/open_orders`, {
     method: 'POST',
     headers
   });
@@ -320,7 +330,7 @@ export async function getCompletedOrders(
   if (targetCurrency) payload.target_currency = targetCurrency;
   
   const headers = createAuthHeaders(payload, credentials);
-  const response = await fetch(`${BASE_URL}/v2.1/order/completed_orders`, {
+  const response = await fetchWithUA(`${BASE_URL}/v2.1/order/completed_orders`, {
     method: 'POST',
     headers
   });
@@ -367,7 +377,7 @@ export async function getOrderDetail(
   };
   
   const headers = createAuthHeaders(payload, credentials);
-  const response = await fetch(`${BASE_URL}/v2.1/order/detail`, {
+  const response = await fetchWithUA(`${BASE_URL}/v2.1/order/detail`, {
     method: 'POST',
     headers
   });
@@ -397,7 +407,7 @@ export interface UserInfoResponse {
 export async function getUserInfo(credentials: CoinoneCredentials): Promise<UserInfo> {
   const payload = {};
   const headers = createAuthHeaders(payload, credentials, 'int');
-  const response = await fetch(`${BASE_URL}/v2/user/info`, {
+  const response = await fetchWithUA(`${BASE_URL}/v2/user/info`, {
     method: 'POST',
     headers
   });
@@ -425,7 +435,7 @@ export interface VirtualAccountResponse {
 export async function getVirtualAccount(credentials: CoinoneCredentials): Promise<VirtualAccount> {
   const payload = {};
   const headers = createAuthHeaders(payload, credentials, 'int');
-  const response = await fetch(`${BASE_URL}/v2/account/virtual_account`, {
+  const response = await fetchWithUA(`${BASE_URL}/v2/account/virtual_account`, {
     method: 'POST',
     headers
   });
@@ -456,7 +466,7 @@ export async function getDepositAddress(
 ): Promise<DepositAddress> {
   const payload = { currency };
   const headers = createAuthHeaders(payload, credentials, 'int');
-  const response = await fetch(`${BASE_URL}/v2/account/deposit_address`, {
+  const response = await fetchWithUA(`${BASE_URL}/v2/account/deposit_address`, {
     method: 'POST',
     headers
   });
@@ -494,7 +504,7 @@ export async function getCoinDepositHistory(
   if (currency) payload.currency = currency;
   
   const headers = createAuthHeaders(payload, credentials, 'int');
-  const response = await fetch(`${BASE_URL}/v2/transaction/coin_deposit_history`, {
+  const response = await fetchWithUA(`${BASE_URL}/v2/transaction/coin_deposit_history`, {
     method: 'POST',
     headers
   });
@@ -531,7 +541,7 @@ export async function getCoinWithdrawalHistory(
   if (currency) payload.currency = currency;
   
   const headers = createAuthHeaders(payload, credentials, 'int');
-  const response = await fetch(`${BASE_URL}/v2/transaction/coin_withdrawal_history`, {
+  const response = await fetchWithUA(`${BASE_URL}/v2/transaction/coin_withdrawal_history`, {
     method: 'POST',
     headers
   });
@@ -567,7 +577,7 @@ export async function getWithdrawalAddressBook(
   if (currency) payload.currency = currency;
   
   const headers = createAuthHeaders(payload, credentials, 'int');
-  const response = await fetch(`${BASE_URL}/v2/account/withdrawal_address_book`, {
+  const response = await fetchWithUA(`${BASE_URL}/v2/account/withdrawal_address_book`, {
     method: 'POST',
     headers
   });
@@ -604,7 +614,7 @@ export async function getWithdrawalLimits(
   if (currency) payload.currency = currency;
   
   const headers = createAuthHeaders(payload, credentials, 'int');
-  const response = await fetch(`${BASE_URL}/v2/account/withdrawal_limit`, {
+  const response = await fetchWithUA(`${BASE_URL}/v2/account/withdrawal_limit`, {
     method: 'POST',
     headers
   });
@@ -640,7 +650,7 @@ export async function getTradingRewards(
   if (currency) payload.currency = currency;
   
   const headers = createAuthHeaders(payload, credentials);
-  const response = await fetch(`${BASE_URL}/v2.1/order/reward/trading`, {
+  const response = await fetchWithUA(`${BASE_URL}/v2.1/order/reward/trading`, {
     method: 'POST',
     headers
   });
@@ -674,7 +684,7 @@ export async function getStakingRewards(
   if (currency) payload.currency = currency;
   
   const headers = createAuthHeaders(payload, credentials);
-  const response = await fetch(`${BASE_URL}/v2.1/order/reward/staking`, {
+  const response = await fetchWithUA(`${BASE_URL}/v2.1/order/reward/staking`, {
     method: 'POST',
     headers
   });
@@ -703,7 +713,7 @@ export interface AirdropRewardResponse {
 export async function getAirdropRewards(credentials: CoinoneCredentials): Promise<AirdropReward[]> {
   const payload = {};
   const headers = createAuthHeaders(payload, credentials);
-  const response = await fetch(`${BASE_URL}/v2.1/order/reward/airdrop`, {
+  const response = await fetchWithUA(`${BASE_URL}/v2.1/order/reward/airdrop`, {
     method: 'POST',
     headers
   });
@@ -732,7 +742,7 @@ export interface RewardSummaryResponse {
 export async function getRewardSummary(credentials: CoinoneCredentials): Promise<RewardSummary[]> {
   const payload = {};
   const headers = createAuthHeaders(payload, credentials);
-  const response = await fetch(`${BASE_URL}/v2.1/order/reward/summary`, {
+  const response = await fetchWithUA(`${BASE_URL}/v2.1/order/reward/summary`, {
     method: 'POST',
     headers
   });
@@ -761,7 +771,7 @@ export async function getTradeFeeByPair(
 ): Promise<TradeFeeByPairResponse> {
   const payload = { target_currency: targetCurrency, quote_currency: quoteCurrency };
   const headers = createAuthHeaders(payload, credentials);
-  const response = await fetch(`${BASE_URL}/v2.1/account/trade_fee/${quoteCurrency}_${targetCurrency}`, {
+  const response = await fetchWithUA(`${BASE_URL}/v2.1/account/trade_fee/${quoteCurrency}_${targetCurrency}`, {
     method: 'POST',
     headers
   });
@@ -786,7 +796,7 @@ export async function getOrderInfo(
 ): Promise<OrderDetail> {
   const payload = { order_id: orderId };
   const headers = createAuthHeaders(payload, credentials);
-  const response = await fetch(`${BASE_URL}/v2.1/order/info`, {
+  const response = await fetchWithUA(`${BASE_URL}/v2.1/order/info`, {
     method: 'POST',
     headers
   });

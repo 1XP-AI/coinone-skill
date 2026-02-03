@@ -18,6 +18,7 @@ This document describes the end-to-end release flow for **coinone-skill**.
   - `package.json` version
   - `skill/SKILL.md` version
   - `docs/TASKS.md` release/version line
+- Verify **User-Agent** header includes `coinone-skill/<version>` (public + private API)
 
 ---
 
@@ -65,8 +66,8 @@ If you want to **keep the current version** without auto-bump:
 Workflow: `.github/workflows/deploy-docs.yml`
 
 - **Pages** is served from `skill/` directory.
-- Auto deploy on changes under `skill/**`.
-- If pages look stale, **re-run deploy-docs workflow** manually.
+- Auto deploy on changes under `skill/**` in **release** branch.
+- If pages look stale, **re-run deploy-docs workflow** manually (release).
 
 ---
 

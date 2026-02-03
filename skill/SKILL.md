@@ -73,7 +73,11 @@ console.log(`Imbalance: ${analysis.imbalance?.toFixed(2)}`);
 const slippage = calculateSlippage(orderbook.asks, 0.5);
 console.log(`Expected slippage: ${slippage.slippagePercent.toFixed(2)}%`);
 
-// 4. Get order type recommendation
+// 4. Get chart data (target, quote, interval)
+const chart = await getChart('SOL', 'KRW', '1m');
+console.log(`Candles: ${chart.length}`);
+
+// 5. Get order type recommendation
 const orderType = recommendOrderType(analysis.spreadPercent!, 0.5);
 console.log(`Recommended: ${orderType}`);
 ```
@@ -111,12 +115,17 @@ console.log(`Recommended: ${orderType}`);
 ### 🌐 Extended Market Data (Phase 6)
 | Function | Description |
 |----------|-------------|
+
+**Parameter order note**
+- `getChart(target, quote, interval)` (e.g., `getChart('SOL', 'KRW', '1m')`)
+- `getRecentTrades(target, quote)` (e.g., `getRecentTrades('SOL', 'KRW')`)
+
 | `getMarkets(quote)` | List markets for a quote currency |
 | `getMarketInfo(quote, target)` | Single market details |
-| `getRecentTrades(quote, target)` | Recent trade history |
+| `getRecentTrades(target, quote)` | Recent trade history (target first) |
 | `getCurrencies()` | Supported currencies |
 | `getCurrencyInfo(symbol)` | Currency details |
-| `getChart(quote, target, interval)` | OHLCV chart data |
+| `getChart(target, quote, interval)` | OHLCV chart data (e.g., SOL, KRW, 1m) |
 | `getRangeUnits(quote, target)` | Tick/qty units for validation |
 | `getUTCTicker(quote, target)` | UTC ticker (single) |
 | `getAllUTCTickers(quote)` | UTC tickers (all) |
