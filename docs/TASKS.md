@@ -72,6 +72,8 @@
 | Code coverage badge | @dorami | ⏳ |
 | SKILL.md enhancement (moltbook reference) | @muhee | ⏳ |
 | CLI interface refinement | @hojin | 🔄 |
+| Public API parity 확장 지원 (Phase 6) | @hojin | 🔄 |
+| 에러 응답 표준화 전면 적용 (공통) | @hojin | 🔄 |
 | Example usage documentation | @team | ⏳ |
 | credentials.json auth docs (SKILL.md) | @dorami | ✅ |
 | CLI credentials.json auto-loading | @dorami | ✅ |
@@ -79,6 +81,7 @@
 | CLI commands 테스트 추가 | @dorami | ⏳ |
 | API error mapping checklist (docs/code/tests) | @muhee | 🔄 |
 | API error response standardization (error_code vs errorCode) | @muhee | 🔄 |
+| 에러 응답 표준화 전면 적용 (공통) | @hojin | 🔄 |
 | analyze 고도화 (orderbook+trades 기반 지표/스코어) | @muhee | 🔄 |
 | analyze 문서화 (지표 정의/출력 스키마) | @muhee | 🔄 |
 
@@ -118,4 +121,4 @@
 
 ---
 
-_Last updated: 2026-02-03 22:19 KST_
+_Last updated: 2026-02-03 22:20 KST_
