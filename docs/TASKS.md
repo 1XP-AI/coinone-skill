@@ -36,7 +36,7 @@
 | Private API Tests | @dorami | ✅ |
 | Systematic API Listing | @muhee | ✅ |
 | Public API (getMarkets/getRecentTrades/getCurrencies/getChart) | @dorami | ✅ |
-| Private API (getAllBalances/getTradeFee/getActiveOrders/getKRWHistory) | @hojin | 🔄 |
+| Private API (getAllBalances/getTradeFee/getActiveOrders/getKRWHistory) | @hojin | ✅ |
 
 ## Phase 3: Trading Logic ✅
 
@@ -117,4 +117,4 @@
 
 ---
 
-_Last updated: 2026-02-03 22:16 KST_
+_Last updated: 2026-02-03 22:17 KST_
