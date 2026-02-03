@@ -2,7 +2,7 @@
 
 [![npm version](https://img.shields.io/npm/v/@1xp-ai/coinone-skill.svg)](https://www.npmjs.com/package/@1xp-ai/coinone-skill)
 [![npm downloads](https://img.shields.io/npm/dm/@1xp-ai/coinone-skill.svg)](https://www.npmjs.com/package/@1xp-ai/coinone-skill)
-[![Coverage](https://img.shields.io/badge/Coverage-64%25-yellow.svg)](https://github.com/1XP-AI/coinone-skill)
+[![Coverage](https://img.shields.io/badge/Coverage-90%25-brightgreen.svg)](https://github.com/1XP-AI/coinone-skill)
 [![Tests](https://github.com/1XP-AI/coinone-skill/actions/workflows/ci.yml/badge.svg)](https://github.com/1XP-AI/coinone-skill/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-blue.svg)](https://www.typescriptlang.org/)
