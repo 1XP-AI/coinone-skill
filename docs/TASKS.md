@@ -114,7 +114,8 @@
 | WebSocket client (public channels) | @dorami | ✅ |
 | WebSocket client tests | @hojin | ✅ |
 | Deposit/withdraw history + address book/limits | @dorami | ✅ |
-| Trading utils: order validation with range_units + market info | @team | ⏳ |
+| Trading utils: order validation with range_units + market info | @team | ✅ |
+| Trading utils order validation | @dorami | ✅ |
 
 ---
 
@@ -145,4 +146,4 @@
 
 ---
 
-_Last updated: 2026-02-03 22:58 KST_
+_Last updated: 2026-02-03 23:00 KST_
