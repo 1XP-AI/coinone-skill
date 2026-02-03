@@ -5,3 +5,4 @@
 
 export * from './api/public';
 export * from './api/private';
+export * from './trading';
