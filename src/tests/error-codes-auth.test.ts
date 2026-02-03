@@ -41,15 +41,15 @@ describe('Error Codes 151~162 - Withdrawal & Order Requirements', () => {
   });
 
   it('should include order field requirements', () => {
-    expect(ERROR_CODES[161].en).toBe('Price is required for LIMIT or STOP_LIMIT');
-    expect(ERROR_CODES[162].en).toBe('Qty is required for LIMIT/STOP_LIMIT or MARKET(SELL)');
+    expect(ERROR_CODES[161].en).toBe('price is required for LIMIT or STOP_LIMIT order');
+    expect(ERROR_CODES[162].en).toBe('qty is required for LIMIT/STOP_LIMIT/MARKET(SELL)');
   });
 });
 
 describe('CoinoneError for auth/nonce', () => {
   it('should return Korean messages when requested', () => {
     expect(getErrorMessage(130, 'kr')).toBe('V2 API Nonce 값은 양의 숫자 값이어야 합니다');
-    expect(getErrorMessage(161, 'kr')).toBe('지정가/예약 지정가 주문에 가격이 필요합니다');
+    expect(getErrorMessage(161, 'kr')).toBe('지정가/예약지정가 주문시 가격필드 필요');
   });
 
   it('should populate error metadata', () => {

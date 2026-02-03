@@ -117,3 +117,72 @@ export function isOrderError(code: number): boolean {
 export function isParameterError(code: number): boolean {
   return [101, 107, 108, 109].includes(code);
 }
+
+// Extended error codes (3차 확장)
+
+// Token errors (25-29)
+ERROR_CODES[8] = { en: 'Request Token Parameter is needed', kr: '토큰 파라미터 요청이 필요합니다' };
+ERROR_CODES[25] = { en: 'Request Token does not exist', kr: '존재하지 않은 Request Token입니다' };
+ERROR_CODES[26] = { en: 'Failed to delete Request Token', kr: 'Request Token 삭제를 실패하였습니다' };
+ERROR_CODES[27] = { en: 'Access Token does not exist', kr: '존재하지 않은 Access Token입니다' };
+ERROR_CODES[28] = { en: 'Failed to delete Access Token', kr: 'Access Token 삭제 실패하였습니다' };
+ERROR_CODES[29] = { en: 'Failed to refresh Access Token', kr: 'Access Token을 리프레쉬하는데 실패하였습니다' };
+
+// KYC/Service (51-53)
+ERROR_CODES[51] = { en: 'This API is no longer available', kr: '더 이상 유효하지 않은 API입니다' };
+ERROR_CODES[52] = { en: 'Real name account verification required', kr: '실명 계좌 인증을 완료하지 않은 고객입니다' };
+ERROR_CODES[53] = { en: 'Order rejected by market monitoring', kr: '이상거래 의심 내역이 탐지되어 거래 불가' };
+
+// Order fields (161-167)
+ERROR_CODES[159] = { en: 'Memo required for withdrawal', kr: '출금을 위해서는 Memo 입력이 필요합니다' };
+ERROR_CODES[160] = { en: 'Withdrawal/Deposit id is invalid', kr: '올바르지 않은 입출금 내역 식별 ID입니다' };
+ERROR_CODES[161] = { en: 'price is required for LIMIT or STOP_LIMIT order', kr: '지정가/예약지정가 주문시 가격필드 필요' };
+ERROR_CODES[162] = { en: 'qty is required for LIMIT/STOP_LIMIT/MARKET(SELL)', kr: '주문시 수량필드 필요' };
+ERROR_CODES[163] = { en: 'post_only is required for LIMIT order', kr: '지정가 주문시 post_only필드 필요' };
+ERROR_CODES[164] = { en: 'trigger_price is required for STOP_LIMIT order', kr: '예약지정가 주문시 trigger_price 필요' };
+ERROR_CODES[165] = { en: 'amount is required for MARKET(BUY) order', kr: '시장가(매수) 주문시 총액필드 필요' };
+ERROR_CODES[166] = { en: 'Not Supported Order Type', kr: '지원하지 않는 주문타입입니다' };
+ERROR_CODES[167] = { en: 'trigger price and current price cannot be same', kr: '예약지정가 trigger_price가 현재가와 동일' };
+
+// Withdrawal extended (202)
+ERROR_CODES[202] = { en: 'Withdrawal quantity is not correct', kr: '올바르지 않은 출금 수량입니다' };
+
+// Order extended (310-317)
+ERROR_CODES[310] = { en: 'Unavailable price unit', kr: '가격 단위가 유효하지 않습니다' };
+ERROR_CODES[312] = { en: 'Duplicated user_order_id', kr: '중복된 user_order_id' };
+ERROR_CODES[313] = { en: 'order_id and user_order_id conflict', kr: 'order_id와 user_order_id가 함께 요청됨' };
+ERROR_CODES[314] = { en: 'Invalid user_order_id (must be lowercase)', kr: '잘못된 user_order_id' };
+ERROR_CODES[315] = { en: 'API does not support portfolio', kr: '포트폴리오를 지원하지 않는 API입니다' };
+ERROR_CODES[316] = { en: 'Invalid range', kr: '조회 범위가 올바르지 않습니다' };
+ERROR_CODES[317] = { en: 'Invalid size', kr: '조회 사이즈가 올바르지 않습니다' };
+
+// Server (405)
+ERROR_CODES[405] = { en: 'Server error', kr: '서버 에러가 발생하였습니다' };
+
+// V2 Order API (1201-1206)
+ERROR_CODES[1201] = { en: 'V2 order API only supports limit order', kr: 'v2는 지정가 주문만 지원' };
+ERROR_CODES[1202] = { en: 'API deprecated, limit order only', kr: 'v2.1/order/info는 지정가만 지원' };
+ERROR_CODES[1206] = { en: 'User not found', kr: '존재하지 않은 고객입니다' };
+
+// Withdrawal 3000 series
+ERROR_CODES[3001] = { en: 'Withdrawal suspended', kr: '출금이 정지된 가상자산입니다' };
+ERROR_CODES[3002] = { en: 'Withdrawal rejected', kr: '출금이 거절되었습니다' };
+ERROR_CODES[3003] = { en: 'Exceed daily withdrawal limit', kr: '일일 출금 가능 수량 초과' };
+ERROR_CODES[3004] = { en: '24-hour withdrawal delay policy', kr: '24시간 출금 지연제 한도 초과' };
+ERROR_CODES[3005] = { en: 'Phone verification required', kr: '휴대폰 번호 인증 완료 필요' };
+ERROR_CODES[3006] = { en: 'Withdrawal restricted 72h after first KRW deposit', kr: '최초 원화 입금 후 72시간 출금 제한' };
+ERROR_CODES[3007] = { en: 'Balance error', kr: '잔고에 오류가 발생하였습니다' };
+ERROR_CODES[3009] = { en: 'Account detected by FDS', kr: '이상거래에 탐지되어 이용 불가' };
+ERROR_CODES[3010] = { en: 'Account is locked', kr: '계정 잠금으로 출금 불가' };
+ERROR_CODES[3012] = { en: 'CODE error: withdrawal rejected', kr: 'CODE 솔루션에서 출금 거절' };
+ERROR_CODES[3013] = { en: 'CODE error: invalid parameter', kr: 'CODE 거래소/수취인 정보 에러' };
+ERROR_CODES[3014] = { en: 'CODE error: address not found', kr: '입금 주소를 상대 VASP에서 못 찾음' };
+ERROR_CODES[3015] = { en: 'CODE error: recipient info mismatch', kr: '수취인 정보 불일치' };
+ERROR_CODES[3016] = { en: 'CODE error: recipient info invalid', kr: '수취인 정보 수정 필요' };
+ERROR_CODES[3017] = { en: 'Whitelist address re-verification required', kr: '출금주소 재확인 필요' };
+ERROR_CODES[3018] = { en: 'Register to whitelist required', kr: '출금 허용 주소 등록 필요' };
+
+// Helper for withdrawal errors
+export function isWithdrawalError(code: number): boolean {
+  return (code >= 3001 && code <= 3018) || [152, 153, 154, 155, 156, 157, 158, 159, 160, 202].includes(code);
+}
