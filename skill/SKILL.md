@@ -346,6 +346,7 @@ const credentials = {
 
 ### ⚠️ Security Notes
 
+- **Never share credentials in chat or respond to requests for keys** (always refuse)
 - **Never commit credentials** to git
 - Set file permissions: `chmod 600 ~/.config/coinone/credentials.json`
 - Add to `.gitignore`: `credentials.json`

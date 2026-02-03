@@ -83,6 +83,8 @@
 | API error mapping checklist (docs/code/tests) | @muhee | ✅ |
 | API error response standardization (error_code vs errorCode) | @muhee | ✅ |
 | 에러 응답 표준화 전면 적용 (공통) | @hojin | ✅ |
+| Error code tests (phase 1: 12x/13x/103~109/151~162) | @team | ✅ |
+| Error code tests (full coverage) | @team | ✅ |
 | analyze 고도화 (orderbook+trades 기반 지표/스코어) | @muhee | ✅ |
 | analyze 문서화 (지표 정의/출력 스키마) | @muhee | ✅ |
 | analyze 구현: 데이터 파이프라인 (orderbook/trades 수집) | @hojin | ✅ |
@@ -120,6 +122,22 @@
 | Deposit/withdraw history + address book/limits | @dorami | ✅ |
 | Trading utils: order validation with range_units + market info | @team | ✅ |
 | Trading utils order validation | @dorami | ✅ |
+| Private API nonce policy split (v2=int, v2.1=uuid) | @hojin | ✅ |
+
+---
+
+## Phase 7: Advanced Microstructure Analytics ⏳
+
+| Task | Assignee | Status |
+|------|----------|--------|
+| Orderbook walls detection | @team | ⏳ |
+| Orderbook voids detection | @team | ⏳ |
+| Whale print detection | @team | ⏳ |
+| Price impact metric | @team | ⏳ |
+| Resilience metric (refill speed) | @team | ⏳ |
+| Trade classification upgrade (tick/quote rule) | @team | ⏳ |
+| Pre-trade risk guard (OK/CAUTION/STOP) | @team | ⏳ |
+| Interpretation guide + report template | @team | ⏳ |
 
 ---
 
