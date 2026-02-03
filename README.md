@@ -3,7 +3,6 @@
 [![npm version](https://img.shields.io/npm/v/@1xp-ai/coinone-skill.svg)](https://www.npmjs.com/package/@1xp-ai/coinone-skill)
 [![npm downloads](https://img.shields.io/npm/dm/@1xp-ai/coinone-skill.svg)](https://www.npmjs.com/package/@1xp-ai/coinone-skill)
 [![Tests](https://github.com/1XP-AI/coinone-skill/actions/workflows/ci.yml/badge.svg)](https://github.com/1XP-AI/coinone-skill/actions/workflows/ci.yml)
-&(https://github.com/1XP-AI/coinone-skill/actions/workflows/publish.yml/badge.svg)](https://github.com/1XP-AI/coinone-skill/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-blue.svg)](https://www.typescriptlang.org/)
 
@@ -108,9 +107,11 @@ const balance = await getBalance(credentials);
 # Run all tests
 npm test
 
-# Watch mode
-npm run test:watch
+# With coverage
+npm run coverage
 ```
+
+**Coverage:** 94.62% statements ✅
 
 ## 📁 Project Structure
 
@@ -123,7 +124,10 @@ coinone-skill/
 │   ├── trading.ts       # Trading logic & analysis
 │   └── index.ts         # Main exports
 ├── skill/               # Skill documentation (GitHub Pages)
-│   └── SKILL.md
+│   ├── SKILL.md
+│   ├── SECURITY.md
+│   ├── HEARTBEAT.md
+│   └── package.json
 └── docs/                # Internal documentation
     ├── API.md
     ├── VERSIONING.md
