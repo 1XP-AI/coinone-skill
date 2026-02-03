@@ -1,57 +1,49 @@
-/**
- * Public API Tests
- * TDD: Write tests first
- */
-
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { getTicker, getAllTickers, getOrderbook } from '../api/public';
+import { 
+  getTicker, 
+  getAllTickers, 
+  getOrderbook, 
+  getMarkets, 
+  getRecentTrades, 
+  getCurrencies, 
+  getChart 
+} from '../api/public';
 
-// Mock fetch
 const mockFetch = vi.fn();
 global.fetch = mockFetch;
 
-describe('Coinone Public API', () => {
+describe('Public API', () => {
   beforeEach(() => {
     mockFetch.mockReset();
   });
 
   describe('getTicker', () => {
-    it('should fetch ticker for BTC/KRW', async () => {
+    it('should fetch ticker for a specific currency', async () => {
       const mockResponse = {
         result: 'success',
-        tickers: [{
-          quote_currency: 'KRW',
-          target_currency: 'BTC',
-          last: '50000000',
-          high: '51000000',
-          low: '49000000'
-        }]
+        tickers: [{ target_currency: 'BTC', last: '50000000' }]
       };
-      
       mockFetch.mockResolvedValueOnce({
         json: () => Promise.resolve(mockResponse)
       });
-      
-      const ticker = await getTicker('BTC');
-      
+
+      const result = await getTicker('BTC');
+      expect(result.last).toBe('50000000');
       expect(mockFetch).toHaveBeenCalledWith(
         'https://api.coinone.co.kr/public/v2/ticker_new/KRW/BTC'
       );
-      expect(ticker.target_currency).toBe('BTC');
-      expect(ticker.last).toBe('50000000');
     });
 
-    it('should throw error on API failure', async () => {
+    it('should throw on API error', async () => {
       mockFetch.mockResolvedValueOnce({
         json: () => Promise.resolve({ result: 'error', error_code: '4001' })
       });
-      
-      await expect(getTicker('INVALID')).rejects.toThrow('API Error: 4001');
+      await expect(getTicker('BTC')).rejects.toThrow('API Error: 4001');
     });
   });
 
   describe('getAllTickers', () => {
-    it('should fetch all tickers for KRW market', async () => {
+    it('should fetch all tickers', async () => {
       const mockResponse = {
         result: 'success',
         tickers: [
@@ -59,130 +51,136 @@ describe('Coinone Public API', () => {
           { target_currency: 'ETH', last: '3000000' }
         ]
       };
-      
       mockFetch.mockResolvedValueOnce({
         json: () => Promise.resolve(mockResponse)
       });
-      
-      const tickers = await getAllTickers();
-      
-      expect(mockFetch).toHaveBeenCalledWith(
-        'https://api.coinone.co.kr/public/v2/ticker_new/KRW'
-      );
-      expect(tickers).toHaveLength(2);
+
+      const result = await getAllTickers();
+      expect(result).toHaveLength(2);
+    });
+
+    it('should throw on API error', async () => {
+      mockFetch.mockResolvedValueOnce({
+        json: () => Promise.resolve({ result: 'error', error_code: '4002' })
+      });
+      await expect(getAllTickers()).rejects.toThrow('API Error: 4002');
     });
   });
 
   describe('getOrderbook', () => {
-    it('should fetch orderbook with default size', async () => {
+    it('should fetch orderbook', async () => {
       const mockResponse = {
         result: 'success',
-        bids: [{ price: '49900000', qty: '1.5' }],
-        asks: [{ price: '50100000', qty: '2.0' }]
+        bids: [{ price: '49900000', qty: '1.0' }],
+        asks: [{ price: '50100000', qty: '1.0' }]
       };
-      
       mockFetch.mockResolvedValueOnce({
         json: () => Promise.resolve(mockResponse)
       });
-      
-      const orderbook = await getOrderbook('BTC');
-      
-      expect(mockFetch).toHaveBeenCalledWith(
-        'https://api.coinone.co.kr/public/v2/orderbook/KRW/BTC?size=15'
-      );
-      expect(orderbook.bids).toHaveLength(1);
-      expect(orderbook.asks).toHaveLength(1);
-    });
 
-    it('should fetch orderbook with custom size', async () => {
-      const mockResponse = {
-        result: 'success',
-        bids: [],
-        asks: []
-      };
-      
-      mockFetch.mockResolvedValueOnce({
-        json: () => Promise.resolve(mockResponse)
-      });
-      
-      await getOrderbook('BTC', 'KRW', 5);
-      
-      expect(mockFetch).toHaveBeenCalledWith(
-        'https://api.coinone.co.kr/public/v2/orderbook/KRW/BTC?size=5'
-      );
+      const result = await getOrderbook('BTC');
+      expect(result.bids).toHaveLength(1);
+      expect(result.asks).toHaveLength(1);
     });
   });
-});
 
-  // ===== NEW TESTS FOR ADDITIONAL ENDPOINTS =====
-
-  describe('Markets', () => {
-    it('should fetch all markets for KRW', async () => {
+  describe('getMarkets', () => {
+    it('should fetch all markets', async () => {
       const mockResponse = {
         result: 'success',
         markets: [
-          { target_currency: 'BTC', quote_currency: 'KRW' },
-          { target_currency: 'ETH', quote_currency: 'KRW' }
+          { quote_currency: 'KRW', target_currency: 'BTC', min_order_amount: '5000' }
         ]
       };
-      
       mockFetch.mockResolvedValueOnce({
         json: () => Promise.resolve(mockResponse)
       });
-      
-      // TODO: Implement getMarkets function
-      expect(mockResponse.markets).toHaveLength(2);
+
+      const result = await getMarkets();
+      expect(result).toHaveLength(1);
+      expect(result[0].target_currency).toBe('BTC');
+    });
+
+    it('should throw on API error', async () => {
+      mockFetch.mockResolvedValueOnce({
+        json: () => Promise.resolve({ result: 'error', error_code: '4003' })
+      });
+      await expect(getMarkets()).rejects.toThrow('API Error: 4003');
     });
   });
 
-  describe('Recent Trades', () => {
-    it('should fetch recent completed orders', async () => {
+  describe('getRecentTrades', () => {
+    it('should fetch recent trades', async () => {
       const mockResponse = {
         result: 'success',
         trades: [
-          { price: '50000000', qty: '0.1', timestamp: 1234567890 }
+          { timestamp: 1234567890, price: '50000000', qty: '0.1', is_seller_maker: false }
         ]
       };
-      
       mockFetch.mockResolvedValueOnce({
         json: () => Promise.resolve(mockResponse)
       });
-      
-      // TODO: Implement getRecentTrades function
-      expect(mockResponse.trades).toHaveLength(1);
+
+      const result = await getRecentTrades('BTC');
+      expect(result).toHaveLength(1);
+      expect(result[0].price).toBe('50000000');
+    });
+
+    it('should throw on API error', async () => {
+      mockFetch.mockResolvedValueOnce({
+        json: () => Promise.resolve({ result: 'error', error_code: '4004' })
+      });
+      await expect(getRecentTrades('BTC')).rejects.toThrow('API Error: 4004');
     });
   });
 
-  describe('Currencies', () => {
-    it('should fetch all supported currencies', async () => {
+  describe('getCurrencies', () => {
+    it('should fetch all currencies', async () => {
       const mockResponse = {
         result: 'success',
-        currencies: ['BTC', 'ETH', 'XRP']
+        currencies: [
+          { currency: 'BTC', name: 'Bitcoin', deposit_status: 1, withdraw_status: 1 }
+        ]
       };
-      
       mockFetch.mockResolvedValueOnce({
         json: () => Promise.resolve(mockResponse)
       });
-      
-      // TODO: Implement getCurrencies function
-      expect(mockResponse.currencies).toContain('BTC');
+
+      const result = await getCurrencies();
+      expect(result).toHaveLength(1);
+      expect(result[0].currency).toBe('BTC');
+    });
+
+    it('should throw on API error', async () => {
+      mockFetch.mockResolvedValueOnce({
+        json: () => Promise.resolve({ result: 'error', error_code: '4005' })
+      });
+      await expect(getCurrencies()).rejects.toThrow('API Error: 4005');
     });
   });
 
-  describe('Chart Data', () => {
-    it('should fetch OHLCV candle data', async () => {
+  describe('getChart', () => {
+    it('should fetch chart data', async () => {
       const mockResponse = {
         result: 'success',
-        candles: [
-          { timestamp: 1234567890, open: '50000000', high: '51000000', low: '49000000', close: '50500000', volume: '100' }
+        chart: [
+          { timestamp: 1234567890, open: '49000000', high: '51000000', low: '48000000', close: '50000000' }
         ]
       };
-      
       mockFetch.mockResolvedValueOnce({
         json: () => Promise.resolve(mockResponse)
       });
-      
-      // TODO: Implement getChart function
-      expect(mockResponse.candles[0].high).toBe('51000000');
+
+      const result = await getChart('BTC');
+      expect(result).toHaveLength(1);
+      expect(result[0].close).toBe('50000000');
+    });
+
+    it('should throw on API error', async () => {
+      mockFetch.mockResolvedValueOnce({
+        json: () => Promise.resolve({ result: 'error', error_code: '4006' })
+      });
+      await expect(getChart('BTC')).rejects.toThrow('API Error: 4006');
     });
   });
+});

@@ -8,9 +8,17 @@ export {
   getTicker,
   getAllTickers,
   getOrderbook,
+  getMarkets,
+  getRecentTrades,
+  getCurrencies,
+  getChart,
   type Ticker,
   type OrderbookEntry,
-  type Orderbook
+  type Orderbook,
+  type Market,
+  type RecentTrade,
+  type Currency,
+  type ChartData
 } from './api/public.js';
 
 // Private API

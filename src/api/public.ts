@@ -78,3 +78,89 @@ export async function getOrderbook(
   
   return data;
 }
+
+// Markets
+export interface Market {
+  quote_currency: string;
+  target_currency: string;
+  min_order_amount: string;
+  max_order_amount: string;
+  maintenance_status: number;
+}
+
+export async function getMarkets(): Promise<Market[]> {
+  const response = await fetch('https://api.coinone.co.kr/public/v2/markets/KRW');
+  const data = await response.json();
+  
+  if (data.result !== 'success') {
+    throw new Error(`API Error: ${data.error_code}`);
+  }
+  
+  return data.markets;
+}
+
+// Recent Trades
+export interface RecentTrade {
+  timestamp: number;
+  price: string;
+  qty: string;
+  is_seller_maker: boolean;
+}
+
+export async function getRecentTrades(targetCurrency: string, quoteCurrency = 'KRW'): Promise<RecentTrade[]> {
+  const response = await fetch(`https://api.coinone.co.kr/public/v2/trades/${quoteCurrency}/${targetCurrency}`);
+  const data = await response.json();
+  
+  if (data.result !== 'success') {
+    throw new Error(`API Error: ${data.error_code}`);
+  }
+  
+  return data.trades;
+}
+
+// Currencies
+export interface Currency {
+  currency: string;
+  name: string;
+  deposit_status: number;
+  withdraw_status: number;
+}
+
+export async function getCurrencies(): Promise<Currency[]> {
+  const response = await fetch('https://api.coinone.co.kr/public/v2/currencies');
+  const data = await response.json();
+  
+  if (data.result !== 'success') {
+    throw new Error(`API Error: ${data.error_code}`);
+  }
+  
+  return data.currencies;
+}
+
+// Chart (Candlestick)
+export interface ChartData {
+  timestamp: number;
+  open: string;
+  high: string;
+  low: string;
+  close: string;
+  target_volume: string;
+  quote_volume: string;
+}
+
+export async function getChart(
+  targetCurrency: string, 
+  quoteCurrency = 'KRW',
+  interval = '1h'
+): Promise<ChartData[]> {
+  const response = await fetch(
+    `https://api.coinone.co.kr/public/v2/chart/${quoteCurrency}/${targetCurrency}?interval=${interval}`
+  );
+  const data = await response.json();
+  
+  if (data.result !== 'success') {
+    throw new Error(`API Error: ${data.error_code}`);
+  }
+  
+  return data.chart;
+}
