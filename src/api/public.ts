@@ -3,17 +3,17 @@
  * Market data, orderbook, ticker information
  */
 
-import pkg from '../../package.json' assert { type: 'json' };
-
 const BASE_URL = 'https://api.coinone.co.kr';
-const USER_AGENT = `coinone-skill/${pkg.version}`;
+const USER_AGENT = 'coinone-skill';
 
-function fetchWithUA(url: string, options: RequestInit = {}): Promise<Response> {
-  const headers = {
-    'User-Agent': USER_AGENT,
-    ...(options.headers ?? {})
-  } as Record<string, string>;
-  return fetchWithUA(url, { ...options, headers });
+function fetchWithUA(url: string, init?: RequestInit): Promise<Response> {
+  return globalThis.fetch(url, {
+    ...init,
+    headers: {
+      'User-Agent': USER_AGENT,
+      ...(init?.headers ?? {})
+    }
+  });
 }
 
 function getErrorCode(data: Record<string, unknown>): string {
