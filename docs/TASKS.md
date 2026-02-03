@@ -78,6 +78,8 @@
 | CLI commands (ticker/tickers/orderbook/analyze/balance) | @dorami | ✅ |
 | API error mapping checklist (docs/code/tests) | @muhee | 🔄 |
 | API error response standardization (error_code vs errorCode) | @muhee | 🔄 |
+| analyze 고도화 (orderbook+trades 기반 지표/스코어) | @muhee | 🔄 |
+| analyze 문서화 (지표 정의/출력 스키마) | @muhee | 🔄 |
 
 ---
 
@@ -98,4 +100,4 @@
 
 ---
 
-_Last updated: 2026-02-03 22:14 KST_
+_Last updated: 2026-02-03 22:15 KST_
