@@ -25,6 +25,7 @@ This document is the single source of truth for release flow (merged from previo
 ## 2) Branch Flow
 - **Source of truth:** `main`
 - **Publish branch:** `release`
+- **Always enable PR auto-merge** when syncing `main → release`
 
 ### Recommended release flow (version bump first on main)
 ```bash
