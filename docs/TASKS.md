@@ -78,7 +78,7 @@
 | credentials.json auth docs (SKILL.md) | @dorami | ✅ |
 | CLI credentials.json auto-loading | @dorami | ✅ |
 | CLI commands (ticker/tickers/orderbook/analyze/balance) | @dorami | ✅ |
-| CLI commands 테스트 추가 | @dorami | ⏳ |
+| CLI commands 테스트 추가 | @dorami | ✅ |
 | API error mapping checklist (docs/code/tests) | @muhee | 🔄 |
 | API error response standardization (error_code vs errorCode) | @muhee | ✅ |
 | 에러 응답 표준화 전면 적용 (공통) | @hojin | 🔄 |
@@ -138,4 +138,4 @@
 
 ---
 
-_Last updated: 2026-02-03 22:49 KST_
+_Last updated: 2026-02-03 22:51 KST_
