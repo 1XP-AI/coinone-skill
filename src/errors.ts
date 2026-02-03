@@ -41,11 +41,19 @@ export const ERROR_CODES: Record<number, { en: string; kr: string }> = {
   132: { en: 'Nonce already used', kr: '이미 사용된 Nonce 값입니다' },
   133: { en: 'Nonce must be in UUID format', kr: 'Nonce값은 UUID 포맷이어야 합니다' },
 
-  // Withdrawal (151-160)
+  // Withdrawal (151-162)
   151: { en: 'V1 Access token not acceptable for V2', kr: 'V1의 Access Token으로는 V2 API 이용이 불가합니다' },
   152: { en: 'Invalid address', kr: '유효하지 않은 주소입니다' },
+  153: { en: 'Address detected by FDS', kr: 'FDS에 의해 제한된 주소입니다' },
+  154: { en: 'API withdrawal address required', kr: 'API 출금 주소 등록이 필요한 주소입니다' },
+  155: { en: 'CODE withdrawal requires deposit address', kr: 'CODE 솔루션 출금을 위해 입금주소 생성이 필요합니다' },
+  156: { en: 'Withdrawal address does not exist', kr: '존재하지 않은 출금 주소입니다' },
   157: { en: 'Insufficient balance', kr: '잔액이 부족합니다' },
   158: { en: 'Minimum withdrawal quantity insufficient', kr: '최소 출금 가능 금액보다 부족합니다' },
+  159: { en: 'Memo required for withdrawal', kr: '출금을 위해서는 Memo 입력이 필요합니다' },
+  160: { en: 'Withdrawal/Deposit id is invalid', kr: '올바르지 않은 입출금 내역 식별 ID입니다' },
+  161: { en: 'Price is required for LIMIT or STOP_LIMIT', kr: '지정가/예약 지정가 주문에 가격이 필요합니다' },
+  162: { en: 'Qty is required for LIMIT/STOP_LIMIT or MARKET(SELL)', kr: '지정가/예약 지정가/시장가(매도) 주문에 수량이 필요합니다' },
 
   // Order (300-309)
   300: { en: 'Invalid order information', kr: '유효하지 않은 주문 정보입니다' },
