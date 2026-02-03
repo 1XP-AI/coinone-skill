@@ -293,6 +293,7 @@ coinone-skill trade-fee
 - [npm Package](https://www.npmjs.com/package/@1xp-ai/coinone-skill)
 - [GitHub Repository](https://github.com/1XP-AI/coinone-skill)
 - [API Documentation](https://github.com/1XP-AI/coinone-skill/blob/main/docs/API.md)
+- [Error Codes](https://github.com/1XP-AI/coinone-skill/blob/main/skill/ERROR_CODES.md)
 
 ---
 
