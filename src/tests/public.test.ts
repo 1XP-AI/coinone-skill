@@ -30,7 +30,10 @@ describe('Public API', () => {
       const result = await getTicker('BTC');
       expect(result.last).toBe('50000000');
       expect(mockFetch).toHaveBeenCalledWith(
-        'https://api.coinone.co.kr/public/v2/ticker_new/KRW/BTC'
+        'https://api.coinone.co.kr/public/v2/ticker_new/KRW/BTC',
+        expect.objectContaining({
+          headers: expect.objectContaining({ 'User-Agent': 'coinone-skill' })
+        })
       );
     });
 

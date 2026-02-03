@@ -113,21 +113,21 @@ console.log(`Recommended: ${orderType}`);
 | `cancelOrder(orderId, credentials)` | Cancel pending order |
 
 ### 🌐 Extended Market Data (Phase 6)
-| Function | Description |
-|----------|-------------|
-
 **Parameter order note**
+- **All quote currencies default to `KRW`** unless specified.
 - `getChart(target, quote, interval)` (e.g., `getChart('SOL', 'KRW', '1m')`)
 - `getRecentTrades(target, quote)` (e.g., `getRecentTrades('SOL', 'KRW')`)
 
+| Function | Description |
+|----------|-------------|
 | `getMarkets(quote)` | List markets for a quote currency |
-| `getMarketInfo(quote, target)` | Single market details |
+| `getMarketInfo(target, quote)` | Single market details |
 | `getRecentTrades(target, quote)` | Recent trade history (target first) |
 | `getCurrencies()` | Supported currencies |
 | `getCurrencyInfo(symbol)` | Currency details |
 | `getChart(target, quote, interval)` | OHLCV chart data (e.g., SOL, KRW, 1m) |
-| `getRangeUnits(quote, target)` | Tick/qty units for validation |
-| `getUTCTicker(quote, target)` | UTC ticker (single) |
+| `getRangeUnits(quote)` | Tick/qty units for validation |
+| `getUTCTicker(target, quote)` | UTC ticker (single) |
 | `getAllUTCTickers(quote)` | UTC tickers (all) |
 
 ### 📦 Advanced Orders & Account Info
