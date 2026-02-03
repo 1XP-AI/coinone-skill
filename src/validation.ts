@@ -3,7 +3,7 @@
  * Validates orders against range_units and market info
  */
 
-import { getRangeUnits, getMarketInfo } from './api/public.js';
+import { getMarkets } from './api/public.js';
 
 export interface OrderValidation {
   valid: boolean;
@@ -29,26 +29,22 @@ export async function getValidationRules(
   targetCurrency: string,
   quoteCurrency = 'KRW'
 ): Promise<ValidationRules> {
-  const [rangeUnits, marketInfo] = await Promise.all([
-    getRangeUnits(quoteCurrency),
-    getMarketInfo(targetCurrency, quoteCurrency)
-  ]);
-
-  const rangeUnit = rangeUnits.find(
-    r => r.target_currency === targetCurrency && r.quote_currency === quoteCurrency
+  const markets = await getMarkets(quoteCurrency);
+  const market = markets.find(
+    m => m.target_currency === targetCurrency && m.quote_currency === quoteCurrency
   );
 
-  if (!rangeUnit) {
-    throw new Error(`No range unit found for ${targetCurrency}/${quoteCurrency}`);
+  if (!market) {
+    throw new Error(`No market found for ${targetCurrency}/${quoteCurrency}`);
   }
 
   return {
-    priceUnit: parseFloat(rangeUnit.price_unit),
-    qtyUnit: parseFloat(rangeUnit.qty_unit),
-    minQty: parseFloat(rangeUnit.min_qty),
-    maxQty: parseFloat(rangeUnit.max_qty),
-    minOrderAmount: parseFloat(marketInfo.min_order_amount),
-    maxOrderAmount: parseFloat(marketInfo.max_order_amount)
+    priceUnit: parseFloat(market.price_unit),
+    qtyUnit: parseFloat(market.qty_unit),
+    minQty: parseFloat(market.qty_unit),
+    maxQty: parseFloat(market.max_order_amount),
+    minOrderAmount: parseFloat(market.min_order_amount),
+    maxOrderAmount: parseFloat(market.max_order_amount)
   };
 }
 

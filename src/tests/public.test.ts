@@ -92,14 +92,21 @@ describe('Public API', () => {
       const mockResponse = {
         result: 'success',
         markets: [
-          { quote_currency: 'KRW', target_currency: 'BTC', min_order_amount: '5000' }
+          {
+            quote_currency: 'KRW',
+            target_currency: 'BTC',
+            price_unit: '1000',
+            qty_unit: '0.0001',
+            min_order_amount: '5000',
+            max_order_amount: '1000000000'
+          }
         ]
       };
       mockFetch.mockResolvedValueOnce({
         json: () => Promise.resolve(mockResponse)
       });
 
-      const result = await getMarkets();
+      const result = await getMarkets('KRW');
       expect(result).toHaveLength(1);
       expect(result[0].target_currency).toBe('BTC');
     });
@@ -187,54 +194,3 @@ describe('Public API', () => {
     });
   });
 });
-
-  describe('getRangeUnits', () => {
-    it('should fetch range units', async () => {
-      const mockResponse = {
-        result: 'success',
-        range_units: [
-          { quote_currency: 'KRW', target_currency: 'BTC', price_unit: '1000', qty_unit: '0.0001' }
-        ]
-      };
-      mockFetch.mockResolvedValueOnce({
-        json: () => Promise.resolve(mockResponse)
-      });
-
-      const { getRangeUnits } = await import('../api/public');
-      const result = await getRangeUnits();
-      expect(result).toHaveLength(1);
-      expect(result[0].price_unit).toBe('1000');
-    });
-  });
-
-  describe('getMarketInfo', () => {
-    it('should fetch single market info', async () => {
-      const mockResponse = {
-        result: 'success',
-        market: { quote_currency: 'KRW', target_currency: 'BTC', min_order_amount: '5000' }
-      };
-      mockFetch.mockResolvedValueOnce({
-        json: () => Promise.resolve(mockResponse)
-      });
-
-      const { getMarketInfo } = await import('../api/public');
-      const result = await getMarketInfo('BTC');
-      expect(result.target_currency).toBe('BTC');
-    });
-  });
-
-  describe('getCurrencyInfo', () => {
-    it('should fetch single currency info', async () => {
-      const mockResponse = {
-        result: 'success',
-        currency: { currency: 'BTC', name: 'Bitcoin', deposit_status: 1 }
-      };
-      mockFetch.mockResolvedValueOnce({
-        json: () => Promise.resolve(mockResponse)
-      });
-
-      const { getCurrencyInfo } = await import('../api/public');
-      const result = await getCurrencyInfo('BTC');
-      expect(result.currency).toBe('BTC');
-    });
-  });

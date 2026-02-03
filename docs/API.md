@@ -9,17 +9,12 @@ https://api.coinone.co.kr
 
 | Endpoint | Method | Description |
 |----------|--------|-------------|
-| `/public/v2/range_units/{quote}/{target}` | GET | Get tick size units |
 | `/public/v2/markets/{quote}` | GET | List all markets for a quote currency |
-| `/public/v2/market/{quote}/{target}` | GET | Get specific market information |
 | `/public/v2/orderbook/{quote}/{target}` | GET | Get orderbook (depth) |
 | `/public/v2/recent_completed_orders/{quote}/{target}` | GET | Get recent trades |
 | `/public/v2/ticker_new/{quote}` | GET | Get all tickers for a quote currency |
 | `/public/v2/ticker_new/{quote}/{target}` | GET | Get single ticker |
-| `/public/v2/ticker_utc/{quote}` | GET | Get all tickers (UTC time) |
-| `/public/v2/ticker_utc/{quote}/{target}` | GET | Get single ticker (UTC time) |
 | `/public/v2/currencies` | GET | List all supported currencies |
-| `/public/v2/currencies/{symbol}` | GET | Get currency details |
 | `/public/v2/chart/{quote}/{target}` | GET | Get OHLCV candle data |
 
 ---

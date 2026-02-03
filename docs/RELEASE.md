@@ -1,93 +1,115 @@
 # Release Process (Coinone Skill)
 
-This document defines the **end-to-end release flow** for the coinone-skill project.
+This document is the single source of truth for release flow (merged from previous release docs).
+
+## 0) Goal
+- Keep **repo version**, **Pages**, and **npm** in sync.
+- Publish via **release branch** and GitHub Actions.
 
 ---
 
-## 0) Preconditions (Must be true)
-- All tests pass locally + CI green
-- Docs/CLI/SDK functions are aligned
-- Version is correct in:
-  - `package.json`
-  - `skill/SKILL.md`
-- Release decision approved (PM)
+## 1) Pre-Release Checklist (main)
+- Ensure all changes are merged into `main`.
+- Run tests locally:
+  ```bash
+  npm test
+  ```
+- Verify versions in `main`:
+  - `package.json` version
+  - `skill/SKILL.md` version
+  - `docs/TASKS.md` release/version line
+- Verify **User-Agent** header includes `coinone-skill/<version>` (public + private API)
+- When opening **main → release PR**, enable **Auto-merge** (required)
 
 ---
 
-## 1) What to Update Before Release
-Update these **in order**:
-1. **Version bump**
-   - `package.json`
-   - `skill/SKILL.md`
-2. **Docs consistency**
-   - `skill/` = public docs (GitHub Pages)
-   - `docs/` = internal dev docs
-3. **TASKS** status
-   - Mark release item with the new version
-4. **Release notes** (if required)
+## 2) Branch Flow
+- **Source of truth:** `main`
+- **Publish branch:** `release`
+- **Always enable PR auto-merge** when syncing `main → release`
+
+### Recommended release flow (version bump first on main)
+```bash
+# 1) bump version on main
+# edit package.json + skill/SKILL.md (+ docs/TASKS.md release line)
+
+git checkout main
+git pull --rebase origin main
+# commit version bump on main
+
+# 2) fast-forward release to main
+git checkout release
+git pull --rebase origin release
+
+git merge origin/main --ff-only
+
+# 3) push release
+git push origin release
+```
 
 ---
 
-## 2) Branch Rules
-- **main**: development branch
-- **release**: publishing branch (npm publish runs here)
-- **GitHub Pages**: uses `skill/` from main
+## 3) Publish Workflow (GitHub Actions)
+Workflow: `.github/workflows/publish.yml`
+
+### Default (auto bump)
+- Uses Conventional Commits to bump version.
+- Publishes to npm using `NPM_TOKEN`.
+
+### Manual run (skip bump)
+If you want to **keep the current version** without auto-bump:
+1. Ensure `publish.yml` supports `skip_bump` input.
+2. Trigger workflow manually with:
+   - `skip_bump=true`
 
 ---
 
-## 3) Actions / Workflows
-### A) GitHub Pages (Docs)
-- Trigger: changes under `skill/**`
-- Purpose: update https://1xp-ai.github.io/coinone-skill/
+## 4) Pages Deployment
+Workflow: `.github/workflows/deploy-docs.yml`
 
-### B) Publish to npm
-- Trigger: manual `workflow_dispatch`
-- Runs on **release** branch
-- Uses Conventional Commits for version bump (if enabled)
-
-**Important:**
-- If you want to keep **manual versioning**, run workflow with `skip_bump=true`.
-- If auto bump is enabled, `feat:` will bump **minor**.
-
----
-
-## 4) Release Steps (Standard)
-1. **Sync release with main**
-   ```bash
-   git checkout release
-   git merge main
-   git push
-   ```
-2. **Trigger npm workflow**
-   - Action: Publish to npm
-   - Branch: `release`
-   - Input: `skip_bump=true` (if manual version control)
+- **Pages** is served from `skill/` directory.
+- Auto deploy on changes under `skill/**` in **release** branch.
+- If pages look stale, **re-run deploy-docs workflow** manually (release).
 
 ---
 
 ## 5) Post-Release Verification
-Check all three:
-1. **npm**
-   ```bash
-   npm view @1xp-ai/coinone-skill version
-   ```
-2. **GitHub Pages**
-   - https://1xp-ai.github.io/coinone-skill/SKILL.md
-3. **Repo versions**
-   - `package.json`
-   - `skill/SKILL.md`
+### ✅ Check npm
+```bash
+npm view @1xp-ai/coinone-skill version
+```
+
+### ✅ Check GitHub Pages
+- `https://1xp-ai.github.io/coinone-skill/SKILL.md`
+
+### ✅ Check repo versions
+- `package.json` version
+- `skill/SKILL.md` version
 
 ---
 
-## 6) If Version Drift Happens (npm > repo)
-**Recommended fix:** align repo to npm version.
-1. Bump `package.json` + `skill/SKILL.md`
-2. Update TASKS release entry
-3. Push to main & release
+## 6) Common Issues
+### Version mismatch (npm vs repo/pages)
+- If npm bumped unexpectedly, confirm whether `publish.yml` auto-bumped version.
+- Decide one of:
+  - **Sync repo to npm version**
+  - **Deprecate npm version** and republish with `skip_bump=true`
+
+### Pages not updated
+- Pages can lag due to cache.
+- Re-run deploy-docs workflow if needed.
 
 ---
 
-## 7) Roles
-- **PM (Cha Mu-hee)**: release decision + documentation update
-- **Dev (Ho-jin / Dorami)**: code + workflow + tests
-- **Release (PM)**: publish execution & verification
+## 7) Release Decision Log (optional)
+For major releases, document:
+- target version
+- release date
+- major changes
+- breaking changes
+
+---
+
+## Notes
+- Keep all commits and docs in **English**.
+- Do not share npm tokens in chat.

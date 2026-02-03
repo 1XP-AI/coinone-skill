@@ -73,22 +73,14 @@ describe('Validation', () => {
 // Additional validation tests for coverage
 describe('Additional Validation Tests', () => {
   describe('getValidationRules', () => {
-    it('should throw when no range unit found', async () => {
+    it('should throw when no market found', async () => {
       const { vi } = await import('vitest');
       const mockPublic = await import('../api/public');
       
-      vi.spyOn(mockPublic, 'getRangeUnits').mockResolvedValue([]);
-      vi.spyOn(mockPublic, 'getMarketInfo').mockResolvedValue({
-        quote_currency: 'KRW',
-        target_currency: 'BTC',
-        min_order_amount: '5000',
-        max_order_amount: '1000000000',
-        maintenance_status: 0,
-        order_book_units: []
-      });
+      vi.spyOn(mockPublic, 'getMarkets').mockResolvedValue([]);
 
       const { getValidationRules } = await import('../validation');
-      await expect(getValidationRules('UNKNOWN')).rejects.toThrow('No range unit found');
+      await expect(getValidationRules('UNKNOWN')).rejects.toThrow('No market found');
       
       vi.restoreAllMocks();
     });
@@ -99,22 +91,17 @@ describe('Additional Validation Tests', () => {
       const { vi } = await import('vitest');
       const mockPublic = await import('../api/public');
       
-      vi.spyOn(mockPublic, 'getRangeUnits').mockResolvedValue([{
-        quote_currency: 'KRW',
-        target_currency: 'BTC',
-        price_unit: '1000',
-        qty_unit: '0.0001',
-        min_qty: '0.001',
-        max_qty: '100'
-      }]);
-      vi.spyOn(mockPublic, 'getMarketInfo').mockResolvedValue({
-        quote_currency: 'KRW',
-        target_currency: 'BTC',
-        min_order_amount: '5000',
-        max_order_amount: '1000000000',
-        maintenance_status: 0,
-        order_book_units: []
-      });
+      vi.spyOn(mockPublic, 'getMarkets').mockResolvedValue([
+        {
+          quote_currency: 'KRW',
+          target_currency: 'BTC',
+          price_unit: '1000',
+          qty_unit: '0.0001',
+          min_order_amount: '5000',
+          max_order_amount: '1000000000',
+          maintenance_status: 0
+        }
+      ]);
 
       const { validateOrderAuto } = await import('../validation');
       const result = await validateOrderAuto('BTC', 50000000, 0.01);

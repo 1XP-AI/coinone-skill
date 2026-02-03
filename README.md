@@ -47,49 +47,71 @@ console.log(`Recommended: ${orderType} order`);
 ## ✨ Features
 
 ### 📊 Market Analysis
-- Real-time ticker and orderbook data
-- Spread and depth analysis
-- Market imbalance detection
+- Real-time ticker, orderbook, and trade data
+- Spread/depth/imbalance metrics
+- OHLCV chart data
 
 ### 🎯 Smart Order Execution
 - Slippage calculation before order
-- Automatic order type recommendation (LIMIT vs MARKET)
+- Order type recommendation (LIMIT vs MARKET)
 - Large order splitting
 
 ### 🛡️ Risk Management
-- Balance validation
-- Minimum order amount checks
+- Balance/limits validation
+- Minimum order checks
 - Slippage threshold warnings
 
-## 📖 API Reference
+
+- Public WS client with auto-reconnect
+
+### 📄 Error Codes
+- Error code reference included in `skill/ERROR_CODES.md`
+
+## 📖 API Reference (Summary)
+
+> **Quote currency defaults to `KRW`** unless specified.
 
 ### Public API (No auth required)
 
 | Function | Description |
 |----------|-------------|
-| `getTicker(currency)` | Get current price |
-| `getAllTickers()` | Get all market tickers |
-| `getOrderbook(currency)` | Get orderbook depth |
+| `getTicker(target, quote?)` | Get current price |
+| `getAllTickers(quote?)` | Get all market tickers |
+| `getOrderbook(target, quote?, size?)` | Orderbook depth |
+| `getRecentTrades(target, quote?)` | Recent trades |
+| `getChart(target, quote?, interval?)` | OHLCV chart data |
+| `getMarkets(quote?)` | Markets list |
+| `getMarketInfo(target, quote?)` | Single market info |
+| `getCurrencies()` | Supported currencies |
+| `getRangeUnits(quote?)` | Tick/qty units |
+| `getUTCTicker(target, quote?)` | UTC ticker (single) |
+| `getAllUTCTickers(quote?)` | UTC tickers (all) |
 
 ### Private API (Auth required)
 
 | Function | Description |
 |----------|-------------|
-| `getBalance(credentials)` | Get account balances |
+| `getBalance(credentials)` | Account balances |
 | `placeOrder(order, credentials)` | Place buy/sell order |
 | `cancelOrder(orderId, credentials)` | Cancel an order |
+| `getOpenOrders(quote, target, credentials)` | Open orders |
+| `getCompletedOrders(quote, target, credentials)` | Completed orders |
 
-### Trading Logic
+### Trading & Analyzer
 
 | Function | Description |
 |----------|-------------|
-| `analyzeMarket(orderbook)` | Analyze market conditions |
-| `calculateSlippage(levels, qty)` | Calculate expected slippage |
-| `recommendOrderType(spread, threshold)` | Get LIMIT/MARKET recommendation |
-| `checkRisk(params)` | Validate order against risk rules |
+| `analyzeMarket(orderbook)` | Market conditions |
+| `calculateSlippage(levels, qty)` | Expected slippage |
+| `recommendOrderType(spread, threshold)` | LIMIT/MARKET recommendation |
+| `checkRisk(params)` | Risk validation |
 | `splitOrder(qty, maxSize)` | Split large orders |
+| `analyzeSnapshot(symbol, orderbook, trades)` | Advanced microstructure metrics |
 
 ## 🔐 Authentication
+
+**Timezone:** All time fields/examples use **KST (Asia/Seoul)** unless noted.
+
 
 ```typescript
 import { getBalance, placeOrder } from '@1xp-ai/coinone-skill';

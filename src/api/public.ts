@@ -95,13 +95,15 @@ export async function getOrderbook(
 export interface Market {
   quote_currency: string;
   target_currency: string;
+  price_unit: string;
+  qty_unit: string;
   min_order_amount: string;
   max_order_amount: string;
   maintenance_status: number;
 }
 
-export async function getMarkets(): Promise<Market[]> {
-  const response = await fetchWithUA('https://api.coinone.co.kr/public/v2/markets/KRW');
+export async function getMarkets(quoteCurrency = 'KRW'): Promise<Market[]> {
+  const response = await fetchWithUA(`https://api.coinone.co.kr/public/v2/markets/${quoteCurrency}`);
   const data = (await parseJson(response)) as { markets: Market[] };
 
   return data.markets;
@@ -159,78 +161,4 @@ export async function getChart(
   const data = (await parseJson(response)) as { chart: ChartData[] };
 
   return data.chart;
-}
-
-// Range Units (price/quantity tick sizes)
-export interface RangeUnit {
-  quote_currency: string;
-  target_currency: string;
-  price_unit: string;
-  qty_unit: string;
-  min_qty: string;
-  max_qty: string;
-}
-
-export async function getRangeUnits(quoteCurrency = 'KRW'): Promise<RangeUnit[]> {
-  const response = await fetchWithUA(`https://api.coinone.co.kr/public/v2/range_units/${quoteCurrency}`);
-  const data = (await parseJson(response)) as { range_units: RangeUnit[] };
-
-  return data.range_units;
-}
-
-// Single Market Info
-export interface MarketInfo {
-  quote_currency: string;
-  target_currency: string;
-  min_order_amount: string;
-  max_order_amount: string;
-  maintenance_status: number;
-  order_book_units: string[];
-}
-
-export async function getMarketInfo(targetCurrency: string, quoteCurrency = 'KRW'): Promise<MarketInfo> {
-  const response = await fetchWithUA(`https://api.coinone.co.kr/public/v2/market/${quoteCurrency}/${targetCurrency}`);
-  const data = (await parseJson(response)) as { market: MarketInfo };
-
-  return data.market;
-}
-
-// Single Currency Info
-export interface CurrencyInfo {
-  currency: string;
-  name: string;
-  deposit_status: number;
-  withdraw_status: number;
-  min_withdraw: string;
-  withdraw_fee: string;
-}
-
-export async function getCurrencyInfo(currency: string): Promise<CurrencyInfo> {
-  const response = await fetchWithUA(`https://api.coinone.co.kr/public/v2/currency/${currency}`);
-  const data = (await parseJson(response)) as { currency: CurrencyInfo };
-
-  return data.currency;
-}
-
-// UTC Ticker (UTC timezone)
-export async function getUTCTicker(targetCurrency: string, quoteCurrency = 'KRW'): Promise<Ticker> {
-  const response = await fetchWithUA(`${BASE_URL}/public/v2/ticker_utc/${quoteCurrency}/${targetCurrency}`);
-  const data = await parseJson(response);
-  
-  if (data.result !== 'success') {
-    throw new Error(`API Error: ${(data as Record<string, unknown>).error_code}`);
-  }
-  
-  return (data.tickers as Ticker[])[0];
-}
-
-export async function getAllUTCTickers(quoteCurrency = 'KRW'): Promise<Ticker[]> {
-  const response = await fetchWithUA(`${BASE_URL}/public/v2/ticker_utc/${quoteCurrency}`);
-  const data = await parseJson(response);
-  
-  if (data.result !== 'success') {
-    throw new Error(`API Error: ${(data as Record<string, unknown>).error_code}`);
-  }
-  
-  return data.tickers as Ticker[];
 }
