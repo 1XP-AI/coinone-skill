@@ -102,9 +102,11 @@
 | Public metadata: currency info (single) | @dorami | ✅ |
 | Trades + chart endpoints (trades/chart) | @team | ⏳ |
 | Ticker expansion (ticker_new all, ticker single, optional utc_ticker) | @team | ⏳ |
-| Order state/history endpoints (active/open/completed/detail/info) | @team | ⏳ |
+| Order state/history endpoints (active/open/completed/detail/info) | @team | 🔄 |
 | Fees endpoints (trade_fee, trade_fee/{pair}) | @team | ⏳ |
-| Account/deposit info (user info, virtual account, deposit address) | @team | ⏳ |
+| Account/deposit info (user info, virtual account, deposit address) | @team | ✅ |
+| Order state/history: open/completed/detail | @dorami | ✅ |
+| Account info: user/virtual/deposit address | @dorami | ✅ |
 | Deposit/withdraw history + address book/limits | @team | ⏳ |
 | Reward APIs (/v2.1/order/reward/*) | @team | ⏳ |
 | Websocket coverage (public + private) | @team | ⏳ |
@@ -129,4 +131,4 @@
 
 ---
 
-_Last updated: 2026-02-03 22:35 KST_
+_Last updated: 2026-02-03 22:40 KST_
