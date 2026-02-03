@@ -5,7 +5,7 @@ import { readFileSync, existsSync } from 'node:fs';
 import { homedir } from 'node:os';
 import { join } from 'node:path';
 import { getTicker, getAllTickers, getOrderbook } from './api/public.js';
-import { getBalance, type CoinoneCredentials } from './api/private.js';
+import { getBalance, getUserInfo, getOpenOrders, getTradeFee, type CoinoneCredentials } from './api/private.js';
 import { analyzeMarket, calculateSlippage, recommendOrderType } from './trading.js';
 
 function loadCredentials(): CoinoneCredentials | null {
@@ -47,7 +47,10 @@ Commands (No API key required):
   analyze <currency>      Analyze market conditions
 
 Commands (API key required):
+  auth-test               Test API credentials
   balance                 Show all balances
+  orders                  Show active/open orders
+  fee [currency]          Show trade fees
   
 Credentials:
   1. Create ~/.config/coinone/credentials.json:
@@ -143,6 +146,65 @@ async function main(): Promise<void> {
 				
 				const orderType = recommendOrderType(analysis.spreadPercent ?? 0, 0.5);
 				console.log(`\nRecommendation: ${orderType} order`);
+				break;
+			}
+
+			case 'auth-test': {
+				const creds = loadCredentials();
+				if (!creds) {
+					console.error('Error: No credentials found.');
+					process.exit(1);
+				}
+				
+				console.log('Testing API credentials...');
+				try {
+					const userInfo = await getUserInfo(creds);
+					console.log('✅ Authentication successful!');
+					console.log(`  User ID: ${userInfo.user_id || 'N/A'}`);
+					console.log(`  Email: ${userInfo.email || 'N/A'}`);
+				} catch (error) {
+					console.error('❌ Authentication failed:', error instanceof Error ? error.message : error);
+					process.exit(1);
+				}
+				break;
+			}
+
+			case 'orders': {
+				const creds = loadCredentials();
+				if (!creds) {
+					console.error('Error: No credentials found.');
+					process.exit(1);
+				}
+				
+				console.log('Loading orders...');
+				const openOrders = await getOpenOrders(creds).catch(() => []);
+				
+				if (openOrders.length === 0) {
+					console.log('No active orders.');
+				} else {
+					console.log('\nActive Orders:');
+					console.log('─'.repeat(60));
+					for (const order of openOrders) {
+						console.log(`${order.target_currency}/${order.quote_currency} ${order.side.toUpperCase()} ${order.remaining_qty} @ ${Number(order.price).toLocaleString()}`);
+					}
+				}
+				break;
+			}
+
+			case 'fee': {
+				const creds = loadCredentials();
+				if (!creds) {
+					console.error('Error: No credentials found.');
+					process.exit(1);
+				}
+				
+				console.log('Loading trade fees...');
+				const fee = await getTradeFee(creds);
+				
+				console.log('\nDefault Trade Fees:');
+				console.log('─'.repeat(40));
+				console.log(`  Maker: ${fee.maker_fee}%`);
+				console.log(`  Taker: ${fee.taker_fee}%`);
 				break;
 			}
 
