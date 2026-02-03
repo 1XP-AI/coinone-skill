@@ -35,6 +35,8 @@
 | Public API Tests | @dorami | ✅ |
 | Private API Tests | @dorami | ✅ |
 | Systematic API Listing | @muhee | ✅ |
+| Public API (getMarkets/getRecentTrades/getCurrencies/getChart) | @dorami | 🔄 |
+| Private API (getAllBalances/getTradeFee/getActiveOrders/getKRWHistory) | @hojin | 🔄 |
 
 ## Phase 3: Trading Logic ✅
 
@@ -75,7 +77,7 @@
 | CLI credentials.json auto-loading | @dorami | ✅ |
 | CLI commands (ticker/tickers/orderbook/analyze/balance) | @dorami | ✅ |
 | API error mapping checklist (docs/code/tests) | @muhee | 🔄 |
-| API error response standardization (error_code vs errorCode) | @team | ⏳ |
+| API error response standardization (error_code vs errorCode) | @muhee | 🔄 |
 
 ---
 
