@@ -39,6 +39,8 @@ coinone-skill help
 
 For credential setup options, see **Credentials Storage** below.
 
+**Timezone:** use **KST (Asia/Seoul)** for any time inputs/outputs referenced in this skill.
+
 ## ❗ Error Codes
 
 If testers report only numeric error codes, see **ERROR_CODES.md** for mappings (EN/KR).
