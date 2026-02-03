@@ -36,12 +36,7 @@ coinone-skill help
 
 ## 🔧 Configuration
 
-Set your Coinone API credentials as environment variables:
-
-```bash
-export COINONE_ACCESS_TOKEN="your-access-token"
-export COINONE_SECRET_KEY="your-secret-key"
-```
+For credential setup options, see **Credentials Storage** below.
 
 ## 🚀 Quick Start
 
