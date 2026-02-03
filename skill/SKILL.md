@@ -23,8 +23,15 @@ Your intelligent partner for optimal trading on Coinone. This skill goes beyond 
 
 ## 📦 Installation
 
+### Library
 ```bash
 npm install @1xp-ai/coinone-skill
+```
+
+### CLI
+```bash
+npm install -g @1xp-ai/coinone-skill
+coinone-skill help
 ```
 
 ## 🔧 Configuration
