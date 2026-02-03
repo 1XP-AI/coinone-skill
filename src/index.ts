@@ -99,3 +99,14 @@ export {
   type WebSocketMessage,
   type CoinoneWebSocket
 } from './websocket.js';
+
+// Validation
+export {
+  getValidationRules,
+  roundToTickSize,
+  validateOrder,
+  validateOrderAuto,
+  preCheckOrder,
+  type OrderValidation,
+  type ValidationRules
+} from './validation.js';
