@@ -17,6 +17,7 @@ This document describes the end-to-end release flow for **coinone-skill**.
 - Verify versions in `main`:
   - `package.json` version
   - `skill/SKILL.md` version
+  - `docs/TASKS.md` release/version line
 
 ---
 
