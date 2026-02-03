@@ -112,6 +112,7 @@
 | Websocket coverage (public + private) | @team | ✅ |
 | Reward APIs | @dorami | ✅ |
 | WebSocket client (public channels) | @dorami | ✅ |
+| WebSocket client tests | @hojin | ✅ |
 | Deposit/withdraw history + address book/limits | @dorami | ✅ |
 | Trading utils: order validation with range_units + market info | @team | ⏳ |
 
@@ -138,4 +139,4 @@
 
 ---
 
-_Last updated: 2026-02-03 22:51 KST_
+_Last updated: 2026-02-03 22:54 KST_
