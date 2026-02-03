@@ -108,6 +108,69 @@ console.log(`Recommended: ${orderType}`);
 | `placeOrder(order, credentials)` | Execute buy/sell order |
 | `cancelOrder(orderId, credentials)` | Cancel pending order |
 
+### 🌐 Extended Market Data (Phase 6)
+| Function | Description |
+|----------|-------------|
+| `getMarkets(quote)` | List markets for a quote currency |
+| `getMarketInfo(quote, target)` | Single market details |
+| `getRecentTrades(quote, target)` | Recent trade history |
+| `getCurrencies()` | Supported currencies |
+| `getCurrencyInfo(symbol)` | Currency details |
+| `getChart(quote, target, interval)` | OHLCV chart data |
+| `getRangeUnits(quote, target)` | Tick/qty units for validation |
+| `getUTCTicker(quote, target)` | UTC ticker (single) |
+| `getAllUTCTickers(quote)` | UTC tickers (all) |
+
+### 📦 Advanced Orders & Account Info
+| Function | Description |
+|----------|-------------|
+| `getAllBalances(credentials)` | All asset balances |
+| `getTradeFee(credentials)` | Trading fee |
+| `getTradeFeeByPair(quote, target, credentials)` | Fee by pair |
+| `getActiveOrders(quote, target, credentials)` | Active orders |
+| `getOpenOrders(quote, target, credentials)` | Open orders |
+| `getCompletedOrders(quote, target, credentials)` | Completed orders |
+| `getOrderDetail(orderId, credentials)` | Order detail |
+| `getOrderInfo(orderId, credentials)` | Order info |
+| `getUserInfo(credentials)` | User info |
+| `getVirtualAccount(credentials)` | KRW virtual account |
+| `getDepositAddress(symbol, credentials)` | Deposit address |
+| `getKRWHistory(credentials)` | KRW deposit/withdraw history |
+| `getCoinDepositHistory(credentials)` | Coin deposit history |
+| `getCoinWithdrawalHistory(credentials)` | Coin withdrawal history |
+| `getWithdrawalAddressBook(credentials)` | Withdrawal address book |
+| `getWithdrawalLimits(credentials)` | Withdrawal limits |
+| `getTradingRewards(credentials)` | Trading rewards |
+| `getStakingRewards(credentials)` | Staking rewards |
+| `getAirdropRewards(credentials)` | Airdrop rewards |
+| `getRewardSummary(credentials)` | Reward summary |
+
+### 📈 Analyzer (Orderbook + Trades)
+| Function | Description |
+|----------|-------------|
+| `analyzeSnapshot(orderbook, trades)` | Analyze snapshot to metrics |
+| `computeMarketPressureIndex(metrics)` | MPI score |
+| `computeLiquidityScore(metrics)` | Liquidity score |
+| `calculateOBI(orderbook)` | Order book imbalance |
+| `calculateWOBI(orderbook)` | Weighted OBI |
+| `calculateSpread(orderbook)` | Spread metrics |
+| `classifyTradeFlow(trades)` | Buy/sell flow |
+| `calculateVWAP(trades)` | VWAP |
+
+### 🔌 WebSocket
+| Function | Description |
+|----------|-------------|
+| `createWebSocketClient()` | WS client with auto-reconnect |
+
+### ✅ Order Validation Utilities
+| Function | Description |
+|----------|-------------|
+| `getValidationRules(quote, target)` | Fetch validation rules |
+| `roundToTickSize(price, rules)` | Round to tick size |
+| `validateOrder(order, rules)` | Validate and adjust order |
+| `validateOrderAuto(order, credentials)` | One-call validation |
+| `preCheckOrder(order, rules)` | Fast pre-check |
+
 ## 🤖 AI Agent Usage Examples
 
 ### "What's the current BTC price?"
