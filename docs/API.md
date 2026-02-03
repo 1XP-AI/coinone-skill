@@ -47,6 +47,26 @@ Required in Payload:
 
 ---
 
+## Coverage Priorities (Gap vs Coinone API)
+
+### High Priority
+- Public metadata: `/public/v2/markets`, `/public/v2/market`, `/public/v2/currencies`, `/public/v2/currency`, `/public/v2/range_units`
+- Recent trades + chart: `/public/v2/trades`, `/public/v2/chart`
+- Ticker expansion: `/public/v2/ticker_new` (all), `/public/v2/ticker` (single), optional `/public/v2/utc_ticker(s)`
+
+### Medium Priority
+- Order state/history: `/v2.1/order/active_orders`, `/v2.1/order/open_orders`, `/v2.1/order/completed_orders`, `/v2.1/order/detail`, `/v2.1/order/info`
+- Fees: `/v2.1/account/trade_fee`, `/v2.1/account/trade_fee/{pair}`
+- Account/deposit info: `/v2/user/info`, `/v2/account/virtual_account`, `/v2/account/deposit_address`
+
+### Low / Advanced
+- KRW/Coin deposit & withdrawal history
+- Withdrawal address book / limits / execution
+- Reward APIs: `/v2.1/order/reward/*`
+- Websocket: public (orderbook/ticker/trade/chart), private (myorder/myasset)
+
+---
+
 ## Websocket (Stream)
 - **Base URL**: `wss://stream.coinone.co.kr` (To be confirmed)
 - **Channels**: ticker, orderbook, trades

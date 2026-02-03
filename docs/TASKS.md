@@ -83,6 +83,23 @@
 
 ---
 
+## Phase 6: API Parity & Coverage 🔄
+
+| Task | Assignee | Status |
+|------|----------|--------|
+| Public metadata endpoints (markets/market/currencies/currency/range_units) | @team | ⏳ |
+| Trades + chart endpoints (trades/chart) | @team | ⏳ |
+| Ticker expansion (ticker_new all, ticker single, optional utc_ticker) | @team | ⏳ |
+| Order state/history endpoints (active/open/completed/detail/info) | @team | ⏳ |
+| Fees endpoints (trade_fee, trade_fee/{pair}) | @team | ⏳ |
+| Account/deposit info (user info, virtual account, deposit address) | @team | ⏳ |
+| Deposit/withdraw history + address book/limits | @team | ⏳ |
+| Reward APIs (/v2.1/order/reward/*) | @team | ⏳ |
+| Websocket coverage (public + private) | @team | ⏳ |
+| Trading utils: order validation with range_units + market info | @team | ⏳ |
+
+---
+
 ## Completed Milestones
 
 - ✅ **v1.0.0 Released** (2026-02-03)
@@ -100,4 +117,4 @@
 
 ---
 
-_Last updated: 2026-02-03 22:15 KST_
+_Last updated: 2026-02-03 22:16 KST_
