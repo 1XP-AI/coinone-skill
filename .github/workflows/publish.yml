@@ -4,6 +4,12 @@ on:
   push:
     branches: [release]
   workflow_dispatch:
+    inputs:
+      skip_bump:
+        description: 'Skip version bump (use current package.json version)'
+        required: false
+        default: 'false'
+        type: boolean
 
 jobs:
   publish:
@@ -36,6 +42,7 @@ jobs:
 
       - name: Determine version bump
         id: bump
+        if: ${{ github.event.inputs.skip_bump != 'true' }}
         run: |
           # Get commits since last tag
           LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
@@ -55,8 +62,15 @@ jobs:
           fi
 
       - name: Bump version
+        if: ${{ github.event.inputs.skip_bump != 'true' }}
         run: |
           npm version ${{ steps.bump.outputs.type }} --no-git-tag-version
+          NEW_VERSION=$(node -p "require('./package.json').version")
+          echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
+
+      - name: Use current version (skip bump)
+        if: ${{ github.event.inputs.skip_bump == 'true' }}
+        run: |
           NEW_VERSION=$(node -p "require('./package.json').version")
           echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
 
@@ -64,11 +78,18 @@ jobs:
         run: npm run build
 
       - name: Commit version bump
+        if: ${{ github.event.inputs.skip_bump != 'true' }}
         run: |
           git add package.json package-lock.json
           git commit -m "chore(release): v${{ env.NEW_VERSION }}"
           git tag "v${{ env.NEW_VERSION }}"
           git push origin release --tags
+
+      - name: Tag only (skip bump)
+        if: ${{ github.event.inputs.skip_bump == 'true' }}
+        run: |
+          git tag "v${{ env.NEW_VERSION }}" || true
+          git push origin release --tags || true
 
       - name: Publish to npm
         run: npm publish --access public
