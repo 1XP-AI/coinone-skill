@@ -73,7 +73,11 @@ console.log(`Imbalance: ${analysis.imbalance?.toFixed(2)}`);
 const slippage = calculateSlippage(orderbook.asks, 0.5);
 console.log(`Expected slippage: ${slippage.slippagePercent.toFixed(2)}%`);
 
-// 4. Get order type recommendation
+// 4. Get chart data (target, quote, interval)
+const chart = await getChart('SOL', 'KRW', '1m');
+console.log(`Candles: ${chart.length}`);
+
+// 5. Get order type recommendation
 const orderType = recommendOrderType(analysis.spreadPercent!, 0.5);
 console.log(`Recommended: ${orderType}`);
 ```
@@ -116,7 +120,7 @@ console.log(`Recommended: ${orderType}`);
 | `getRecentTrades(quote, target)` | Recent trade history |
 | `getCurrencies()` | Supported currencies |
 | `getCurrencyInfo(symbol)` | Currency details |
-| `getChart(quote, target, interval)` | OHLCV chart data |
+| `getChart(target, quote, interval)` | OHLCV chart data (e.g. SOL, KRW, 1m) |
 | `getRangeUnits(quote, target)` | Tick/qty units for validation |
 | `getUTCTicker(quote, target)` | UTC ticker (single) |
 | `getAllUTCTickers(quote)` | UTC tickers (all) |
