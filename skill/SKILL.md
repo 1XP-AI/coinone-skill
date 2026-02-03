@@ -113,14 +113,13 @@ console.log(`Recommended: ${orderType}`);
 | `cancelOrder(orderId, credentials)` | Cancel pending order |
 
 ### 🌐 Extended Market Data (Phase 6)
-| Function | Description |
-|----------|-------------|
-
 **Parameter order note**
 - **All quote currencies default to `KRW`** unless specified.
 - `getChart(target, quote, interval)` (e.g., `getChart('SOL', 'KRW', '1m')`)
 - `getRecentTrades(target, quote)` (e.g., `getRecentTrades('SOL', 'KRW')`)
 
+| Function | Description |
+|----------|-------------|
 | `getMarkets(quote)` | List markets for a quote currency |
 | `getMarketInfo(target, quote)` | Single market details |
 | `getRecentTrades(target, quote)` | Recent trade history (target first) |
