@@ -1,22 +1,22 @@
-import tseslint from '@typescript-eslint/eslint-plugin';
-import tsparser from '@typescript-eslint/parser';
+import path from 'node:path';
+import { includeIgnoreFile } from '@eslint/compat';
+import js from '@eslint/js';
+import { defineConfig } from 'eslint/config';
+import globals from 'globals';
+import ts from 'typescript-eslint';
 
-export default [
-  {
-    files: ['src/**/*.ts'],
-    ignores: ['src/**/*.test.ts'],
-    languageOptions: {
-      parser: tsparser,
-      parserOptions: {
-        project: './tsconfig.json'
-      }
-    },
-    plugins: {
-      '@typescript-eslint': tseslint
-    },
-    rules: {
-      '@typescript-eslint/explicit-function-return-type': 'warn',
-      '@typescript-eslint/no-unused-vars': 'error'
-    }
-  }
-];
+const gitignorePath = path.resolve(import.meta.dirname, '.gitignore');
+
+export default defineConfig(
+	includeIgnoreFile(gitignorePath),
+	js.configs.recommended,
+	...ts.configs.recommended,
+	{
+		languageOptions: { globals: { ...globals.node } },
+		rules: {
+			// typescript-eslint strongly recommend that you do not use the no-undef lint rule on TypeScript projects.
+			// see: https://typescript-eslint.io/troubleshooting/faqs/eslint/#i-get-errors-from-the-no-undef-rule-about-global-variables-not-being-defined-even-though-there-are-no-typescript-errors
+			'no-undef': 'off'
+		}
+	}
+);

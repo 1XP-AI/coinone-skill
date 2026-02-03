@@ -17,6 +17,12 @@ npm install --include=dev
 ## Development
 
 ```bash
+# Build
+npm run build
+
+# Watch build
+npm run dev
+
 # Run tests
 npm test
 
@@ -25,15 +31,18 @@ npm run test:watch
 
 # Lint
 npm run lint
+```
 
-# Build
+## CLI
+
+```bash
 npm run build
+./dist/cli.js help
 ```
 
 ## Tech Stack
 
 - TypeScript
-- Svelte
 - ESLint
 - Vitest (TDD)
 - Husky (git hooks)
