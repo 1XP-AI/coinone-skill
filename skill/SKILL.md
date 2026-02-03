@@ -175,3 +175,52 @@ return `Order placed: ${order.order_id}`;
 ---
 
 _Built with ❤️ by the 1XP-AI Team_
+
+## 🔑 Credentials Storage
+
+### Option 1: Environment Variables
+```bash
+export COINONE_ACCESS_TOKEN="your-access-token"
+export COINONE_SECRET_KEY="your-secret-key"
+```
+
+### Option 2: Credentials File (Recommended)
+
+Create `~/.config/coinone/credentials.json`:
+
+```json
+{
+  "accessToken": "your-access-token",
+  "secretKey": "your-secret-key"
+}
+```
+
+**Set up quickly:**
+```bash
+mkdir -p ~/.config/coinone
+cat > ~/.config/coinone/credentials.json << 'CREDS'
+{
+  "accessToken": "YOUR_ACCESS_TOKEN_HERE",
+  "secretKey": "YOUR_SECRET_KEY_HERE"
+}
+CREDS
+chmod 600 ~/.config/coinone/credentials.json
+```
+
+### Option 3: Agent Memory
+
+For AI agents, store credentials in your secure memory system and pass them per-request:
+
+```typescript
+const credentials = {
+  accessToken: memory.get('coinone.accessToken'),
+  secretKey: memory.get('coinone.secretKey')
+};
+```
+
+### ⚠️ Security Notes
+
+- **Never commit credentials** to git
+- Set file permissions: `chmod 600 ~/.config/coinone/credentials.json`
+- Add to `.gitignore`: `credentials.json`
+- For shared machines, use environment variables instead
