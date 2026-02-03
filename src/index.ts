@@ -9,22 +9,16 @@ export {
   getAllTickers,
   getOrderbook,
   getMarkets,
-  getMarketInfo,
   getRecentTrades,
   getCurrencies,
-  getCurrencyInfo,
   getChart,
-  getRangeUnits,
   type Ticker,
   type OrderbookEntry,
   type Orderbook,
   type Market,
-  type MarketInfo,
   type RecentTrade,
   type Currency,
-  type CurrencyInfo,
-  type ChartData,
-  type RangeUnit
+  type ChartData
 } from './api/public.js';
 
 // Private API
@@ -87,18 +81,6 @@ export {
   type Trade,
   type AnalysisResult
 } from './analyzer.js';
-
-// WebSocket
-export {
-  createWebSocketClient,
-  type WebSocketChannel,
-  type WebSocketConfig,
-  type TickerMessage,
-  type OrderbookMessage,
-  type TradeMessage,
-  type WebSocketMessage,
-  type CoinoneWebSocket
-} from './websocket.js';
 
 // Validation
 export {

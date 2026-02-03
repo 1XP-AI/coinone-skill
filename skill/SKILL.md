@@ -125,14 +125,9 @@ console.log(`Recommended: ${orderType}`);
 | Function | Description |
 |----------|-------------|
 | `getMarkets(quote)` | List markets for a quote currency |
-| `getMarketInfo(target, quote)` | Single market details |
 | `getRecentTrades(target, quote)` | Recent trade history (target first) |
 | `getCurrencies()` | Supported currencies |
-| `getCurrencyInfo(symbol)` | Currency details |
 | `getChart(target, quote, interval)` | OHLCV chart data (e.g., SOL, KRW, 1m) |
-| `getRangeUnits(target, quote)` | Tick size units for validation |
-| `getUTCTicker(target, quote)` | UTC ticker (single) |
-| `getAllUTCTickers(quote)` | UTC tickers (all) |
 
 ### 📦 Advanced Orders & Account Info
 | Function | Description |
@@ -172,11 +167,6 @@ console.log(`Recommended: ${orderType}`);
 | `calculateSpread(orderbook)` | Spread metrics |
 | `classifyTradeFlow(trades)` | Buy/sell flow |
 | `calculateVWAP(trades)` | VWAP |
-
-### 🔌 WebSocket
-| Function | Description |
-|----------|-------------|
-| `createWebSocketClient()` | WS client with auto-reconnect |
 
 ### ✅ Order Validation Utilities
 | Function | Description |
@@ -238,22 +228,6 @@ const result = analyzeSnapshot('BTC', orderbook, trades);
 
 return `MPI: ${result.MPI.toFixed(2)} (${result.MPI > 0 ? 'Bullish' : 'Bearish'})\n` +
   `Liquidity: ${result.liquidityScore}/100`;
-```
-
-## 🔌 WebSocket Streaming
-```typescript
-import { createWebSocketClient } from '@1xp-ai/coinone-skill';
-
-const ws = createWebSocketClient({ reconnect: true });
-
-ws.on('message', (msg) => {
-  if (msg.channel === 'ticker') {
-    console.log(`${msg.target_currency}: ${msg.last}`);
-  }
-});
-
-ws.subscribe('ticker', ['BTC', 'ETH']);
-ws.connect();
 ```
 
 ## ✅ Order Validation
@@ -371,12 +345,9 @@ const credentials = {
 - Add to `.gitignore`: `credentials.json`
 - For shared machines, use environment variables instead
 
-## 🔌 WebSocket Streaming
 
 ```typescript
-import { createWebSocketClient } from '@1xp-ai/coinone-skill';
 
-const ws = createWebSocketClient({ reconnect: true });
 
 ws.on('message', (msg) => {
   if (msg.channel === 'ticker') {

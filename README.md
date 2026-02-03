@@ -61,7 +61,7 @@ console.log(`Recommended: ${orderType} order`);
 - Minimum order checks
 - Slippage threshold warnings
 
-### 🔌 WebSocket
+
 - Public WS client with auto-reconnect
 
 ### 📄 Error Codes
@@ -83,7 +83,6 @@ console.log(`Recommended: ${orderType} order`);
 | `getMarkets(quote?)` | Markets list |
 | `getMarketInfo(target, quote?)` | Single market info |
 | `getCurrencies()` | Supported currencies |
-| `getCurrencyInfo(symbol)` | Currency details |
 | `getRangeUnits(quote?)` | Tick/qty units |
 | `getUTCTicker(target, quote?)` | UTC ticker (single) |
 | `getAllUTCTickers(quote?)` | UTC tickers (all) |
