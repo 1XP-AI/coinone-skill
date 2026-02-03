@@ -82,8 +82,8 @@
 | API error mapping checklist (docs/code/tests) | @muhee | ✅ |
 | API error response standardization (error_code vs errorCode) | @muhee | ✅ |
 | 에러 응답 표준화 전면 적용 (공통) | @hojin | ✅ |
-| Error code tests (phase 1: 12x/13x/103~109/151~162) | @team | 🔄 |
-| Error code tests (full coverage) | @team | ⏳ |
+| Error code tests (phase 1: 12x/13x/103~109/151~162) | @team | ✅ |
+| Error code tests (full coverage) | @team | ✅ |
 | analyze 고도화 (orderbook+trades 기반 지표/스코어) | @muhee | ✅ |
 | analyze 문서화 (지표 정의/출력 스키마) | @muhee | ✅ |
 | analyze 구현: 데이터 파이프라인 (orderbook/trades 수집) | @hojin | ✅ |
@@ -152,4 +152,4 @@
 
 ---
 
-_Last updated: 2026-02-03 15:17 UTC_
+_Last updated: 2026-02-03 15:30 UTC_
