@@ -13,7 +13,7 @@
 		"lint": "eslint .",
 		"test:unit": "vitest",
 		"test:watch": "vitest",
-		"test": "npm run test:unit -- --run --project server"
+		"test": "npm run test:unit -- --run"
 	},
 	"devDependencies": {
 		"@eslint/compat": "^2.0.1",
