@@ -135,6 +135,7 @@
 | Price impact metric | @team | ⏳ |
 | Resilience metric (refill speed) | @team | ⏳ |
 | Trade classification upgrade (tick/quote rule) | @team | ⏳ |
+| Pre-trade risk guard (OK/CAUTION/STOP) | @team | ⏳ |
 | Interpretation guide + report template | @team | ⏳ |
 
 ---
@@ -166,4 +167,4 @@
 
 ---
 
-_Last updated: 2026-02-03 15:36 UTC_
+_Last updated: 2026-02-03 15:38 UTC_
