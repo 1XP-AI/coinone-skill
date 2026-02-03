@@ -107,9 +107,10 @@
 | Account/deposit info (user info, virtual account, deposit address) | @team | ✅ |
 | Order state/history: open/completed/detail | @dorami | ✅ |
 | Account info: user/virtual/deposit address | @dorami | ✅ |
-| Deposit/withdraw history + address book/limits | @team | ⏳ |
+| Deposit/withdraw history + address book/limits | @team | 🔄 |
 | Reward APIs (/v2.1/order/reward/*) | @team | ⏳ |
 | Websocket coverage (public + private) | @team | ⏳ |
+| Deposit/withdraw history + address book/limits | @dorami | ✅ |
 | Trading utils: order validation with range_units + market info | @team | ⏳ |
 
 ---
@@ -131,4 +132,4 @@
 
 ---
 
-_Last updated: 2026-02-03 22:44 KST_
+_Last updated: 2026-02-03 22:45 KST_
