@@ -130,7 +130,7 @@ console.log(`Recommended: ${orderType}`);
 | `getCurrencies()` | Supported currencies |
 | `getCurrencyInfo(symbol)` | Currency details |
 | `getChart(target, quote, interval)` | OHLCV chart data (e.g., SOL, KRW, 1m) |
-| `getRangeUnits(quote)` | Tick/qty units for validation |
+| `getRangeUnits(target, quote)` | Tick size units for validation |
 | `getUTCTicker(target, quote)` | UTC ticker (single) |
 | `getAllUTCTickers(quote)` | UTC tickers (all) |
 

@@ -92,14 +92,21 @@ describe('Public API', () => {
       const mockResponse = {
         result: 'success',
         markets: [
-          { quote_currency: 'KRW', target_currency: 'BTC', min_order_amount: '5000' }
+          {
+            quote_currency: 'KRW',
+            target_currency: 'BTC',
+            price_unit: '1000',
+            qty_unit: '0.0001',
+            min_order_amount: '5000',
+            max_order_amount: '1000000000'
+          }
         ]
       };
       mockFetch.mockResolvedValueOnce({
         json: () => Promise.resolve(mockResponse)
       });
 
-      const result = await getMarkets();
+      const result = await getMarkets('KRW');
       expect(result).toHaveLength(1);
       expect(result[0].target_currency).toBe('BTC');
     });
@@ -192,8 +199,8 @@ describe('Public API', () => {
     it('should fetch range units', async () => {
       const mockResponse = {
         result: 'success',
-        range_units: [
-          { quote_currency: 'KRW', target_currency: 'BTC', price_unit: '1000', qty_unit: '0.0001' }
+        range_price_units: [
+          { range_min: 0, next_range_min: 1, price_unit: 0.0001 }
         ]
       };
       mockFetch.mockResolvedValueOnce({
@@ -201,9 +208,9 @@ describe('Public API', () => {
       });
 
       const { getRangeUnits } = await import('../api/public');
-      const result = await getRangeUnits();
+      const result = await getRangeUnits('BTC', 'KRW');
       expect(result).toHaveLength(1);
-      expect(result[0].price_unit).toBe('1000');
+      expect(result[0].price_unit).toBe(0.0001);
     });
   });
 
@@ -211,7 +218,7 @@ describe('Public API', () => {
     it('should fetch single market info', async () => {
       const mockResponse = {
         result: 'success',
-        market: { quote_currency: 'KRW', target_currency: 'BTC', min_order_amount: '5000' }
+        data: { quote_currency: 'KRW', target_currency: 'BTC', min_order_amount: '5000' }
       };
       mockFetch.mockResolvedValueOnce({
         json: () => Promise.resolve(mockResponse)

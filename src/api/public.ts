@@ -95,13 +95,15 @@ export async function getOrderbook(
 export interface Market {
   quote_currency: string;
   target_currency: string;
+  price_unit: string;
+  qty_unit: string;
   min_order_amount: string;
   max_order_amount: string;
   maintenance_status: number;
 }
 
-export async function getMarkets(): Promise<Market[]> {
-  const response = await fetchWithUA('https://api.coinone.co.kr/public/v2/markets/KRW');
+export async function getMarkets(quoteCurrency = 'KRW'): Promise<Market[]> {
+  const response = await fetchWithUA(`https://api.coinone.co.kr/public/v2/markets/${quoteCurrency}`);
   const data = (await parseJson(response)) as { markets: Market[] };
 
   return data.markets;
@@ -161,21 +163,20 @@ export async function getChart(
   return data.chart;
 }
 
-// Range Units (price/quantity tick sizes)
+// Range Units (price tick sizes)
 export interface RangeUnit {
-  quote_currency: string;
-  target_currency: string;
-  price_unit: string;
-  qty_unit: string;
-  min_qty: string;
-  max_qty: string;
+  range_min: number;
+  next_range_min: number | null;
+  price_unit: number;
 }
 
-export async function getRangeUnits(quoteCurrency = 'KRW'): Promise<RangeUnit[]> {
-  const response = await fetchWithUA(`https://api.coinone.co.kr/public/v2/range_units/${quoteCurrency}`);
-  const data = (await parseJson(response)) as { range_units: RangeUnit[] };
+export async function getRangeUnits(targetCurrency: string, quoteCurrency = 'KRW'): Promise<RangeUnit[]> {
+  const response = await fetchWithUA(
+    `https://api.coinone.co.kr/public/v2/range_units/${quoteCurrency}/${targetCurrency}`
+  );
+  const data = (await parseJson(response)) as { range_price_units: RangeUnit[] };
 
-  return data.range_units;
+  return data.range_price_units;
 }
 
 // Single Market Info
@@ -190,9 +191,9 @@ export interface MarketInfo {
 
 export async function getMarketInfo(targetCurrency: string, quoteCurrency = 'KRW'): Promise<MarketInfo> {
   const response = await fetchWithUA(`https://api.coinone.co.kr/public/v2/market/${quoteCurrency}/${targetCurrency}`);
-  const data = (await parseJson(response)) as { market: MarketInfo };
+  const data = (await parseJson(response)) as { data: MarketInfo };
 
-  return data.market;
+  return data.data;
 }
 
 // Single Currency Info
