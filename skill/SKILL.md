@@ -146,6 +146,9 @@ console.log(`Recommended: ${orderType}`);
 | `analyzeSnapshot(orderbook, trades)` | Analyze snapshot to metrics |
 | `computeMarketPressureIndex(metrics)` | MPI score |
 | `computeLiquidityScore(metrics)` | Liquidity score |
+| `calculateLiquiditySlope(orderbook, depth)` | Liquidity slope |
+| `calculateVWAPDrift(trades)` | VWAP drift from last |
+| `detectTradeBurst(trades, windowSec, threshold)` | Detect trade burst |
 | `calculateOBI(orderbook)` | Order book imbalance |
 | `calculateWOBI(orderbook)` | Weighted OBI |
 | `calculateSpread(orderbook)` | Spread metrics |
