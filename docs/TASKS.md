@@ -69,7 +69,7 @@
 
 | Task | Assignee | Status |
 |------|----------|--------|
-| Code coverage badge | @dorami | ⏳ |
+| Code coverage badge | @dorami | ✅ |
 | SKILL.md enhancement (moltbook reference) | @muhee | ⏳ |
 | CLI interface refinement | @hojin | 🔄 |
 | Public API parity 확장 지원 (Phase 6) | @hojin | ✅ |
@@ -146,4 +146,4 @@
 
 ---
 
-_Last updated: 2026-02-03 23:00 KST_
+_Last updated: 2026-02-03 23:02 KST_
