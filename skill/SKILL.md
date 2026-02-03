@@ -115,12 +115,17 @@ console.log(`Recommended: ${orderType}`);
 ### 🌐 Extended Market Data (Phase 6)
 | Function | Description |
 |----------|-------------|
+
+**Parameter order note**
+- `getChart(target, quote, interval)` (e.g., `getChart('SOL', 'KRW', '1m')`)
+- `getRecentTrades(target, quote)` (e.g., `getRecentTrades('SOL', 'KRW')`)
+
 | `getMarkets(quote)` | List markets for a quote currency |
 | `getMarketInfo(quote, target)` | Single market details |
-| `getRecentTrades(quote, target)` | Recent trade history |
+| `getRecentTrades(target, quote)` | Recent trade history (target first) |
 | `getCurrencies()` | Supported currencies |
 | `getCurrencyInfo(symbol)` | Currency details |
-| `getChart(target, quote, interval)` | OHLCV chart data (e.g. SOL, KRW, 1m) |
+| `getChart(target, quote, interval)` | OHLCV chart data (e.g., SOL, KRW, 1m) |
 | `getRangeUnits(quote, target)` | Tick/qty units for validation |
 | `getUTCTicker(quote, target)` | UTC ticker (single) |
 | `getAllUTCTickers(quote)` | UTC tickers (all) |
