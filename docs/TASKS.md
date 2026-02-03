@@ -36,24 +36,26 @@
 | Private API Tests | @dorami | ✅ |
 | Systematic API Listing | @muhee | ✅ |
 
-## Phase 3: Trading Logic ⏳
+## Phase 3: Trading Logic 🔄
 
 | Task | Assignee | Status |
 |------|----------|--------|
-| Market analysis utilities | TBD | ⏳ |
-| Slippage calculation | TBD | ⏳ |
-| Smart order execution | TBD | ⏳ |
-| Risk management | TBD | ⏳ |
+| Trading Logic Unit Tests (TDD) | @dorami | ✅ |
+| Trading Logic Design Draft | @hojin | 🔄 |
+| Market analysis utilities | @hojin | ⏳ |
+| Slippage calculation | @hojin | ⏳ |
+| Smart order execution | @hojin | ⏳ |
+| Risk management | @hojin | ⏳ |
 | CLI interface refinement | @hojin | ⏳ |
 
 ## Phase 4: Skill Packaging ⏳
 
 | Task | Assignee | Status |
 |------|----------|--------|
-| SKILL.md creation | TBD | ⏳ |
-| Strategy guide documentation | TBD | ⏳ |
-| Integration tests | TBD | ⏳ |
-| Package and release | TBD | ⏳ |
+| SKILL.md creation | @muhee | ⏳ |
+| Strategy guide documentation | @muhee | ⏳ |
+| Integration tests | @dorami | ⏳ |
+| Package and release | @muhee | ⏳ |
 
 ---
 
@@ -64,12 +66,13 @@
 | 2026-02-03 | 20:20 | Initial setup complete. Public/Private API implementation finished. Moving to Private API tests and Trading logic. |
 | 2026-02-03 | 20:33 | Private API tests completed. Svelte UI task replaced with CLI refinement (project is CLI-only). |
 | 2026-02-03 | 20:45 | Systematic API Listing complete. Full endpoint mapping documented in docs/API.md. |
+| 2026-02-03 | 20:55 | Trading Logic Unit Tests (22/22) completed by Dorami. Ho-jin starting design draft. |
 
 ---
 
 ## Issues
 
-_No blocking issues at this time._
+- **Auth Issue**: Encountered a transient Cloud Code Assist API 401 error. Investigating internal tool credentials.
 
 ---
 
