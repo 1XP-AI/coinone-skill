@@ -57,3 +57,22 @@ export {
   type OrderType,
   type RiskCheckInput
 } from './trading.js';
+
+// Analyzer
+export {
+  calculateOBI,
+  calculateWOBI,
+  calculateSpread,
+  calculateLiquiditySlope,
+  classifyTradeFlow,
+  calculateVWAP,
+  calculateVWAPDrift,
+  detectTradeBurst,
+  computeMarketPressureIndex,
+  computeLiquidityScore,
+  analyzeSnapshot,
+  type OrderbookLevel as AnalyzerOrderbookLevel,
+  type OrderbookSnapshot,
+  type Trade,
+  type AnalysisResult
+} from './analyzer.js';
