@@ -9,21 +9,31 @@ export {
   getAllTickers,
   getOrderbook,
   getMarkets,
+  getMarketInfo,
   getRecentTrades,
   getCurrencies,
+  getCurrencyInfo,
   getChart,
+  getRangeUnits,
   type Ticker,
   type OrderbookEntry,
   type Orderbook,
   type Market,
+  type MarketInfo,
   type RecentTrade,
   type Currency,
-  type ChartData
+  type CurrencyInfo,
+  type ChartData,
+  type RangeUnit
 } from './api/public.js';
 
 // Private API
 export {
   getBalance,
+  getAllBalances,
+  getTradeFee,
+  getActiveOrders,
+  getKRWHistory,
   placeOrder,
   cancelOrder,
   type CoinoneCredentials,

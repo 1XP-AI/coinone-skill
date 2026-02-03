@@ -164,3 +164,66 @@ export async function getChart(
   
   return data.chart;
 }
+
+// Range Units (price/quantity tick sizes)
+export interface RangeUnit {
+  quote_currency: string;
+  target_currency: string;
+  price_unit: string;
+  qty_unit: string;
+  min_qty: string;
+  max_qty: string;
+}
+
+export async function getRangeUnits(quoteCurrency = 'KRW'): Promise<RangeUnit[]> {
+  const response = await fetch(`https://api.coinone.co.kr/public/v2/range_units/${quoteCurrency}`);
+  const data = await response.json();
+  
+  if (data.result !== 'success') {
+    throw new Error(`API Error: ${data.error_code}`);
+  }
+  
+  return data.range_units;
+}
+
+// Single Market Info
+export interface MarketInfo {
+  quote_currency: string;
+  target_currency: string;
+  min_order_amount: string;
+  max_order_amount: string;
+  maintenance_status: number;
+  order_book_units: string[];
+}
+
+export async function getMarketInfo(targetCurrency: string, quoteCurrency = 'KRW'): Promise<MarketInfo> {
+  const response = await fetch(`https://api.coinone.co.kr/public/v2/market/${quoteCurrency}/${targetCurrency}`);
+  const data = await response.json();
+  
+  if (data.result !== 'success') {
+    throw new Error(`API Error: ${data.error_code}`);
+  }
+  
+  return data.market;
+}
+
+// Single Currency Info
+export interface CurrencyInfo {
+  currency: string;
+  name: string;
+  deposit_status: number;
+  withdraw_status: number;
+  min_withdraw: string;
+  withdraw_fee: string;
+}
+
+export async function getCurrencyInfo(currency: string): Promise<CurrencyInfo> {
+  const response = await fetch(`https://api.coinone.co.kr/public/v2/currency/${currency}`);
+  const data = await response.json();
+  
+  if (data.result !== 'success') {
+    throw new Error(`API Error: ${data.error_code}`);
+  }
+  
+  return data.currency;
+}

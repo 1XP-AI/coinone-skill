@@ -140,7 +140,7 @@ export async function placeOrder(
     headers
   });
 
-  return (await parseJson(response)) as OrderResponse;
+  return (await parseJson(response)) as unknown as OrderResponse;
 }
 
 /**
@@ -165,7 +165,7 @@ export async function cancelOrder(
     headers
   });
 
-  return (await parseJson(response)) as OrderResponse;
+  return (await parseJson(response)) as unknown as OrderResponse;
 }
 
 /**
@@ -182,7 +182,7 @@ export async function getAllBalances(
     headers
   });
 
-  return (await parseJson(response)) as AllBalancesResponse;
+  return (await parseJson(response)) as unknown as AllBalancesResponse;
 }
 
 /**
@@ -197,7 +197,7 @@ export async function getTradeFee(credentials: CoinoneCredentials): Promise<Trad
     headers
   });
 
-  return (await parseJson(response)) as TradeFeeResponse;
+  return (await parseJson(response)) as unknown as TradeFeeResponse;
 }
 
 /**
@@ -219,7 +219,7 @@ export async function getActiveOrders(
     headers
   });
 
-  return (await parseJson(response)) as ActiveOrdersResponse;
+  return (await parseJson(response)) as unknown as ActiveOrdersResponse;
 }
 
 /**
@@ -241,5 +241,5 @@ export async function getKRWHistory(
     headers
   });
 
-  return (await parseJson(response)) as KRWHistoryResponse;
+  return (await parseJson(response)) as unknown as KRWHistoryResponse;
 }
