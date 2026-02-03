@@ -18,6 +18,7 @@ Your intelligent partner for optimal trading on Coinone. This skill goes beyond 
 |------|-------------|
 | **SKILL.md** | Main instructions and API reference |
 | **SECURITY.md** | Critical security guidelines |
+| **ERROR_CODES.md** | Coinone API error code reference |
 | **HEARTBEAT.md** | Periodic monitoring setup |
 | **package.json** | npm package metadata |
 
@@ -37,6 +38,10 @@ coinone-skill help
 ## 🔧 Configuration
 
 For credential setup options, see **Credentials Storage** below.
+
+## ❗ Error Codes
+
+If testers report only numeric error codes, see **ERROR_CODES.md** for mappings (EN/KR).
 
 ## 🚀 Quick Start
 
