@@ -1,6 +1,6 @@
 ---
 name: coinone-trading-assistant
-version: 1.3.4
+version: 1.4.0
 description: AI Trading Assistant for Coinone. Market analysis, balance tracking, and situational order execution.
 homepage: https://1xp-ai.github.io/coinone-skill/
 repository: https://github.com/1XP-AI/coinone-skill
