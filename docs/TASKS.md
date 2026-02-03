@@ -82,6 +82,8 @@
 | API error mapping checklist (docs/code/tests) | @muhee | ✅ |
 | API error response standardization (error_code vs errorCode) | @muhee | ✅ |
 | 에러 응답 표준화 전면 적용 (공통) | @hojin | ✅ |
+| Error code tests (phase 1: 12x/13x/103~109/151~162) | @team | 🔄 |
+| Error code tests (full coverage) | @team | ⏳ |
 | analyze 고도화 (orderbook+trades 기반 지표/스코어) | @muhee | ✅ |
 | analyze 문서화 (지표 정의/출력 스키마) | @muhee | ✅ |
 | analyze 구현: 데이터 파이프라인 (orderbook/trades 수집) | @hojin | ✅ |
@@ -119,6 +121,7 @@
 | Deposit/withdraw history + address book/limits | @dorami | ✅ |
 | Trading utils: order validation with range_units + market info | @team | ✅ |
 | Trading utils order validation | @dorami | ✅ |
+| Private API nonce policy split (v2=int, v2.1=uuid) | @hojin | ✅ |
 
 ---
 
@@ -129,9 +132,9 @@
   - Docs: [1xp-ai.github.io/coinone-skill](https://1xp-ai.github.io/coinone-skill/)
   - Tests: 38/38 passing
 
-- 🔄 **v1.2.0 Release (approved)**
+- ✅ **v1.3.0 Released**
   - Phase 6 API parity, Analyzer, WebSocket updates
-  - Release notes + publish pending
+  - npm publish via release workflow (auto bump)
 
 - ✅ **v1.1.0 Released**
   - skill files added: `skill/SKILL.md`, `skill/SECURITY.md`, `skill/HEARTBEAT.md`, `skill/package.json`
@@ -149,4 +152,4 @@
 
 ---
 
-_Last updated: 2026-02-03 23:52 KST_
+_Last updated: 2026-02-03 15:17 UTC_
