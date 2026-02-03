@@ -200,3 +200,26 @@ export async function getCurrencyInfo(currency: string): Promise<CurrencyInfo> {
 
   return data.currency;
 }
+
+// UTC Ticker (UTC timezone)
+export async function getUTCTicker(targetCurrency: string, quoteCurrency = 'KRW'): Promise<Ticker> {
+  const response = await fetch(`${BASE_URL}/public/v2/ticker_utc/${quoteCurrency}/${targetCurrency}`);
+  const data = await parseJson(response);
+  
+  if (data.result !== 'success') {
+    throw new Error(`API Error: ${(data as Record<string, unknown>).error_code}`);
+  }
+  
+  return (data.tickers as Ticker[])[0];
+}
+
+export async function getAllUTCTickers(quoteCurrency = 'KRW'): Promise<Ticker[]> {
+  const response = await fetch(`${BASE_URL}/public/v2/ticker_utc/${quoteCurrency}`);
+  const data = await parseJson(response);
+  
+  if (data.result !== 'success') {
+    throw new Error(`API Error: ${(data as Record<string, unknown>).error_code}`);
+  }
+  
+  return data.tickers as Ticker[];
+}

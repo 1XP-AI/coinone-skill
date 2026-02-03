@@ -741,3 +741,57 @@ export async function getRewardSummary(credentials: CoinoneCredentials): Promise
   }
   return data.summary;
 }
+
+// Trade Fee by Pair
+export interface TradeFeeByPairResponse {
+  result: string;
+  error_code?: string;
+  maker_fee: string;
+  taker_fee: string;
+  target_currency: string;
+  quote_currency: string;
+}
+
+export async function getTradeFeeByPair(
+  credentials: CoinoneCredentials,
+  targetCurrency: string,
+  quoteCurrency = 'KRW'
+): Promise<TradeFeeByPairResponse> {
+  const payload = { target_currency: targetCurrency, quote_currency: quoteCurrency };
+  const headers = createAuthHeaders(payload, credentials);
+  const response = await fetch(`${BASE_URL}/v2.1/account/trade_fee/${quoteCurrency}_${targetCurrency}`, {
+    method: 'POST',
+    headers
+  });
+  
+  const data = await parseJson(response) as unknown as TradeFeeByPairResponse;
+  if (data.result !== 'success') {
+    throw new Error(`API Error: ${getErrorCode(data as unknown as Record<string, unknown>)}`);
+  }
+  return data;
+}
+
+// Order Info (alternative to detail)
+export interface OrderInfoResponse {
+  result: string;
+  error_code?: string;
+  order: OrderDetail;
+}
+
+export async function getOrderInfo(
+  credentials: CoinoneCredentials,
+  orderId: string
+): Promise<OrderDetail> {
+  const payload = { order_id: orderId };
+  const headers = createAuthHeaders(payload, credentials);
+  const response = await fetch(`${BASE_URL}/v2.1/order/info`, {
+    method: 'POST',
+    headers
+  });
+  
+  const data = await parseJson(response) as unknown as OrderInfoResponse;
+  if (data.result !== 'success') {
+    throw new Error(`API Error: ${getErrorCode(data as unknown as Record<string, unknown>)}`);
+  }
+  return data.order;
+}
