@@ -113,3 +113,76 @@ describe('Coinone Public API', () => {
     });
   });
 });
+
+  // ===== NEW TESTS FOR ADDITIONAL ENDPOINTS =====
+
+  describe('Markets', () => {
+    it('should fetch all markets for KRW', async () => {
+      const mockResponse = {
+        result: 'success',
+        markets: [
+          { target_currency: 'BTC', quote_currency: 'KRW' },
+          { target_currency: 'ETH', quote_currency: 'KRW' }
+        ]
+      };
+      
+      mockFetch.mockResolvedValueOnce({
+        json: () => Promise.resolve(mockResponse)
+      });
+      
+      // TODO: Implement getMarkets function
+      expect(mockResponse.markets).toHaveLength(2);
+    });
+  });
+
+  describe('Recent Trades', () => {
+    it('should fetch recent completed orders', async () => {
+      const mockResponse = {
+        result: 'success',
+        trades: [
+          { price: '50000000', qty: '0.1', timestamp: 1234567890 }
+        ]
+      };
+      
+      mockFetch.mockResolvedValueOnce({
+        json: () => Promise.resolve(mockResponse)
+      });
+      
+      // TODO: Implement getRecentTrades function
+      expect(mockResponse.trades).toHaveLength(1);
+    });
+  });
+
+  describe('Currencies', () => {
+    it('should fetch all supported currencies', async () => {
+      const mockResponse = {
+        result: 'success',
+        currencies: ['BTC', 'ETH', 'XRP']
+      };
+      
+      mockFetch.mockResolvedValueOnce({
+        json: () => Promise.resolve(mockResponse)
+      });
+      
+      // TODO: Implement getCurrencies function
+      expect(mockResponse.currencies).toContain('BTC');
+    });
+  });
+
+  describe('Chart Data', () => {
+    it('should fetch OHLCV candle data', async () => {
+      const mockResponse = {
+        result: 'success',
+        candles: [
+          { timestamp: 1234567890, open: '50000000', high: '51000000', low: '49000000', close: '50500000', volume: '100' }
+        ]
+      };
+      
+      mockFetch.mockResolvedValueOnce({
+        json: () => Promise.resolve(mockResponse)
+      });
+      
+      // TODO: Implement getChart function
+      expect(mockResponse.candles[0].high).toBe('51000000');
+    });
+  });

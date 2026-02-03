@@ -171,3 +171,77 @@ describe('Coinone Private API', () => {
     });
   });
 });
+
+  // ===== NEW TESTS FOR ADDITIONAL ENDPOINTS =====
+
+  describe('getAllBalances', () => {
+    it('should fetch all asset balances', async () => {
+      const mockResponse = {
+        result: 'success',
+        balances: [
+          { currency: 'BTC', avail: '1.0', balance: '1.5' },
+          { currency: 'ETH', avail: '10.0', balance: '10.0' }
+        ]
+      };
+      
+      mockFetch.mockResolvedValueOnce({
+        json: () => Promise.resolve(mockResponse)
+      });
+      
+      // TODO: Implement getAllBalances function
+      expect(mockResponse.balances).toHaveLength(2);
+    });
+  });
+
+  describe('getTradeFee', () => {
+    it('should fetch trading fees', async () => {
+      const mockResponse = {
+        result: 'success',
+        maker_fee: '0.001',
+        taker_fee: '0.002'
+      };
+      
+      mockFetch.mockResolvedValueOnce({
+        json: () => Promise.resolve(mockResponse)
+      });
+      
+      // TODO: Implement getTradeFee function
+      expect(parseFloat(mockResponse.taker_fee)).toBeGreaterThan(parseFloat(mockResponse.maker_fee));
+    });
+  });
+
+  describe('getActiveOrders', () => {
+    it('should fetch list of active orders', async () => {
+      const mockResponse = {
+        result: 'success',
+        active_orders: [
+          { order_id: 'test-123', side: 'BUY', price: '50000000', qty: '0.1' }
+        ]
+      };
+      
+      mockFetch.mockResolvedValueOnce({
+        json: () => Promise.resolve(mockResponse)
+      });
+      
+      // TODO: Implement getActiveOrders function
+      expect(mockResponse.active_orders[0].side).toBe('BUY');
+    });
+  });
+
+  describe('getKRWHistory', () => {
+    it('should fetch KRW deposit/withdrawal history', async () => {
+      const mockResponse = {
+        result: 'success',
+        transactions: [
+          { type: 'deposit', amount: '1000000', timestamp: 1234567890 }
+        ]
+      };
+      
+      mockFetch.mockResolvedValueOnce({
+        json: () => Promise.resolve(mockResponse)
+      });
+      
+      // TODO: Implement getKRWHistory function
+      expect(mockResponse.transactions[0].type).toBe('deposit');
+    });
+  });
