@@ -117,6 +117,7 @@ console.log(`Recommended: ${orderType}`);
 |----------|-------------|
 
 **Parameter order note**
+- **All quote currencies default to `KRW`** unless specified.
 - `getChart(target, quote, interval)` (e.g., `getChart('SOL', 'KRW', '1m')`)
 - `getRecentTrades(target, quote)` (e.g., `getRecentTrades('SOL', 'KRW')`)
 
