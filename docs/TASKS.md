@@ -81,13 +81,13 @@
 | CLI commands 테스트 추가 | @dorami | ✅ |
 | API error mapping checklist (docs/code/tests) | @muhee | 🔄 |
 | API error response standardization (error_code vs errorCode) | @muhee | ✅ |
-| 에러 응답 표준화 전면 적용 (공통) | @hojin | 🔄 |
-| analyze 고도화 (orderbook+trades 기반 지표/스코어) | @muhee | 🔄 |
+| 에러 응답 표준화 전면 적용 (공통) | @hojin | ✅ |
+| analyze 고도화 (orderbook+trades 기반 지표/스코어) | @muhee | ✅ |
 | analyze 문서화 (지표 정의/출력 스키마) | @muhee | ✅ |
 | analyze 구현: 데이터 파이프라인 (orderbook/trades 수집) | @hojin | ✅ |
 | analyze 구현: 지표 계산 (OBI/WOBI/Spread/VWAP/VI) | @hojin | ✅ |
-| analyze 구현: 합성 스코어 (MPI/Liquidity) + 플래그 | @muhee | 🔄 |
-| analyze 출력 스키마 적용 + 샘플 응답 | @muhee | 🔄 |
+| analyze 구현: 합성 스코어 (MPI/Liquidity) + 플래그 | @muhee | ✅ |
+| analyze 출력 스키마 적용 + 샘플 응답 | @muhee | ✅ |
 | analyze 테스트 (단위/시나리오) | @dorami | ✅ |
 
 ---
@@ -149,4 +149,4 @@
 
 ---
 
-_Last updated: 2026-02-03 23:09 KST_
+_Last updated: 2026-02-03 23:20 KST_
