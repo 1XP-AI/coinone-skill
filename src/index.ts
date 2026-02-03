@@ -3,6 +3,39 @@
  * AI-powered trading assistant for Coinone exchange
  */
 
-export * from './api/public';
-export * from './api/private';
-export * from './trading';
+// Public API
+export {
+  getTicker,
+  getAllTickers,
+  getOrderbook,
+  type Ticker,
+  type OrderbookEntry,
+  type Orderbook
+} from './api/public.js';
+
+// Private API
+export {
+  getBalance,
+  placeOrder,
+  cancelOrder,
+  type CoinoneCredentials,
+  type Balance,
+  type OrderRequest,
+  type OrderResponse
+} from './api/private.js';
+
+// Trading Logic
+export {
+  analyzeMarket,
+  calculateSlippage,
+  recommendOrderType,
+  splitOrder,
+  checkRisk,
+  maxBuyableQty,
+  type OrderbookLevel,
+  type Orderbook as TradingOrderbook,
+  type MarketAnalysis,
+  type SlippageResult,
+  type OrderType,
+  type RiskCheckInput
+} from './trading.js';

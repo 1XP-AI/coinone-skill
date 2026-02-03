@@ -1,19 +1,43 @@
 {
-	"name": "coinone-skill",
-	"private": true,
-	"version": "0.0.1",
+	"name": "@1xp-ai/coinone-skill",
+	"version": "1.0.0",
+	"description": "AI Trading Assistant for Coinone. Market analysis, balance tracking, and situational order execution.",
 	"type": "module",
 	"bin": {
 		"coinone-skill": "dist/cli.js"
 	},
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"files": [
+		"dist",
+		"skill"
+	],
 	"scripts": {
 		"build": "tsc -p tsconfig.json",
 		"dev": "tsc -w -p tsconfig.json",
 		"lint": "eslint .",
 		"prepare": "husky",
+		"prepublishOnly": "npm run build",
 		"test:unit": "vitest",
 		"test:watch": "vitest",
 		"test": "npm run test:unit -- --run"
+	},
+	"keywords": [
+		"coinone",
+		"trading",
+		"ai",
+		"crypto",
+		"skill"
+	],
+	"author": "1XP-AI",
+	"license": "MIT",
+	"homepage": "https://1xp-ai.github.io/coinone-skill/",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/1XP-AI/coinone-skill.git"
+	},
+	"bugs": {
+		"url": "https://github.com/1XP-AI/coinone-skill/issues"
 	},
 	"devDependencies": {
 		"@eslint/compat": "^2.0.2",
