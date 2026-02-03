@@ -91,8 +91,10 @@
 
 | Task | Assignee | Status |
 |------|----------|--------|
-| Public metadata endpoints (markets/market/currencies/currency/range_units) | @team | ⏳ |
-| Public metadata: range_units | @dorami | 🔄 |
+| Public metadata endpoints (markets/market/currencies/currency/range_units) | @team | 🔄 |
+| Public metadata: range_units | @dorami | ✅ |
+| Public metadata: market info (single) | @dorami | ✅ |
+| Public metadata: currency info (single) | @dorami | ✅ |
 | Trades + chart endpoints (trades/chart) | @team | ⏳ |
 | Ticker expansion (ticker_new all, ticker single, optional utc_ticker) | @team | ⏳ |
 | Order state/history endpoints (active/open/completed/detail/info) | @team | ⏳ |
@@ -122,4 +124,4 @@
 
 ---
 
-_Last updated: 2026-02-03 22:21 KST_
+_Last updated: 2026-02-03 22:22 KST_
