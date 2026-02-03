@@ -125,6 +125,20 @@
 
 ---
 
+## Phase 7: Advanced Microstructure Analytics ⏳
+
+| Task | Assignee | Status |
+|------|----------|--------|
+| Orderbook walls detection | @team | ⏳ |
+| Orderbook voids detection | @team | ⏳ |
+| Whale print detection | @team | ⏳ |
+| Price impact metric | @team | ⏳ |
+| Resilience metric (refill speed) | @team | ⏳ |
+| Trade classification upgrade (tick/quote rule) | @team | ⏳ |
+| Interpretation guide + report template | @team | ⏳ |
+
+---
+
 ## Completed Milestones
 
 - ✅ **v1.0.0 Released** (2026-02-03)
@@ -152,4 +166,4 @@
 
 ---
 
-_Last updated: 2026-02-03 15:30 UTC_
+_Last updated: 2026-02-03 15:36 UTC_
