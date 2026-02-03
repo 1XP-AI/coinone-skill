@@ -55,6 +55,7 @@
 | SKILL.md Planning (Drafting) | @muhee | 🔄 |
 | SKILL.md creation | @muhee | ⏳ |
 | Strategy guide documentation | @muhee | ⏳ |
+| Messaging/Heartbeat/Security notes (moltbook) | @muhee | ⏳ |
 | Integration tests (scenarios doc) | @dorami | ✅ |
 | Integration tests (implementation) | @dorami | ✅ |
 | Package and release | @muhee | ⏳ |
