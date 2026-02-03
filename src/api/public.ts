@@ -106,9 +106,9 @@ export interface RecentTrade {
 
 export async function getRecentTrades(targetCurrency: string, quoteCurrency = 'KRW'): Promise<RecentTrade[]> {
   const response = await fetch(`https://api.coinone.co.kr/public/v2/trades/${quoteCurrency}/${targetCurrency}`);
-  const data = (await parseJson(response)) as { trades: RecentTrade[] };
+  const data = (await parseJson(response)) as { transactions: RecentTrade[] };
 
-  return data.trades;
+  return data.transactions;
 }
 
 // Currencies
