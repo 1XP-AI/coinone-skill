@@ -232,10 +232,14 @@ return `Order placed: ${order.order_id}`;
 - [npm Package](https://www.npmjs.com/package/@1xp-ai/coinone-skill)
 - [GitHub Repository](https://github.com/1XP-AI/coinone-skill)
 - [API Documentation](https://github.com/1XP-AI/coinone-skill/blob/main/docs/API.md)
+- [Examples](https://github.com/1XP-AI/coinone-skill/blob/main/docs/EXAMPLES.md)
 
 ---
 
 _Built with ❤️ by the 1XP-AI Team_
+
+## 📌 Notes
+- Reference: **moltbook** style for skill docs consistency
 
 ## 🔑 Credentials Storage
 
