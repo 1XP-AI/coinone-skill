@@ -62,6 +62,24 @@ export const ERROR_CODES: Record<number, { en: string; kr: string }> = {
   307: { en: 'Cannot process orders exceed maximum amount', kr: '최대 수량 이상으로는 주문이 불가합니다' },
   308: { en: 'Price is out of range', kr: '주문 가격이 허용 범위를 벗어났습니다' },
   309: { en: 'Qty is out of range', kr: '주문 수량이 허용 범위를 벗어났습니다' },
+
+  // Withdrawal & Account Restrictions (3001-3018)
+  3001: { en: 'Withdrawal suspended for this asset', kr: '출금이 일시적 혹은 영구적으로 정지된 가상자산입니다' },
+  3002: { en: 'Withdrawal is rejected', kr: '출금이 특정 사유로 인해 거절된 상태입니다' },
+  3003: { en: 'Exceed daily withdrawal limit', kr: '일일 출금 가능 수량을 초과 하였습니다' },
+  3004: { en: 'Failed by 24-hour withdrawal delay policy', kr: '24시간 출금 지연제에 의한 출금가능 한도 초과로 출금이 제한됩니다' },
+  3005: { en: 'Phone verification required', kr: '휴대폰 번호 인증 완료 하신 후에 재시도 부탁드립니다' },
+  3006: { en: 'Withdrawal restricted for 72 hours after first KRW deposit', kr: '최초 원화 입금 후 72시간 동안은 가상자산 출금이 제한됩니다' },
+  3007: { en: 'Balance error. Contact CS', kr: '잔고에 오류가 발생하였습니다. 고객 센터에 연락 부탁드립니다' },
+  3009: { en: 'Account detected by FDS monitoring', kr: '이상거래에 탐지되어 이용할 수 없는 상태입니다' },
+  3010: { en: 'Account is locked', kr: '계정 잠금으로 인해 출금이 불가한 경우입니다' },
+  3012: { en: 'CODE error: withdrawal rejected by CODE solution', kr: 'CODE 솔루션에서 출금을 거절한 경우입니다' },
+  3013: { en: 'CODE error: invalid parameter', kr: 'CODE 거래소/수취인 정보에서 에러가 발생한 경우입니다' },
+  3014: { en: 'CODE error: address does not exist', kr: '입금 주소가 상대 VASP에서 찾을 수 없는 경우' },
+  3015: { en: 'CODE error: recipient information mismatch', kr: '코인원/상대 VASP 수취인 정보가 다를 경우' },
+  3016: { en: 'CODE error: recipient information invalid', kr: '주소록 수취인 정보 수정이 필요한 경우' },
+  3017: { en: 'Whitelist address re-verification required', kr: 'KYC 재이행으로 출금주소 재확인이 필요한 경우입니다' },
+  3018: { en: 'Register to whitelist/allowed address list', kr: '출금 허용 주소 또는 주소록에 추가 정보 등록이 필요합니다' },
 };
 
 export class CoinoneError extends Error {
