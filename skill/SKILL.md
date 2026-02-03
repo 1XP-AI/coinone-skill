@@ -143,7 +143,7 @@ console.log(`Recommended: ${orderType}`);
 ### 📈 Analyzer (Orderbook + Trades)
 | Function | Description |
 |----------|-------------|
-| `analyzeSnapshot(orderbook, trades)` | Analyze snapshot to metrics |
+| `analyzeSnapshot(symbol, orderbook, trades)` | Analyze snapshot to metrics |
 | `computeMarketPressureIndex(metrics)` | MPI score |
 | `computeLiquidityScore(metrics)` | Liquidity score |
 | `calculateLiquiditySlope(orderbook, depth)` | Liquidity slope |
@@ -163,11 +163,11 @@ console.log(`Recommended: ${orderType}`);
 ### ✅ Order Validation Utilities
 | Function | Description |
 |----------|-------------|
-| `getValidationRules(quote, target)` | Fetch validation rules |
+| `getValidationRules(target, quote)` | Fetch validation rules |
 | `roundToTickSize(price, rules)` | Round to tick size |
-| `validateOrder(order, rules)` | Validate and adjust order |
-| `validateOrderAuto(order, credentials)` | One-call validation |
-| `preCheckOrder(order, rules)` | Fast pre-check |
+| `validateOrder(price, qty, rules)` | Validate and adjust order |
+| `validateOrderAuto(target, price, qty, quote?)` | One-call validation |
+| `preCheckOrder(price, qty, rules)` | Fast pre-check |
 
 ## 🤖 AI Agent Usage Examples
 
@@ -214,13 +214,58 @@ return `Order placed: ${order.order_id}`;
 
 ### "What's the market pressure?"
 ```typescript
-import { analyzeSnapshot, getOrderbook, getRecentTrades } from '@1xp-ai/coinone-skill';
-
 const orderbook = await getOrderbook('BTC');
-const trades = await getRecentTrades('BTC');
+const trades = await getRecentTrades('KRW', 'BTC');
 const result = analyzeSnapshot('BTC', orderbook, trades);
 
-return `MPI: ${result.MPI.toFixed(2)} (${result.MPI > 0 ? 'Bullish' : 'Bearish'})\nLiquidity: ${result.liquidityScore}/100`;
+return `MPI: ${result.MPI.toFixed(2)} (${result.MPI > 0 ? 'Bullish' : 'Bearish'})\n` +
+  `Liquidity: ${result.liquidityScore}/100`;
+```
+
+## 🔌 WebSocket Streaming
+```typescript
+import { createWebSocketClient } from '@1xp-ai/coinone-skill';
+
+const ws = createWebSocketClient({ reconnect: true });
+
+ws.on('message', (msg) => {
+  if (msg.channel === 'ticker') {
+    console.log(`${msg.target_currency}: ${msg.last}`);
+  }
+});
+
+ws.subscribe('ticker', ['BTC', 'ETH']);
+ws.connect();
+```
+
+## ✅ Order Validation
+```typescript
+import { validateOrderAuto } from '@1xp-ai/coinone-skill';
+
+const validation = await validateOrderAuto('BTC', 50000000, 0.001);
+
+if (!validation.valid) {
+  console.error('Invalid order:', validation.errors);
+} else {
+  console.log('Order OK');
+  console.log('Adjusted price:', validation.adjustedPrice);
+  console.log('Adjusted qty:', validation.adjustedQty);
+}
+```
+
+## 💻 CLI Usage
+```bash
+# Public commands (no API key)
+coinone-skill ticker BTC
+coinone-skill tickers
+coinone-skill orderbook ETH
+coinone-skill analyze BTC
+
+# Private commands (API key required)
+coinone-skill auth-check
+coinone-skill balance
+coinone-skill orders BTC
+coinone-skill trade-fee
 ```
 
 ## 🔒 Security
@@ -243,7 +288,6 @@ return `MPI: ${result.MPI.toFixed(2)} (${result.MPI > 0 ? 'Bullish' : 'Bearish'}
 - [npm Package](https://www.npmjs.com/package/@1xp-ai/coinone-skill)
 - [GitHub Repository](https://github.com/1XP-AI/coinone-skill)
 - [API Documentation](https://github.com/1XP-AI/coinone-skill/blob/main/docs/API.md)
-- [Examples](https://github.com/1XP-AI/coinone-skill/blob/main/docs/EXAMPLES.md)
 
 ---
 
