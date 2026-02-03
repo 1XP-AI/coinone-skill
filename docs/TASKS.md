@@ -33,7 +33,8 @@
 | Private API - Place Order | @dorami | ✅ |
 | Private API - Cancel Order | @dorami | ✅ |
 | Public API Tests | @dorami | ✅ |
-| Private API Tests | @dorami | 🔄 |
+| Private API Tests | @dorami | ✅ |
+| Systematic API Listing | @muhee | ✅ |
 
 ## Phase 3: Trading Logic ⏳
 

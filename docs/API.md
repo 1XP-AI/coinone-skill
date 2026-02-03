@@ -1,119 +1,64 @@
-# Coinone API Reference
+# Coinone API Reference (Updated)
 
 ## Base URL
 ```
 https://api.coinone.co.kr
 ```
 
-## Public API (No Auth Required)
+## Public API V2 (No Auth Required)
 
-### Get Single Ticker
-```
-GET /public/v2/ticker_new/{quote_currency}/{target_currency}
-```
-**Example**: `GET /public/v2/ticker_new/KRW/BTC`
-
-**Response**:
-```json
-{
-  "result": "success",
-  "tickers": [{
-    "quote_currency": "KRW",
-    "target_currency": "BTC",
-    "last": "50000000",
-    "high": "51000000",
-    "low": "49000000",
-    "quote_volume": "1000000000",
-    "target_volume": "20.5"
-  }]
-}
-```
-
-### Get All Tickers
-```
-GET /public/v2/ticker_new/{quote_currency}
-```
-**Example**: `GET /public/v2/ticker_new/KRW`
-
-### Get Orderbook
-```
-GET /public/v2/orderbook/{quote_currency}/{target_currency}?size={5|10|15|16}
-```
-**Example**: `GET /public/v2/orderbook/KRW/BTC?size=15`
-
-**Response**:
-```json
-{
-  "result": "success",
-  "bids": [{"price": "49900000", "qty": "1.5"}],
-  "asks": [{"price": "50100000", "qty": "2.0"}]
-}
-```
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/public/v2/range_units/{quote}/{target}` | GET | Get tick size units |
+| `/public/v2/markets/{quote}` | GET | List all markets for a quote currency |
+| `/public/v2/market/{quote}/{target}` | GET | Get specific market information |
+| `/public/v2/orderbook/{quote}/{target}` | GET | Get orderbook (depth) |
+| `/public/v2/recent_completed_orders/{quote}/{target}` | GET | Get recent trades |
+| `/public/v2/ticker_new/{quote}` | GET | Get all tickers for a quote currency |
+| `/public/v2/ticker_new/{quote}/{target}` | GET | Get single ticker |
+| `/public/v2/ticker_utc/{quote}` | GET | Get all tickers (UTC time) |
+| `/public/v2/ticker_utc/{quote}/{target}` | GET | Get single ticker (UTC time) |
+| `/public/v2/currencies` | GET | List all supported currencies |
+| `/public/v2/currencies/{symbol}` | GET | Get currency details |
+| `/public/v2/chart/{quote}/{target}` | GET | Get OHLCV candle data |
 
 ---
 
-## Private API (Auth Required)
+## Private API V2.1 (Auth Required)
 
 ### Authentication
-All private API requests require:
-- `X-COINONE-PAYLOAD`: Base64 encoded JSON payload
+Headers:
+- `X-COINONE-PAYLOAD`: Base64(JSON.stringify(payload))
 - `X-COINONE-SIGNATURE`: HMAC-SHA512(payload, secret_key)
 
-**Payload must include**:
-- `access_token`: Your API access token
-- `nonce`: UUID v4 (unique per request)
+Required in Payload:
+- `access_token`: API Token
+- `nonce`: UUID v4
 
-### Get Balance
-```
-POST /v2/account/balance
-```
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/v2.1/account/balance/all` | POST | Get all asset balances |
+| `/v2.1/account/trade_fee` | POST | Get trading fees |
+| `/v2.1/order` | POST | Place LIMIT, MARKET, or STOP_LIMIT order |
+| `/v2.1/order/cancel` | POST | Cancel an order |
+| `/v2.1/order/active_orders` | POST | List active (open) orders |
+| `/v2.1/transaction/krw/history` | POST | KRW deposit/withdrawal history |
+| `/v2.1/transaction/coin/withdrawal` | POST | Withdraw coins |
 
-### Place Order
-```
-POST /v2.1/order
-```
+---
 
-**Payload**:
-```json
-{
-  "access_token": "...",
-  "nonce": "uuid-v4",
-  "side": "BUY|SELL",
-  "quote_currency": "KRW",
-  "target_currency": "BTC",
-  "type": "LIMIT|MARKET|STOP_LIMIT",
-  "price": "50000000",
-  "qty": "0.1"
-}
-```
-
-### Cancel Order
-```
-POST /v2.1/order/cancel
-```
-
-**Payload**:
-```json
-{
-  "access_token": "...",
-  "nonce": "uuid-v4",
-  "order_id": "uuid",
-  "quote_currency": "KRW",
-  "target_currency": "BTC"
-}
-```
+## Websocket (Stream)
+- **Base URL**: `wss://stream.coinone.co.kr` (To be confirmed)
+- **Channels**: ticker, orderbook, trades
 
 ---
 
 ## Error Codes
-
 | Code | Description |
 |------|-------------|
 | 0 | Success |
 | 4001 | Invalid parameter |
 | 4002 | Invalid access token |
 | 4003 | Invalid nonce |
-
----
 
 _Reference: https://docs.coinone.co.kr_
