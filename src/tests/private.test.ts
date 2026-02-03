@@ -275,3 +275,232 @@ describe('Coinone Private API', () => {
       expect(response.transactions[0].type).toBe('deposit');
     });
   });
+
+// Phase 6 API Tests
+describe('Phase 6 APIs', () => {
+  describe('getOpenOrders', () => {
+    it('should fetch open orders', async () => {
+      const mockResponse = {
+        result: 'success',
+        open_orders: [{ order_id: '123', target_currency: 'BTC' }]
+      };
+      mockFetch.mockResolvedValueOnce({
+        json: () => Promise.resolve(mockResponse)
+      });
+
+      const { getOpenOrders } = await import('../api/private');
+      const result = await getOpenOrders(mockCredentials);
+      expect(result).toHaveLength(1);
+    });
+
+    it('should throw on error', async () => {
+      mockFetch.mockResolvedValueOnce({
+        json: () => Promise.resolve({ result: 'error', error_code: '4001' })
+      });
+      const { getOpenOrders } = await import('../api/private');
+      await expect(getOpenOrders(mockCredentials)).rejects.toThrow('API Error');
+    });
+  });
+
+  describe('getCompletedOrders', () => {
+    it('should fetch completed orders', async () => {
+      const mockResponse = {
+        result: 'success',
+        completed_orders: [{ order_id: '456', target_currency: 'ETH' }]
+      };
+      mockFetch.mockResolvedValueOnce({
+        json: () => Promise.resolve(mockResponse)
+      });
+
+      const { getCompletedOrders } = await import('../api/private');
+      const result = await getCompletedOrders(mockCredentials);
+      expect(result).toHaveLength(1);
+    });
+  });
+
+  describe('getOrderDetail', () => {
+    it('should fetch order detail', async () => {
+      const mockResponse = {
+        result: 'success',
+        order: { order_id: '789', status: 'filled' }
+      };
+      mockFetch.mockResolvedValueOnce({
+        json: () => Promise.resolve(mockResponse)
+      });
+
+      const { getOrderDetail } = await import('../api/private');
+      const result = await getOrderDetail(mockCredentials, '789', 'BTC');
+      expect(result.order_id).toBe('789');
+    });
+  });
+
+  describe('getUserInfo', () => {
+    it('should fetch user info', async () => {
+      const mockResponse = {
+        result: 'success',
+        user_info: { user_id: 'user123', email: 'test@test.com' }
+      };
+      mockFetch.mockResolvedValueOnce({
+        json: () => Promise.resolve(mockResponse)
+      });
+
+      const { getUserInfo } = await import('../api/private');
+      const result = await getUserInfo(mockCredentials);
+      expect(result.user_id).toBe('user123');
+    });
+  });
+
+  describe('getVirtualAccount', () => {
+    it('should fetch virtual account', async () => {
+      const mockResponse = {
+        result: 'success',
+        virtual_account: { bank_name: 'KB', account_number: '123456' }
+      };
+      mockFetch.mockResolvedValueOnce({
+        json: () => Promise.resolve(mockResponse)
+      });
+
+      const { getVirtualAccount } = await import('../api/private');
+      const result = await getVirtualAccount(mockCredentials);
+      expect(result.bank_name).toBe('KB');
+    });
+  });
+
+  describe('getDepositAddress', () => {
+    it('should fetch deposit address', async () => {
+      const mockResponse = {
+        result: 'success',
+        deposit_address: { currency: 'BTC', address: 'bc1qxyz' }
+      };
+      mockFetch.mockResolvedValueOnce({
+        json: () => Promise.resolve(mockResponse)
+      });
+
+      const { getDepositAddress } = await import('../api/private');
+      const result = await getDepositAddress(mockCredentials, 'BTC');
+      expect(result.address).toBe('bc1qxyz');
+    });
+  });
+
+  describe('getCoinDepositHistory', () => {
+    it('should fetch deposit history', async () => {
+      const mockResponse = {
+        result: 'success',
+        deposits: [{ txid: 'tx123', currency: 'BTC' }]
+      };
+      mockFetch.mockResolvedValueOnce({
+        json: () => Promise.resolve(mockResponse)
+      });
+
+      const { getCoinDepositHistory } = await import('../api/private');
+      const result = await getCoinDepositHistory(mockCredentials);
+      expect(result).toHaveLength(1);
+    });
+  });
+
+  describe('getCoinWithdrawalHistory', () => {
+    it('should fetch withdrawal history', async () => {
+      const mockResponse = {
+        result: 'success',
+        withdrawals: [{ txid: 'tx456', currency: 'ETH' }]
+      };
+      mockFetch.mockResolvedValueOnce({
+        json: () => Promise.resolve(mockResponse)
+      });
+
+      const { getCoinWithdrawalHistory } = await import('../api/private');
+      const result = await getCoinWithdrawalHistory(mockCredentials);
+      expect(result).toHaveLength(1);
+    });
+  });
+
+  describe('getWithdrawalAddressBook', () => {
+    it('should fetch address book', async () => {
+      const mockResponse = {
+        result: 'success',
+        addresses: [{ id: '1', currency: 'BTC', address: 'bc1q123' }]
+      };
+      mockFetch.mockResolvedValueOnce({
+        json: () => Promise.resolve(mockResponse)
+      });
+
+      const { getWithdrawalAddressBook } = await import('../api/private');
+      const result = await getWithdrawalAddressBook(mockCredentials);
+      expect(result).toHaveLength(1);
+    });
+  });
+
+  describe('getWithdrawalLimits', () => {
+    it('should fetch withdrawal limits', async () => {
+      const mockResponse = {
+        result: 'success',
+        limits: [{ currency: 'BTC', daily_limit: '10' }]
+      };
+      mockFetch.mockResolvedValueOnce({
+        json: () => Promise.resolve(mockResponse)
+      });
+
+      const { getWithdrawalLimits } = await import('../api/private');
+      const result = await getWithdrawalLimits(mockCredentials);
+      expect(result).toHaveLength(1);
+    });
+  });
+
+  describe('Reward APIs', () => {
+    it('should fetch trading rewards', async () => {
+      const mockResponse = {
+        result: 'success',
+        rewards: [{ currency: 'BTC', amount: '0.001' }]
+      };
+      mockFetch.mockResolvedValueOnce({
+        json: () => Promise.resolve(mockResponse)
+      });
+
+      const { getTradingRewards } = await import('../api/private');
+      const result = await getTradingRewards(mockCredentials);
+      expect(result).toHaveLength(1);
+    });
+
+    it('should fetch staking rewards', async () => {
+      const mockResponse = {
+        result: 'success',
+        rewards: [{ currency: 'ETH', amount: '0.01', apy: '5.0' }]
+      };
+      mockFetch.mockResolvedValueOnce({
+        json: () => Promise.resolve(mockResponse)
+      });
+
+      const { getStakingRewards } = await import('../api/private');
+      const result = await getStakingRewards(mockCredentials);
+      expect(result).toHaveLength(1);
+    });
+
+    it('should fetch airdrop rewards', async () => {
+      const mockResponse = {
+        result: 'success',
+        rewards: [{ currency: 'TOKEN', amount: '100' }]
+      };
+      mockFetch.mockResolvedValueOnce({
+        json: () => Promise.resolve(mockResponse)
+      });
+
+      const { getAirdropRewards } = await import('../api/private');
+      const result = await getAirdropRewards(mockCredentials);
+      expect(result).toHaveLength(1);
+    });
+
+    it('should fetch reward summary', async () => {
+      const mockResponse = {
+        result: 'success',
+        summary: [{ currency: 'KRW', total_trading_reward: '1000' }]
+      };
+      mockFetch.mockResolvedValueOnce({
+        json: () => Promise.resolve(mockResponse)
+      });
+
+      const { getRewardSummary } = await import('../api/private');
+      const result = await getRewardSummary(mockCredentials);
+      expect(result).toHaveLength(1);
+    });
+  });
+});
