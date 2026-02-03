@@ -109,8 +109,9 @@
 | Account info: user/virtual/deposit address | @dorami | ✅ |
 | Deposit/withdraw history + address book/limits | @team | 🔄 |
 | Reward APIs (/v2.1/order/reward/*) | @team | ✅ |
-| Websocket coverage (public + private) | @team | ⏳ |
+| Websocket coverage (public + private) | @team | ✅ |
 | Reward APIs | @dorami | ✅ |
+| WebSocket client (public channels) | @dorami | ✅ |
 | Deposit/withdraw history + address book/limits | @dorami | ✅ |
 | Trading utils: order validation with range_units + market info | @team | ⏳ |
 
@@ -133,4 +134,4 @@
 
 ---
 
-_Last updated: 2026-02-03 22:46 KST_
+_Last updated: 2026-02-03 22:48 KST_
