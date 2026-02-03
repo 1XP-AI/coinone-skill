@@ -4,7 +4,17 @@
  */
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { getBalance, placeOrder, cancelOrder, type CoinoneCredentials, type OrderRequest } from '../api/private';
+import {
+  getBalance,
+  placeOrder,
+  cancelOrder,
+  getAllBalances,
+  getTradeFee,
+  getActiveOrders,
+  getKRWHistory,
+  type CoinoneCredentials,
+  type OrderRequest
+} from '../api/private';
 
 // Mock fetch
 const mockFetch = vi.fn();
@@ -188,8 +198,13 @@ describe('Coinone Private API', () => {
         json: () => Promise.resolve(mockResponse)
       });
       
-      // TODO: Implement getAllBalances function
-      expect(mockResponse.balances).toHaveLength(2);
+      const response = await getAllBalances(mockCredentials);
+
+      expect(mockFetch).toHaveBeenCalledWith(
+        'https://api.coinone.co.kr/v2.1/account/balance',
+        expect.objectContaining({ method: 'POST' })
+      );
+      expect(response.balances).toHaveLength(2);
     });
   });
 
@@ -205,8 +220,13 @@ describe('Coinone Private API', () => {
         json: () => Promise.resolve(mockResponse)
       });
       
-      // TODO: Implement getTradeFee function
-      expect(parseFloat(mockResponse.taker_fee)).toBeGreaterThan(parseFloat(mockResponse.maker_fee));
+      const response = await getTradeFee(mockCredentials);
+
+      expect(mockFetch).toHaveBeenCalledWith(
+        'https://api.coinone.co.kr/v2.1/account/fee',
+        expect.objectContaining({ method: 'POST' })
+      );
+      expect(parseFloat(response.taker_fee)).toBeGreaterThan(parseFloat(response.maker_fee));
     });
   });
 
@@ -223,8 +243,13 @@ describe('Coinone Private API', () => {
         json: () => Promise.resolve(mockResponse)
       });
       
-      // TODO: Implement getActiveOrders function
-      expect(mockResponse.active_orders[0].side).toBe('BUY');
+      const response = await getActiveOrders('KRW', 'BTC', mockCredentials);
+
+      expect(mockFetch).toHaveBeenCalledWith(
+        'https://api.coinone.co.kr/v2.1/order/active_orders',
+        expect.objectContaining({ method: 'POST' })
+      );
+      expect(response.active_orders[0].side).toBe('BUY');
     });
   });
 
@@ -241,7 +266,12 @@ describe('Coinone Private API', () => {
         json: () => Promise.resolve(mockResponse)
       });
       
-      // TODO: Implement getKRWHistory function
-      expect(mockResponse.transactions[0].type).toBe('deposit');
+      const response = await getKRWHistory(0, 9999999999, mockCredentials);
+
+      expect(mockFetch).toHaveBeenCalledWith(
+        'https://api.coinone.co.kr/v2.1/krw/history',
+        expect.objectContaining({ method: 'POST' })
+      );
+      expect(response.transactions[0].type).toBe('deposit');
     });
   });

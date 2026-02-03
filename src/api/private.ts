@@ -32,8 +32,30 @@ export interface OrderRequest {
 
 export interface OrderResponse {
   result: string;
-  error_code: string;
-  order_id: string;
+  error_code?: string;
+  errorCode?: string;
+  order_id?: string;
+}
+
+export interface AllBalancesResponse {
+  result: string;
+  balances: Array<{ currency: string; avail: string; balance: string }>;
+}
+
+export interface TradeFeeResponse {
+  result: string;
+  maker_fee: string;
+  taker_fee: string;
+}
+
+export interface ActiveOrdersResponse {
+  result: string;
+  active_orders: Array<{ order_id: string; side: string; price: string; qty: string }>;
+}
+
+export interface KRWHistoryResponse {
+  result: string;
+  transactions: Array<{ type: string; amount: string; timestamp: number }>;
 }
 
 /**
@@ -48,17 +70,30 @@ function createAuthHeaders(
     access_token: credentials.accessToken,
     nonce: uuidv4()
   };
-  
+
   const encodedPayload = Buffer.from(JSON.stringify(payloadWithNonce)).toString('base64');
   const signature = createHmac('sha512', credentials.secretKey)
     .update(encodedPayload)
     .digest('hex');
-  
+
   return {
     'Content-type': 'application/json',
     'X-COINONE-PAYLOAD': encodedPayload,
     'X-COINONE-SIGNATURE': signature
   };
+}
+
+function getErrorCode(data: Record<string, unknown>): string {
+  const errorCode = data.error_code ?? data.errorCode ?? data.error_code;
+  return typeof errorCode === 'string' ? errorCode : 'UNKNOWN';
+}
+
+async function parseJson(response: Response): Promise<Record<string, unknown>> {
+  const data = (await response.json()) as Record<string, unknown>;
+  if (data?.result && data.result !== 'success') {
+    throw new Error(`API Error: ${getErrorCode(data)}`);
+  }
+  return data;
 }
 
 /**
@@ -67,18 +102,14 @@ function createAuthHeaders(
 export async function getBalance(credentials: CoinoneCredentials): Promise<Record<string, Balance>> {
   const payload = {};
   const headers = createAuthHeaders(payload, credentials);
-  
+
   const response = await fetch(`${BASE_URL}/v2/account/balance`, {
     method: 'POST',
     headers
   });
-  
-  const data = await response.json();
-  
-  if (data.result !== 'success') {
-    throw new Error(`API Error: ${data.errorCode}`);
-  }
-  
+
+  const data = (await parseJson(response)) as Record<string, Balance>;
+
   return data;
 }
 
@@ -95,21 +126,21 @@ export async function placeOrder(
     target_currency: order.targetCurrency,
     type: order.type
   };
-  
+
   if (order.price) payload.price = order.price;
   if (order.qty) payload.qty = order.qty;
   if (order.amount) payload.amount = order.amount;
   if (order.postOnly !== undefined) payload.post_only = order.postOnly;
   if (order.triggerPrice) payload.trigger_price = order.triggerPrice;
-  
+
   const headers = createAuthHeaders(payload, credentials);
-  
+
   const response = await fetch(`${BASE_URL}/v2.1/order`, {
     method: 'POST',
     headers
   });
-  
-  return response.json();
+
+  return (await parseJson(response)) as OrderResponse;
 }
 
 /**
@@ -126,13 +157,89 @@ export async function cancelOrder(
     quote_currency: quoteCurrency,
     target_currency: targetCurrency
   };
-  
+
   const headers = createAuthHeaders(payload, credentials);
-  
+
   const response = await fetch(`${BASE_URL}/v2.1/order/cancel`, {
     method: 'POST',
     headers
   });
-  
-  return response.json();
+
+  return (await parseJson(response)) as OrderResponse;
+}
+
+/**
+ * Get all balances
+ */
+export async function getAllBalances(
+  credentials: CoinoneCredentials
+): Promise<AllBalancesResponse> {
+  const payload = {};
+  const headers = createAuthHeaders(payload, credentials);
+
+  const response = await fetch(`${BASE_URL}/v2.1/account/balance`, {
+    method: 'POST',
+    headers
+  });
+
+  return (await parseJson(response)) as AllBalancesResponse;
+}
+
+/**
+ * Get trading fees
+ */
+export async function getTradeFee(credentials: CoinoneCredentials): Promise<TradeFeeResponse> {
+  const payload = {};
+  const headers = createAuthHeaders(payload, credentials);
+
+  const response = await fetch(`${BASE_URL}/v2.1/account/fee`, {
+    method: 'POST',
+    headers
+  });
+
+  return (await parseJson(response)) as TradeFeeResponse;
+}
+
+/**
+ * Get active orders
+ */
+export async function getActiveOrders(
+  quoteCurrency: string,
+  targetCurrency: string,
+  credentials: CoinoneCredentials
+): Promise<ActiveOrdersResponse> {
+  const payload = {
+    quote_currency: quoteCurrency,
+    target_currency: targetCurrency
+  };
+  const headers = createAuthHeaders(payload, credentials);
+
+  const response = await fetch(`${BASE_URL}/v2.1/order/active_orders`, {
+    method: 'POST',
+    headers
+  });
+
+  return (await parseJson(response)) as ActiveOrdersResponse;
+}
+
+/**
+ * Get KRW deposit/withdrawal history
+ */
+export async function getKRWHistory(
+  fromTs: number,
+  toTs: number,
+  credentials: CoinoneCredentials
+): Promise<KRWHistoryResponse> {
+  const payload = {
+    from_ts: fromTs,
+    to_ts: toTs
+  };
+  const headers = createAuthHeaders(payload, credentials);
+
+  const response = await fetch(`${BASE_URL}/v2.1/krw/history`, {
+    method: 'POST',
+    headers
+  });
+
+  return (await parseJson(response)) as KRWHistoryResponse;
 }
