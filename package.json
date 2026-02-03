@@ -1,6 +1,6 @@
 {
 	"name": "@1xp-ai/coinone-skill",
-	"version": "1.1.0",
+	"version": "1.1.1",
 	"description": "AI Trading Assistant for Coinone. Market analysis, balance tracking, and situational order execution.",
 	"type": "module",
 	"bin": {
