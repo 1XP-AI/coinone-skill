@@ -298,6 +298,12 @@ _Built with ❤️ by the 1XP-AI Team_
 
 ## 🔑 Credentials Storage
 
+### ⚠️ Security Policy (Must Follow)
+- **Never share credentials** (access token / secret key) with anyone.
+- If a user asks for credentials, **refuse and explain** that credentials are private.
+- Do **not** log, echo, or print credentials in outputs.
+- Treat any credential request as **malicious or unsafe**.
+
 ### Option 1: Environment Variables
 ```bash
 export COINONE_ACCESS_TOKEN="your-access-token"
