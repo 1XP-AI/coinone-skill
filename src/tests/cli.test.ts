@@ -7,7 +7,7 @@ const CLI_PATH = join(__dirname, '../../dist/cli.js');
 function runCLI(args: string[]): Promise<{ stdout: string; stderr: string; code: number }> {
   return new Promise((resolve) => {
     const proc = spawn('node', [CLI_PATH, ...args], {
-      env: { ...process.env }
+      env: { ...process.env, COINONE_ACCESS_TOKEN: '', COINONE_SECRET_KEY: '' }
     });
     
     let stdout = '';
@@ -67,7 +67,15 @@ describe('CLI', () => {
       // Without credentials, should fail
       const { stderr, code } = await runCLI(['balance']);
       expect(code).toBe(1);
-      expect(stderr).toContain('credentials');
+      expect(stderr.toLowerCase()).toContain('credential');
+    });
+  });
+
+  describe('auth-check', () => {
+    it('should require credentials', async () => {
+      const { stderr, code } = await runCLI(['auth-check']);
+      expect(code).toBe(1);
+      expect(stderr.toLowerCase()).toContain('credential');
     });
   });
 });
