@@ -33,7 +33,7 @@
 | Private API - Place Order | @dorami | ✅ |
 | Private API - Cancel Order | @dorami | ✅ |
 | Public API Tests | @dorami | ✅ |
-| Private API Tests | @dorami | 🔄 |
+| Private API Tests | @dorami | ✅ |
 
 ## Phase 3: Trading Logic ⏳
 
@@ -43,7 +43,7 @@
 | Slippage calculation | TBD | ⏳ |
 | Smart order execution | TBD | ⏳ |
 | Risk management | TBD | ⏳ |
-| Svelte UI Components | @dorami | ⏳ |
+| CLI interface refinement | @hojin | ⏳ |
 
 ## Phase 4: Skill Packaging ⏳
 
@@ -61,6 +61,7 @@
 | Date | Time | Status Summary |
 |------|------|----------------|
 | 2026-02-03 | 20:20 | Initial setup complete. Public/Private API implementation finished. Moving to Private API tests and Trading logic. |
+| 2026-02-03 | 20:33 | Private API tests completed. Svelte UI task replaced with CLI refinement (project is CLI-only). |
 
 ---
 
