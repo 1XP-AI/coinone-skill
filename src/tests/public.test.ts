@@ -113,7 +113,7 @@ describe('Public API', () => {
     it('should fetch recent trades', async () => {
       const mockResponse = {
         result: 'success',
-        trades: [
+        transactions: [
           { timestamp: 1234567890, price: '50000000', qty: '0.1', is_seller_maker: false }
         ]
       };
