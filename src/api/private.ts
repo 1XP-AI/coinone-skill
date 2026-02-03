@@ -465,3 +465,151 @@ export async function getDepositAddress(
   }
   return data.deposit_address;
 }
+
+// ============ Phase 6 Low/Advanced APIs ============
+
+// Coin Deposit History
+export interface CoinDeposit {
+  txid: string;
+  currency: string;
+  amount: string;
+  status: 'pending' | 'confirmed' | 'failed';
+  timestamp: number;
+  confirmations: number;
+}
+
+export interface CoinDepositHistoryResponse {
+  result: string;
+  error_code?: string;
+  deposits: CoinDeposit[];
+}
+
+export async function getCoinDepositHistory(
+  credentials: CoinoneCredentials,
+  currency?: string
+): Promise<CoinDeposit[]> {
+  const payload: Record<string, unknown> = {};
+  if (currency) payload.currency = currency;
+  
+  const headers = createAuthHeaders(payload, credentials);
+  const response = await fetch(`${BASE_URL}/v2/transaction/coin_deposit_history`, {
+    method: 'POST',
+    headers
+  });
+  
+  const data = await parseJson(response) as unknown as CoinDepositHistoryResponse;
+  if (data.result !== 'success') {
+    throw new Error(`API Error: ${getErrorCode(data as unknown as Record<string, unknown>)}`);
+  }
+  return data.deposits;
+}
+
+// Coin Withdrawal History
+export interface CoinWithdrawal {
+  txid: string;
+  currency: string;
+  amount: string;
+  fee: string;
+  address: string;
+  status: 'pending' | 'processing' | 'completed' | 'failed' | 'canceled';
+  timestamp: number;
+}
+
+export interface CoinWithdrawalHistoryResponse {
+  result: string;
+  error_code?: string;
+  withdrawals: CoinWithdrawal[];
+}
+
+export async function getCoinWithdrawalHistory(
+  credentials: CoinoneCredentials,
+  currency?: string
+): Promise<CoinWithdrawal[]> {
+  const payload: Record<string, unknown> = {};
+  if (currency) payload.currency = currency;
+  
+  const headers = createAuthHeaders(payload, credentials);
+  const response = await fetch(`${BASE_URL}/v2/transaction/coin_withdrawal_history`, {
+    method: 'POST',
+    headers
+  });
+  
+  const data = await parseJson(response) as unknown as CoinWithdrawalHistoryResponse;
+  if (data.result !== 'success') {
+    throw new Error(`API Error: ${getErrorCode(data as unknown as Record<string, unknown>)}`);
+  }
+  return data.withdrawals;
+}
+
+// Withdrawal Address Book
+export interface WithdrawalAddress {
+  id: string;
+  currency: string;
+  label: string;
+  address: string;
+  memo?: string;
+  is_whitelisted: boolean;
+}
+
+export interface WithdrawalAddressBookResponse {
+  result: string;
+  error_code?: string;
+  addresses: WithdrawalAddress[];
+}
+
+export async function getWithdrawalAddressBook(
+  credentials: CoinoneCredentials,
+  currency?: string
+): Promise<WithdrawalAddress[]> {
+  const payload: Record<string, unknown> = {};
+  if (currency) payload.currency = currency;
+  
+  const headers = createAuthHeaders(payload, credentials);
+  const response = await fetch(`${BASE_URL}/v2/account/withdrawal_address_book`, {
+    method: 'POST',
+    headers
+  });
+  
+  const data = await parseJson(response) as unknown as WithdrawalAddressBookResponse;
+  if (data.result !== 'success') {
+    throw new Error(`API Error: ${getErrorCode(data as unknown as Record<string, unknown>)}`);
+  }
+  return data.addresses;
+}
+
+// Withdrawal Limit
+export interface WithdrawalLimit {
+  currency: string;
+  daily_limit: string;
+  daily_used: string;
+  daily_remaining: string;
+  monthly_limit: string;
+  monthly_used: string;
+  monthly_remaining: string;
+}
+
+export interface WithdrawalLimitResponse {
+  result: string;
+  error_code?: string;
+  limits: WithdrawalLimit[];
+}
+
+export async function getWithdrawalLimits(
+  credentials: CoinoneCredentials,
+  currency?: string
+): Promise<WithdrawalLimit[]> {
+  const payload: Record<string, unknown> = {};
+  if (currency) payload.currency = currency;
+  
+  const headers = createAuthHeaders(payload, credentials);
+  const response = await fetch(`${BASE_URL}/v2/account/withdrawal_limit`, {
+    method: 'POST',
+    headers
+  });
+  
+  const data = await parseJson(response) as unknown as WithdrawalLimitResponse;
+  if (data.result !== 'success') {
+    throw new Error(`API Error: ${getErrorCode(data as unknown as Record<string, unknown>)}`);
+  }
+  return data.limits;
+}

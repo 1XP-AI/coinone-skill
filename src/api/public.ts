@@ -75,7 +75,7 @@ export async function getOrderbook(
 ): Promise<Orderbook> {
   const url = `${BASE_URL}/public/v2/orderbook/${quoteCurrency}/${targetCurrency}?size=${size}`;
   const response = await fetch(url);
-  const data = (await parseJson(response)) as Orderbook;
+  const data = (await parseJson(response)) as unknown as Orderbook;
 
   return data;
 }
