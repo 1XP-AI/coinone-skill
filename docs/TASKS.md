@@ -74,7 +74,7 @@
 | CLI interface refinement | @hojin | ✅ |
 | Public API parity 확장 지원 (Phase 6) | @hojin | ✅ |
 | 에러 응답 표준화 전면 적용 (공통) | @hojin | ✅ |
-| Example usage documentation | @muhee | 🔄 |
+| Example usage documentation | @dorami | ✅ |
 | credentials.json auth docs (SKILL.md) | @dorami | ✅ |
 | CLI credentials.json auto-loading | @dorami | ✅ |
 | CLI commands (ticker/tickers/orderbook/analyze/balance) | @dorami | ✅ |
@@ -149,4 +149,4 @@
 
 ---
 
-_Last updated: 2026-02-03 23:36 KST_
+_Last updated: 2026-02-03 23:40 KST_
