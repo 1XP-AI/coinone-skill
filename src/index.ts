@@ -87,3 +87,15 @@ export {
   type Trade,
   type AnalysisResult
 } from './analyzer.js';
+
+// WebSocket
+export {
+  createWebSocketClient,
+  type WebSocketChannel,
+  type WebSocketConfig,
+  type TickerMessage,
+  type OrderbookMessage,
+  type TradeMessage,
+  type WebSocketMessage,
+  type CoinoneWebSocket
+} from './websocket.js';
