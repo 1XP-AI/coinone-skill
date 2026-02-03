@@ -129,6 +129,12 @@
   - Phase 6 API parity, Analyzer, WebSocket updates
   - Update release notes + publish
 
+- ✅ **v1.1.0 Released**
+  - skill files added: `skill/SKILL.md`, `skill/SECURITY.md`, `skill/HEARTBEAT.md`, `skill/package.json`
+
+- ✅ **v1.1.1 Released**
+  - README badge hotfix (npm badge URL)
+
 ---
 
 ## Links
@@ -139,4 +145,4 @@
 
 ---
 
-_Last updated: 2026-02-03 22:56 KST_
+_Last updated: 2026-02-03 22:58 KST_
