@@ -41,17 +41,18 @@
 | Task | Assignee | Status |
 |------|----------|--------|
 | Trading Logic Unit Tests (TDD) | @dorami | ✅ |
-| Trading Logic Design Draft | @hojin | 🔄 |
-| Market analysis utilities | @hojin | ⏳ |
+| Trading Logic Design Draft | @hojin | ✅ |
+| Market analysis utilities | @hojin | 🔄 |
 | Slippage calculation | @hojin | ⏳ |
 | Smart order execution | @hojin | ⏳ |
 | Risk management | @hojin | ⏳ |
 | CLI interface refinement | @hojin | ⏳ |
 
-## Phase 4: Skill Packaging ⏳
+## Phase 4: Skill Packaging 🔄
 
 | Task | Assignee | Status |
 |------|----------|--------|
+| SKILL.md Planning (Drafting) | @muhee | 🔄 |
 | SKILL.md creation | @muhee | ⏳ |
 | Strategy guide documentation | @muhee | ⏳ |
 | Integration tests | @dorami | ⏳ |
@@ -67,6 +68,7 @@
 | 2026-02-03 | 20:33 | Private API tests completed. Svelte UI task replaced with CLI refinement (project is CLI-only). |
 | 2026-02-03 | 20:45 | Systematic API Listing complete. Full endpoint mapping documented in docs/API.md. |
 | 2026-02-03 | 20:55 | Trading Logic Unit Tests (22/22) completed by Dorami. Ho-jin starting design draft. |
+| 2026-02-03 | 21:05 | Core API expansion tests passed (30/30). PM started planning SKILL.md based on moltbook reference. |
 
 ---
 
