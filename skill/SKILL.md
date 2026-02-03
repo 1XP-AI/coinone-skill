@@ -12,6 +12,15 @@ metadata: {"openclaw":{"emoji":"💼","category":"finance","api_base":"https://a
 
 Your intelligent partner for optimal trading on Coinone. This skill goes beyond simple API wrappers, providing situational analysis to minimize slippage and manage risk.
 
+## Skill Files
+
+| File | Description |
+|------|-------------|
+| **SKILL.md** | Main instructions and API reference |
+| **SECURITY.md** | Critical security guidelines |
+| **HEARTBEAT.md** | Periodic monitoring setup |
+| **package.json** | npm package metadata |
+
 ## 📦 Installation
 
 ```bash
