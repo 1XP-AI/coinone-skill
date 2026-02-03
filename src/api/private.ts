@@ -243,3 +243,225 @@ export async function getKRWHistory(
 
   return (await parseJson(response)) as unknown as KRWHistoryResponse;
 }
+
+// ============ Phase 6 Medium Priority APIs ============
+
+// Open Orders (unfilled orders)
+export interface OpenOrder {
+  order_id: string;
+  target_currency: string;
+  quote_currency: string;
+  side: 'buy' | 'sell';
+  type: 'limit' | 'market';
+  price: string;
+  original_qty: string;
+  remaining_qty: string;
+  executed_qty: string;
+  timestamp: number;
+}
+
+export interface OpenOrdersResponse {
+  result: string;
+  error_code?: string;
+  open_orders: OpenOrder[];
+}
+
+export async function getOpenOrders(
+  credentials: CoinoneCredentials,
+  targetCurrency?: string,
+  quoteCurrency = 'KRW'
+): Promise<OpenOrder[]> {
+  const payload: Record<string, unknown> = { quote_currency: quoteCurrency };
+  if (targetCurrency) payload.target_currency = targetCurrency;
+  
+  const headers = createAuthHeaders(payload, credentials);
+  const response = await fetch(`${BASE_URL}/v2.1/order/open_orders`, {
+    method: 'POST',
+    headers
+  });
+  
+  const data = await parseJson(response) as unknown as OpenOrdersResponse;
+  if (data.result !== 'success') {
+    throw new Error(`API Error: ${getErrorCode(data as unknown as Record<string, unknown>)}`);
+  }
+  return data.open_orders;
+}
+
+// Completed Orders
+export interface CompletedOrder {
+  order_id: string;
+  target_currency: string;
+  quote_currency: string;
+  side: 'buy' | 'sell';
+  type: 'limit' | 'market';
+  price: string;
+  original_qty: string;
+  executed_qty: string;
+  fee: string;
+  timestamp: number;
+  completed_at: number;
+}
+
+export interface CompletedOrdersResponse {
+  result: string;
+  error_code?: string;
+  completed_orders: CompletedOrder[];
+}
+
+export async function getCompletedOrders(
+  credentials: CoinoneCredentials,
+  targetCurrency?: string,
+  quoteCurrency = 'KRW',
+  limit = 20
+): Promise<CompletedOrder[]> {
+  const payload: Record<string, unknown> = { quote_currency: quoteCurrency, limit };
+  if (targetCurrency) payload.target_currency = targetCurrency;
+  
+  const headers = createAuthHeaders(payload, credentials);
+  const response = await fetch(`${BASE_URL}/v2.1/order/completed_orders`, {
+    method: 'POST',
+    headers
+  });
+  
+  const data = await parseJson(response) as unknown as CompletedOrdersResponse;
+  if (data.result !== 'success') {
+    throw new Error(`API Error: ${getErrorCode(data as unknown as Record<string, unknown>)}`);
+  }
+  return data.completed_orders;
+}
+
+// Order Detail
+export interface OrderDetail {
+  order_id: string;
+  target_currency: string;
+  quote_currency: string;
+  side: 'buy' | 'sell';
+  type: 'limit' | 'market';
+  price: string;
+  original_qty: string;
+  remaining_qty: string;
+  executed_qty: string;
+  status: 'open' | 'filled' | 'canceled' | 'partial_filled';
+  fee: string;
+  timestamp: number;
+}
+
+export interface OrderDetailResponse {
+  result: string;
+  error_code?: string;
+  order: OrderDetail;
+}
+
+export async function getOrderDetail(
+  credentials: CoinoneCredentials,
+  orderId: string,
+  targetCurrency: string,
+  quoteCurrency = 'KRW'
+): Promise<OrderDetail> {
+  const payload = {
+    order_id: orderId,
+    target_currency: targetCurrency,
+    quote_currency: quoteCurrency
+  };
+  
+  const headers = createAuthHeaders(payload, credentials);
+  const response = await fetch(`${BASE_URL}/v2.1/order/detail`, {
+    method: 'POST',
+    headers
+  });
+  
+  const data = await parseJson(response) as unknown as OrderDetailResponse;
+  if (data.result !== 'success') {
+    throw new Error(`API Error: ${getErrorCode(data as unknown as Record<string, unknown>)}`);
+  }
+  return data.order;
+}
+
+// User Info
+export interface UserInfo {
+  user_id: string;
+  email: string;
+  mobile: string;
+  level: number;
+  security_level: number;
+}
+
+export interface UserInfoResponse {
+  result: string;
+  error_code?: string;
+  user_info: UserInfo;
+}
+
+export async function getUserInfo(credentials: CoinoneCredentials): Promise<UserInfo> {
+  const payload = {};
+  const headers = createAuthHeaders(payload, credentials);
+  const response = await fetch(`${BASE_URL}/v2/user/info`, {
+    method: 'POST',
+    headers
+  });
+  
+  const data = await parseJson(response) as unknown as UserInfoResponse;
+  if (data.result !== 'success') {
+    throw new Error(`API Error: ${getErrorCode(data as unknown as Record<string, unknown>)}`);
+  }
+  return data.user_info;
+}
+
+// Virtual Account (KRW deposit)
+export interface VirtualAccount {
+  bank_name: string;
+  account_number: string;
+  account_holder: string;
+}
+
+export interface VirtualAccountResponse {
+  result: string;
+  error_code?: string;
+  virtual_account: VirtualAccount;
+}
+
+export async function getVirtualAccount(credentials: CoinoneCredentials): Promise<VirtualAccount> {
+  const payload = {};
+  const headers = createAuthHeaders(payload, credentials);
+  const response = await fetch(`${BASE_URL}/v2/account/virtual_account`, {
+    method: 'POST',
+    headers
+  });
+  
+  const data = await parseJson(response) as unknown as VirtualAccountResponse;
+  if (data.result !== 'success') {
+    throw new Error(`API Error: ${getErrorCode(data as unknown as Record<string, unknown>)}`);
+  }
+  return data.virtual_account;
+}
+
+// Deposit Address (Crypto)
+export interface DepositAddress {
+  currency: string;
+  address: string;
+  memo?: string;
+}
+
+export interface DepositAddressResponse {
+  result: string;
+  error_code?: string;
+  deposit_address: DepositAddress;
+}
+
+export async function getDepositAddress(
+  credentials: CoinoneCredentials,
+  currency: string
+): Promise<DepositAddress> {
+  const payload = { currency };
+  const headers = createAuthHeaders(payload, credentials);
+  const response = await fetch(`${BASE_URL}/v2/account/deposit_address`, {
+    method: 'POST',
+    headers
+  });
+  
+  const data = await parseJson(response) as unknown as DepositAddressResponse;
+  if (data.result !== 'success') {
+    throw new Error(`API Error: ${getErrorCode(data as unknown as Record<string, unknown>)}`);
+  }
+  return data.deposit_address;
+}

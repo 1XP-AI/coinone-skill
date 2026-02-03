@@ -33,13 +33,25 @@ export {
   getAllBalances,
   getTradeFee,
   getActiveOrders,
+  getOpenOrders,
+  getCompletedOrders,
+  getOrderDetail,
   getKRWHistory,
+  getUserInfo,
+  getVirtualAccount,
+  getDepositAddress,
   placeOrder,
   cancelOrder,
   type CoinoneCredentials,
   type Balance,
   type OrderRequest,
-  type OrderResponse
+  type OrderResponse,
+  type OpenOrder,
+  type CompletedOrder,
+  type OrderDetail,
+  type UserInfo,
+  type VirtualAccount,
+  type DepositAddress
 } from './api/private.js';
 
 // Trading Logic
@@ -71,7 +83,6 @@ export {
   computeMarketPressureIndex,
   computeLiquidityScore,
   analyzeSnapshot,
-  type OrderbookLevel as AnalyzerOrderbookLevel,
   type OrderbookSnapshot,
   type Trade,
   type AnalysisResult
